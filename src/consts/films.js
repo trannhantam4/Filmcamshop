@@ -1,0 +1,88 @@
+const films = [
+  {
+    id: 1,
+    img: require("../assests/product8.png"),
+    price: "2 000",
+    like: true,
+    quantity: 3,
+    name: "Kodak Ultramax 400",
+    about: "date 2010 24 tấm.",
+    des: "Không.",
+  },
+  {
+    id: 2,
+    img: require("../assests/product7.png"),
+    price: "2 000",
+    like: false,
+    quantity: 3,
+    name: "Fuji film 100",
+    about: "date 2002 36 tấm",
+    des: "Không.",
+  },
+  {
+    id: 3,
+    img: require("../assests/product6.png"),
+    price: "2 000",
+    like: false,
+    quantity: 6,
+    name: "Fuji film instax mini ",
+    about: "10x2 tấm",
+    des: "Không.",
+  },
+  {
+    id: 4,
+    img: require("../assests/product1.jpg"),
+    price: "2 000",
+    like: true,
+    quantity: 3,
+    name: "Nikon F2",
+    about:
+      "Dòng máy cơ chuyên nghiệp của Nikon thời sưa với khả năng nâng cấp gù đo sáng và tốc độ chụp nhanh 1/2000s giúp chiếc máy này trở nên phù hợp cho các nhiếp ảnh gia chuyên nghiệp.",
+    des: "Ngoại hình khá, lộ đồng ở góc như ảnh, gù view sáng đẹp, không lem, buồng film đẹp. - Hoạt động: cơ tốc tốt, hoạt động ổn định, đo sáng chuẩn (có ảnh test), timer. v.v. Giá 2tr6 tặng pin đo sáng, dây đeo máy.",
+  },
+  {
+    id: 5,
+    img: require("../assests/2.jpg"),
+    price: "2 000",
+    like: true,
+    quantity: 3,
+    name: "Pentax espio 140",
+    about:
+      "Dòng máy Point & Shot của Pentax với khả năng zoom xa chất lượng ống kính tuyệt vời trong các dòng máy p&s nhỏ gọn. Đây là dòng máy được nhiều bạn trẻ ưa thích ngày nay vì độ tin cậy khi sử dụng của nó.",
+    des: "Tình trạng: hoạt động tốt, không lỗi lens kính đẹp. Ngoại hình: đẹp như ảnh, không trầy xước nhiều, không nứt vỡ. Máy bán ra được bảo hành 1 tháng hoặc test 1 cuộn film.",
+  },
+  {
+    id: 6,
+    img: require("../assests/3.jpg"),
+    price: "2 000",
+    like: true,
+    quantity: 3,
+    name: "Fujifilm Instax Mini 90",
+    about:
+      "Dòng máy ảnh chụp film lấy liền cao cấp của Fuji với nhiều chế độ chụp giúp người chụp dễ dàng có những bức ảnh đẹp cũng như khả năng sạc lại pin giúp người dùng tiện lợi khi sử dụng",
+    des: "Ngoại hình: đẹp, không trầy xước nhiều, lens kính ống ngắm đẹp. Hoạt động: tốt các chức năng, flash đánh mạnh, các mode hoạt động tốt. Phụ kiện: tặng kèm pin sạc zin, dây đeo zin của Fuji, tặng kèm 9 tấm film có sẵn trong máy để test. giá 2tr5",
+  },
+  {
+    id: 7,
+    img: require("../assests/4.jpg"),
+    price: "2 000",
+    like: true,
+    quantity: 3,
+    name: "Minolta Srt Super ",
+    about:
+      "Dòng máy quốc dân của các bạn trẻ chơi film. Luôn được các bạn đón nhận nhờ vào tính bền bỉ và hoạt động tin cậy, luôn cho ra ảnh đẹp. Dòng máy này rất bền bỉ cũng như có thiết kế rất đẹp và hoài cổ.",
+    des: "Máy hoạt động tốt đo sáng cơ tốc ổn định bền bỉ, lens rất đẹp kính đẹp. Cả bộ giá 2tr2.",
+  },
+  {
+    id: 8,
+    img: require("../assests/5.jpg"),
+    price: "2 000",
+    like: true,
+    quantity: 3,
+    name: "Minolta MC ROKKOR-PF ",
+    about:
+      "Ống kính 58mm của Minolta nổi tiếng với độ mở khẩu lớn giúp việc chụp chân dung được nổi bật chủ thể tốt và khả năng chụp tốt trong đêm nhờ khẩu lớn thu nhận được nhiều ánh sáng. Cũng như tái tạo độ sắc nét của ảnh.",
+    des: "Ngoại hình: vỏ lens đẹp không trầy xước nhiều. Focus, khẩu mượt nhẹ không rít. Lens kính đẹp, không mốc không xước không rễ. Đi kèm cáp trước zin, cáp sau của Tảmon zin cho Minolta. Giá 1tr7",
+  },
+];
+export default films;
