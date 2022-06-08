@@ -19,7 +19,7 @@ import StaffManageScreen from "./src/view/admin/StaffManageScreen";
 import UpdateUser from "./src/view/manage/UpdateUser";
 import AddProduct from "./src/view/manage/AddProduct";
 import AddUser from "./src/view/manage/AddUser";
-
+import UpdateOrder from "./src/view/manage/UpdateOrder";
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -34,6 +34,11 @@ function App() {
         <Stack.Screen
           name="AddUser"
           component={AddUser}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UpdateOrder"
+          component={UpdateOrder}
           options={{ headerShown: false }}
         />
         <Stack.Screen

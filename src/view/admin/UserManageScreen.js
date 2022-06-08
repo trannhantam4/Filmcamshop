@@ -94,15 +94,26 @@ export default class OrderManageScreen extends React.Component {
             <Text style={styles.buttonText}>Disable User</Text>
           </TouchableOpacity>
         </View>
+
         <FlatList
-          style={{ marginTop: height * 0.03 }}
+          style={{
+            marginTop: height * 0.03,
+          }}
           data={this.state.dataSource}
           renderItem={({ item }) => (
-            <View>
+            <TouchableOpacity
+              style={{
+                borderColor: COLORS.green,
+                paddingVertical: 10,
+                borderWidth: 2,
+              }}
+              onPress={() => {}}
+            >
               <Text style={{ fontSize: 16 }}>
                 {item.userId}-{item.userName}-{item.userEmail}-{item.active}
               </Text>
-            </View>
+              <Text>{item.status}</Text>
+            </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index}
         />
