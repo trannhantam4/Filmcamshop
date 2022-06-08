@@ -6,12 +6,9 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  Alert,
 } from "react-native";
 import COLORS from "../consts/colors";
-import axios from "axios";
-import { Title } from "react-native-paper";
-import { Base64 } from "js-base64";
+
 import { auth } from "../../firebase";
 
 const { width } = Dimensions.get("window");

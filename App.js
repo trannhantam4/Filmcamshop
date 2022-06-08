@@ -9,6 +9,7 @@ import LoginScreen from "./src/view/LoginScreen";
 import SignupScreen from "./src/view/SignupScreen";
 import BookingScreen from "./src/view/BookingScreen";
 import AddressScreen from "./src/view/AddressScreen";
+import OrderDetailScreen from "./src/view/OrderDetailScreen";
 import ShopDetailScreen from "./src/view/ShopDetailScreen";
 import AdminMainScreen from "./src/view/admin/AdminMainScreen";
 import OrderManageScreen from "./src/view/admin/OrderManageScreen";
@@ -16,7 +17,6 @@ import UpdateProductScreen from "./src/view/admin/UpdateProductScreen";
 import PhotoshootManageScreen from "./src/view/admin/PhotoshootManageScreen";
 import UserManageScreen from "./src/view/admin/UserManageScreen";
 import StaffManageScreen from "./src/view/admin/StaffManageScreen";
-import UpdateUser from "./src/view/manage/UpdateUser";
 import AddProduct from "./src/view/manage/AddProduct";
 import AddUser from "./src/view/manage/AddUser";
 
@@ -25,30 +25,15 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" headerMode="none">
+      <Stack.Navigator initialRouteName="Home" headerMode="none">
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="AddUser"
-          component={AddUser}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AddProduct"
-          component={AddProduct}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="UpdateUser"
-          component={UpdateUser}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="UpdateProduct"
-          component={UpdateProduct}
+          component={UpdateProductScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -56,11 +41,24 @@ function App() {
           component={OrderManageScreen}
           options={{ headerShown: false }}
         />
+
         <Stack.Screen
           name="StaffManage"
           component={StaffManageScreen}
           options={{ headerShown: false }}
         />
+
+        <Stack.Screen
+          name="AddProduct"
+          component={AddProduct}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OrderDetail"
+          component={OrderDetailScreen}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="UserManage"
           component={UserManageScreen}
@@ -104,6 +102,11 @@ function App() {
         <Stack.Screen
           name="Address"
           component={AddressScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddUser"
+          component={AddUser}
           options={{ headerShown: false }}
         />
         <Stack.Screen

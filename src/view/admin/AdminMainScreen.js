@@ -76,6 +76,22 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
         >
           <Text style={styles.buttonText}>Staff Manage</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+          onPress={() => navigation.navigate("UpdateProduct")}
+        >
+          <Text style={styles.buttonText}>Update Product</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+          onPress={() => navigation.navigate("AddProduct")}
+        >
+          <Text style={styles.buttonText}>Add Product</Text>
+        </TouchableOpacity>
+
+        
       </View>
     </SafeAreaView>
   );
