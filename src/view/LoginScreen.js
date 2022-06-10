@@ -21,15 +21,15 @@ const height = width * 0.6;
 function LoginScreen({ Dimensions, route, navigation }) {
   const [email, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [encPass, setEncPass] = useState("");
+
   const [isSubmit, setIsSubmit] = useState(false);
   const adminLog = async () => {
     axios
       .post(
         "http://www.filmcamshop.com/api/adminLogin.php",
         JSON.stringify({
-          password: password,
           email: email,
+          password: password,
         })
       )
       .then((response) => response.data)
@@ -45,42 +45,33 @@ function LoginScreen({ Dimensions, route, navigation }) {
         alert(error);
       });
   };
-  useEffect(() => {
-    const authenticate = async () => {
-      axios
-        .post(
-          "http://www.filmcamshop.com/api/userRegistration.php",
-          JSON.stringify({
-            password: encPass,
-            email: email,
-          })
-        )
-        .then((response) => response.data)
-        .then((responseJson) => {
-          if (responseJson === "ok") {
-            alert("Sign up Success!");
-            navigation.navigate("Home");
-          } else {
-            alert("This Email has been used!");
-            navigation.navigate("Home");
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    };
 
-    if (isSubmit) {
-      authenticate();
-    }
-  }, [isSubmit]);
+  const authenticate = async () => {
+    axios
+      .post(
+        "http://www.filmcamshop.com/api/userRegistration.php",
+        JSON.stringify({
+          email: email,
+          password: password,
+        })
+      )
+      .then((response) => response.data)
+      .then((responseJson) => {
+        if (responseJson === "ok") {
+          alert("Sign up Success!");
+          navigation.navigate("Home");
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
   const checkAdmin = () => {
     let regex = /^[A-Za-z0-9._%+-]+@filmcamshop\.com$/;
     if (regex.test(email) == false) {
       handleLogIn();
     } else {
-      // adminLog();
-      navigation.navigate("AdminScreen");
+      adminLog();
     }
   };
   const handleLogIn = () => {
@@ -98,8 +89,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log(user.email);
-        setEncPass(Base64(password));
-        setIsSubmit(true);
+        authenticate();
       })
       .catch((error) => alert(error.message));
   };
