@@ -23,7 +23,8 @@ const height = width * 0.6;
 const quantity = 1;
 
 function DetailScreen({ Dimensions, route, navigation }) {
-  const film = route.params;
+  const item = route.params;
+  const img = item.imgURL;
   const [quantity, setSelectedValue] = useState("1");
   const [isSubmit, setIsSubmit] = useState(false);
   const [address, setAddress] = useState("");
@@ -34,7 +35,7 @@ function DetailScreen({ Dimensions, route, navigation }) {
         .post(
           "http://www.filmcamshop.com/api/orderProduct.php",
           JSON.stringify({
-            product: film.name,
+            product: item.productName,
             quantity: quantity,
             email: email,
             address: address,
@@ -63,7 +64,6 @@ function DetailScreen({ Dimensions, route, navigation }) {
     <KeyboardAwareScrollView>
       <SafeAreaView
         style={{
-          flex: 1,
           backgroundColor: COLORS.white,
         }}
       >
@@ -75,12 +75,10 @@ function DetailScreen({ Dimensions, route, navigation }) {
           ></Ionicons>
           <Ionicons name="cart-outline" size={28}></Ionicons>
         </View>
-        <View style={styles.imageContainer}>
-          <Image
-            source={film.img}
-            style={{ resizeMode: "contain", height: height * 1.15 }}
-          ></Image>
-        </View>
+        <Image
+          style={{ height: height * 1.37, borderRadius: 10 }}
+          source={{ uri: item.imgURL }}
+        ></Image>
         <View style={styles.detailContainer}>
           <View
             style={{
@@ -96,7 +94,7 @@ function DetailScreen({ Dimensions, route, navigation }) {
                 alignSelf: "center",
               }}
             >
-              {film.name}
+              {item.productName}
             </Text>
             <View style={styles.priceTag}>
               <Text
@@ -108,10 +106,19 @@ function DetailScreen({ Dimensions, route, navigation }) {
                   fontSize: width * 0.04,
                 }}
               >
-                {film.price} k VND
+                {item.price} k VND
               </Text>
             </View>
           </View>
+          <Text
+            style={{
+              fontWeight: "bold",
+              marginLeft: width * 0.07,
+              fontSize: width * 0.049,
+            }}
+          >
+            Còn lại: {item.quantity} sản phẩm
+          </Text>
           <Text
             style={{
               fontWeight: "bold",
@@ -121,7 +128,6 @@ function DetailScreen({ Dimensions, route, navigation }) {
           >
             About
           </Text>
-
           <Text
             style={{
               height: "30%",
@@ -131,7 +137,7 @@ function DetailScreen({ Dimensions, route, navigation }) {
               marginRight: width * 0.075,
             }}
           >
-            {film.about}
+            {item.productDescription}
           </Text>
           <Text
             style={{
@@ -143,6 +149,7 @@ function DetailScreen({ Dimensions, route, navigation }) {
           >
             Địa chỉ giao:
           </Text>
+
           <TextInput
             style={{ marginHorizontal: width * 0.02 }}
             placeholder="37 A đường Sinh Thái, Bến Cát, Bình Dương"
@@ -245,7 +252,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingTop: height * 0.15,
-    paddingHorizontal: width * 0.07,
+    paddingHorizontal: width * 0.05,
     paddingBottom: height * 0.06,
     flexDirection: "row",
     backgroundColor: COLORS.green,
@@ -254,6 +261,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginTop: height * 0.1,
     width: width,
+
     justifyContent: "center",
     alignItems: "center",
   },

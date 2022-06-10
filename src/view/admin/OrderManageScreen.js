@@ -3,6 +3,7 @@ import {
   Button,
   View,
   Picker,
+  Animated,
   Text,
   SafeAreaView,
   StyleSheet,
@@ -25,6 +26,7 @@ import axios from "axios";
 
 import COLORS from "../../consts/colors";
 import NumericInput from "react-native-numeric-input";
+
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 const quantity = 1;
@@ -77,10 +79,12 @@ export default class OrderManageScreen extends React.Component {
             height: height * 0.09,
           }}
         >
-          <TouchableOpacity style={styles.button} onPress={() => {}}>
-            <Text style={styles.buttonText}>Add</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              this.props.navigation.navigate("UpdateOrder");
+            }}
+          >
             <Text style={styles.buttonText}>Update</Text>
           </TouchableOpacity>
         </View>
@@ -92,15 +96,32 @@ export default class OrderManageScreen extends React.Component {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={{ borderColor: COLORS.green, borderWidth: 2 }}
-              onPress={() => {
-                this.props.navigation.navigate("UpdateProduct", item);
-              }}
+              onPress={() => {}}
             >
               <Text style={{ fontWeight: "bold", fontSize: 20 }}>
                 {item.orderID}.{item.productName}
               </Text>
               <Text>Quantity: {item.quantity}</Text>
               <Text>{item.address}</Text>
+              <Text
+                style={{
+                  borderWidth: 2,
+
+                  borderRadius: 30,
+                  alignItems: "center",
+                  alignContent: "center",
+                  width: width * 0.3,
+                  borderColor:
+                    item.status == "awaiting" ? COLORS.red : COLORS.green,
+                  backgroundColor:
+                    item.status == "awaiting" ? COLORS.red : COLORS.green,
+                  opacity: 0.5,
+                  color: item.status == "awaiting" ? COLORS.red : COLORS.green,
+                }}
+              >
+                {item.orderStatus}
+              </Text>
+              <Text>{item.date}</Text>
             </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index}

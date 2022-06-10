@@ -6,6 +6,7 @@ import {
   Text,
   SafeAreaView,
   FlatList,
+  ActivityIndicator,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -37,6 +38,26 @@ function HomeScreen({ navigation }) {
   const categories = ["PRODUCT"];
   const [categoryIndex, setCategoryIndex] = React.useState(0);
 
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  const getItem = async () => {
+    try {
+      const response = await fetch(
+        "http://www.filmcamshop.com/api/SearchProductList.php"
+      );
+      const json = await response.json();
+      setData(json.item);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getItem();
+  }, []);
   const handleSignOut = () => {
     auth
       .signOut()
@@ -67,66 +88,19 @@ function HomeScreen({ navigation }) {
       </View>
     );
   };
-  const Card = ({ film }) => {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate("Details", film)}
-      >
-        <View style={styles.card}>
-          <View
-            style={{
-              height: 100,
-              paddingTop: 10,
-              alignSelf: "center",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              style={{ flex: 1, width: width * 0.4, borderRadius: 5 }}
-              source={film.img}
-            ></Image>
-          </View>
-          <Text style={{ fontWeight: "bold", fontSize: 15, marginTop: 5 }}>
-            {film.name}
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: 5,
-            }}
-          >
-            <Text style={{ fontWeight: "bold", flex: 1 }}>
-              {film.price}k VND
-            </Text>
-            <View
-              style={{
-                height: 25,
-                width: 25,
-                backgroundColor: COLORS.green,
-                borderRadius: 3,
-                justifyContent: "center",
-                alignItems: "center",
-                alignSelf: "flex-end",
-              }}
-            >
-              <Text style={{ fontWeight: "bold", color: COLORS.white }}>+</Text>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ paddingTop: 20 }}>
         <View style={styles.header}>
-          <Text style={styles.buttonText}>
+          <Text
+            style={auth.currentUser == null ? styles.hiden : styles.buttonText}
+          >
             Email: {auth.currentUser?.email}
           </Text>
           <TouchableOpacity
-            style={styles.buttonMenuTop}
+            style={
+              auth.currentUser == null ? styles.hiden : styles.buttonMenuTop
+            }
             onPress={() => {
               handleSignOut();
             }}
@@ -148,6 +122,7 @@ function HomeScreen({ navigation }) {
               height: 15,
               borderRadius: 15,
               marginHorizontal: 10,
+              marginRight: width * 0.01,
               padding: 0,
               margin: 0,
             }}
@@ -181,23 +156,82 @@ function HomeScreen({ navigation }) {
         </TouchableOpacity>
       </View>
       <CategoryList />
-      <FlatList
-        style={{ margin: 20 }}
-        horizontal={false}
-        columnWrapperStyle={{ justifyContent: "space-between" }}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ marginTop: 10, paddingBottom: 50 }}
-        numColumns={2}
-        data={films}
-        renderItem={({ item }) => {
-          return <Card film={item} />;
-        }}
-      ></FlatList>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList
+          style={{ margin: 20, borderRadius: 40 }}
+          horizontal={false}
+          columnWrapperStyle={{ justifyContent: "space-between" }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ marginTop: 10, paddingBottom: 50 }}
+          numColumns={2}
+          data={data}
+          keyExtractor={({ id }, index) => id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Details", item)}
+            >
+              <View style={styles.card}>
+                <View
+                  style={{
+                    height: 100,
+                    paddingTop: 10,
+                    alignSelf: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Image
+                    style={{ flex: 1, width: width * 0.4, borderRadius: 5 }}
+                    source={{ uri: item.imgURL }}
+                  ></Image>
+                </View>
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 15, marginTop: 5 }}
+                >
+                  {item.productName}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginTop: 5,
+                  }}
+                >
+                  <Text style={{ fontWeight: "bold", flex: 1 }}>
+                    {item.price}k VND
+                  </Text>
+                  <View
+                    style={{
+                      height: 25,
+                      width: 25,
+                      backgroundColor: COLORS.green,
+                      borderRadius: 3,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    <Text style={{ fontWeight: "bold", color: COLORS.white }}>
+                      +
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  hiden: {
+    width: 0,
+    height: 0,
+  },
   card: {
     height: height * 1.08,
     backgroundColor: "#e0e0e0",
@@ -219,18 +253,17 @@ const styles = StyleSheet.create({
   },
   CategoryContainer: {
     flexDirection: "row",
-    marginTop: 30,
+    marginTop: height * 0.01,
     opacity: 0.8,
     color: COLORS.green,
-    marginRight: 30,
-    marginLeft: 20,
+    marginHorizontal: width * 0.01,
     justifyContent: "space-between",
   },
   container: {
     flex: 2,
     backgroundColor: "#fff",
-    paddingTop: 20,
-    marginRight: 20,
+    paddingTop: height * 0.01,
+    marginHorizontal: width * 0.01,
     width: width,
     height: height / 0.6,
   },
@@ -243,8 +276,10 @@ const styles = StyleSheet.create({
     width: "28%",
     backgroundColor: "#fff",
     padding: 10,
-    marginTop: 20,
+    marginTop: height * 0.03,
+    marginRight: width * 0.03,
     borderRadius: 5,
+    marginBottom: height * 0.0,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
@@ -258,8 +293,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   header: {
-    marginLeft: 20,
-    marginRight: 20,
+    marginHorizontal: width * 0.01,
     flexDirection: "row",
     justifyContent: "space-between",
   },

@@ -100,7 +100,9 @@ export default class OrderManageScreen extends React.Component {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={{ margin: height * 0.01 }}
-              onPress={() => {}}
+              onPress={() => {
+                this.props.navigation.navigate("UpdateProduct");
+              }}
             >
               <Text style={{ fontWeight: "bold", fontSize: 20 }}>
                 {item.productID}.{item.productName}

@@ -19,13 +19,13 @@ import UserManageScreen from "./src/view/admin/UserManageScreen";
 import StaffManageScreen from "./src/view/admin/StaffManageScreen";
 import AddProduct from "./src/view/manage/AddProduct";
 import AddUser from "./src/view/manage/AddUser";
-
+import UpdateOrder from "./src/view/manage/UpdateOrder";
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" headerMode="none">
+      <Stack.Navigator initialRouteName="Login" headerMode="none">
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -34,6 +34,11 @@ function App() {
         <Stack.Screen
           name="UpdateProduct"
           component={UpdateProductScreen}
+          options={{ headerShown: false }}
+          />
+        <Stack.Screen
+          name="UpdateOrder"
+          component={UpdateOrder}
           options={{ headerShown: false }}
         />
         <Stack.Screen
