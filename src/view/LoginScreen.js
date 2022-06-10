@@ -25,7 +25,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
       .post(
         "http://www.filmcamshop.com/api/adminLogin.php",
         JSON.stringify({
-          password: encPass,
+          password: password,
           email: email,
         })
       )
@@ -152,93 +152,110 @@ function LoginScreen({ Dimensions, route, navigation }) {
   // }, [isSubmit]);
 
   return (
-    <View>
-      <TextInput
+    <View style={{ height: height * 2.77, backgroundColor: COLORS.green }}>
+      <View
         style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 20,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
+          marginTop: height,
+          backgroundColor: COLORS.white,
+          borderTopLeftRadius: 50,
+          borderTopRightRadius: 50,
+          width: width,
+          justifyContent: "flex-start",
+          height: height * 1.77,
+          alignContent: "flex-start",
           alignSelf: "center",
-
-          marginTop: height / 2,
-        }}
-        autoComplete="email"
-        placeholder="Email..."
-        onChangeText={(text) => setUserName(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 20,
-          fontWeight: "bold",
-
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 15,
-        }}
-        autoComplete="password"
-        secureTextEntry={true}
-        placeholder="Password"
-        onChangeText={(text) => setPassword(text)}
-      ></TextInput>
-      <TouchableOpacity
-        style={{
-          alignSelf: "center",
-          borderRadius: 10,
-          backgroundColor: "#fff",
-          width: width / 2,
-          marginTop: 15,
-          padding: 10,
-          borderTopWidth: 2,
-          borderLeftWidth: 2,
-          borderRightWidth: 4,
-          borderBottomWidth: 4,
-          borderColor: "#61d47c",
-        }}
-        onPress={() => {
-          checkAdmin();
+          alignItems: "center",
         }}
       >
-        <Text style={styles.buttonText}>Log in</Text>
-      </TouchableOpacity>
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width * 0.6,
+            borderRadius: 10,
+            alignItems: "center",
+            fontSize: 20,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: height * 0.2,
+          }}
+          autoComplete="email"
+          placeholder="Email..."
+          onChangeText={(text) => setUserName(text)}
+        ></TextInput>
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width * 0.6,
+            borderRadius: 10,
+            fontSize: 20,
+            fontWeight: "bold",
+            alignItems: "center",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 15,
+          }}
+          autoComplete="password"
+          secureTextEntry={true}
+          placeholder="Password...."
+          onChangeText={(text) => setPassword(text)}
+        ></TextInput>
+        <TouchableOpacity
+          style={{
+            alignSelf: "center",
+            borderRadius: 10,
+            backgroundColor: "#fff",
+            width: width / 2,
+            marginTop: 15,
+            alignItems: "center",
+            padding: 10,
+            borderTopWidth: 2,
+            borderLeftWidth: 2,
+            borderRightWidth: 4,
+            borderBottomWidth: 4,
+            borderColor: "#61d47c",
+          }}
+          onPress={() => {
+            checkAdmin();
+          }}
+        >
+          <Text style={styles.buttonText}>Log in</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={{
-          alignSelf: "center",
-          borderRadius: 10,
-          backgroundColor: "#fff",
-          width: width / 2,
-          marginTop: 15,
-          padding: 10,
-          borderTopWidth: 2,
-          borderLeftWidth: 2,
-          borderRightWidth: 4,
-          borderBottomWidth: 4,
-          borderColor: "#61d47c",
-        }}
-        onPress={() => {
-          handleSignUp();
-        }}
-      >
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{ alignItems: "center", margin: 30 }}
-        onPress={() => {
-          navigation.navigate("Home");
-        }}
-      >
-        <Text style={{ color: "#3253fa" }}>Surf products</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            alignSelf: "center",
+            borderRadius: 10,
+            backgroundColor: "#fff",
+            alignItems: "center",
+            width: width / 2,
+            marginTop: 15,
+            padding: 10,
+            borderTopWidth: 2,
+            borderLeftWidth: 2,
+            borderRightWidth: 4,
+            borderBottomWidth: 4,
+            borderColor: "#61d47c",
+          }}
+          onPress={() => {
+            handleSignUp();
+          }}
+        >
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ alignItems: "center", margin: 30 }}
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
+        >
+          <Text style={{ color: "#3253fa" }}>Just Surf products</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

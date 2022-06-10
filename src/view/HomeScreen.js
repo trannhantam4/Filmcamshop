@@ -200,7 +200,7 @@ function HomeScreen({ navigation }) {
                   }}
                 >
                   <Text style={{ fontWeight: "bold", flex: 1 }}>
-                    {item.price}k VND
+                    {item.price} k vnđ
                   </Text>
                   <View
                     style={{

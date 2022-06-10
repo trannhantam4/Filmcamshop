@@ -106,11 +106,12 @@ export default class OrderManageScreen extends React.Component {
                 borderColor: COLORS.green,
                 paddingVertical: 10,
                 borderWidth: 2,
+                borderRadius: 20,
               }}
               onPress={() => {}}
             >
-              <Text style={{ fontSize: 16 }}>
-                {item.userId}-{item.userName}-{item.userEmail}-{item.active}
+              <Text style={{ fontSize: 16, margin: 10 }}>
+                {item.userId}-{item.userEmail}-{item.active}
               </Text>
               <Text>{item.status}</Text>
             </TouchableOpacity>
