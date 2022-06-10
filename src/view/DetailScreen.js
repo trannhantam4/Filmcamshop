@@ -243,6 +243,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   priceTag: {
+    maxWidth: width * 0.5,
     width: width * 0.3,
     backgroundColor: COLORS.green,
     borderTopLeftRadius: 25,
@@ -261,7 +262,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginTop: height * 0.1,
     width: width,
-
     justifyContent: "center",
     alignItems: "center",
   },

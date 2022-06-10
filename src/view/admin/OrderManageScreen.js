@@ -95,31 +95,40 @@ export default class OrderManageScreen extends React.Component {
           data={this.state.dataSource}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={{ borderColor: COLORS.green, borderWidth: 2 }}
+              style={{
+                width: width * 0.8,
+                borderColor: COLORS.green,
+                borderWidth: 2,
+                borderRadius: 20,
+                padding: 10,
+              }}
               onPress={() => {}}
             >
-              <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+              <Text style={{ fontWeight: "bold", fontSize: 15 }}>
                 {item.orderID}.{item.productName}
               </Text>
               <Text>Quantity: {item.quantity}</Text>
               <Text>{item.address}</Text>
               <Text
                 style={{
+                  padding: 5,
                   borderWidth: 2,
-
                   borderRadius: 30,
                   alignItems: "center",
                   alignContent: "center",
                   width: width * 0.3,
+                  fontWeight: "bold",
+                  fontSize: 20,
                   borderColor:
-                    item.status == "awaiting" ? COLORS.red : COLORS.green,
+                    item.orderDetail == "awaiting" ? COLORS.red : COLORS.green,
                   backgroundColor:
-                    item.status == "awaiting" ? COLORS.red : COLORS.green,
-                  opacity: 0.5,
-                  color: item.status == "awaiting" ? COLORS.red : COLORS.green,
+                    item.orderDetail == "awaiting" ? "#ffc2c2" : COLORS.green,
+
+                  color:
+                    item.orderDetail == "awaiting" ? COLORS.red : COLORS.green,
                 }}
               >
-                {item.orderStatus}
+                {item.orderDetail}
               </Text>
               <Text>{item.date}</Text>
             </TouchableOpacity>
