@@ -145,16 +145,16 @@ function LoginScreen({ Dimensions, route, navigation }) {
   // }, [isSubmit]);
 
   return (
-    <View style={{ height: height, backgroundColor: COLORS.green }}>
+    <View style={{ flex: 3, backgroundColor: COLORS.green }}>
       <View
         style={{
-          marginTop: height / 3,
+          marginTop: height / 4,
           backgroundColor: COLORS.white,
           borderTopLeftRadius: 50,
           borderTopRightRadius: 50,
           width: width,
           justifyContent: "flex-start",
-          height: height * 1.77,
+          flex: 2,
           alignContent: "flex-start",
           alignSelf: "flex-end",
           alignItems: "center",
