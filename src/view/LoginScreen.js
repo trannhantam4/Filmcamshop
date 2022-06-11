@@ -16,7 +16,7 @@ import { Base64 } from "js-base64";
 import { auth } from "../../firebase";
 
 const { width } = Dimensions.get("window");
-const height = width * 0.6;
+const { height } = Dimensions.get("screen");
 
 function LoginScreen({ Dimensions, route, navigation }) {
   const [email, setUserName] = useState("");
@@ -145,10 +145,10 @@ function LoginScreen({ Dimensions, route, navigation }) {
   // }, [isSubmit]);
 
   return (
-    <View style={{ height: height * 2.77, backgroundColor: COLORS.green }}>
+    <View style={{ height: height, backgroundColor: COLORS.green }}>
       <View
         style={{
-          marginTop: height,
+          marginTop: height / 3,
           backgroundColor: COLORS.white,
           borderTopLeftRadius: 50,
           borderTopRightRadius: 50,
@@ -156,7 +156,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
           justifyContent: "flex-start",
           height: height * 1.77,
           alignContent: "flex-start",
-          alignSelf: "center",
+          alignSelf: "flex-end",
           alignItems: "center",
         }}
       >
