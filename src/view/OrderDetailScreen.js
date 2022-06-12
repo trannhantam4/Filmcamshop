@@ -16,7 +16,7 @@ import { Base64 } from "js-base64";
 const height = width * 0.6;
 
 
-export default class orderDetailScreen extends React.Component {
+export default class OrderDetailScreen extends React.Component {
 
   constructor(props){
 		super(props)
