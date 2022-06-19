@@ -11,8 +11,7 @@ import {
 
 import COLORS from "../consts/colors";
 import axios from "axios";
-import { Title } from "react-native-paper";
-import { Base64 } from "js-base64";
+
 import { auth } from "../../firebase";
 
 const { width } = Dimensions.get("window");
@@ -22,7 +21,6 @@ function LoginScreen({ Dimensions, route, navigation }) {
   const [email, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const [isSubmit, setIsSubmit] = useState(false);
   const adminLog = async () => {
     axios
       .post(
@@ -102,48 +100,6 @@ function LoginScreen({ Dimensions, route, navigation }) {
 
     return unsubscribe;
   }, []);
-  // useEffect(() => {
-  //   const checkAccount = (async) => {
-  //     axios;
-  //     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  //     if (userName == "") {
-  //       alert("Please enter Email address");
-  //     } else if (password == "") {
-  //       alert("Please enter password address");
-  //     } else if (reg.test(userName) == false) {
-  //       alert("Wrong");
-  //       return false;
-  //     } else {
-  //       adminLogin();
-  //     }
-  //   };
-
-  //   const userLogin = async () => {
-  //     axios
-  //       .post(
-  //         "http://192.168.47.238/api/userLogin.php",
-  //         JSON.stringify({
-  //           username: userName,
-  //           password: encPass,
-  //         })
-  //       )
-  //       .then((response) => {
-  //         if (response.data === "ok") {
-  //           alert("Login Success");
-  //           navigation.navigate("Home");
-  //         } else {
-  //           alert("Wrong Login Details, Try again!");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   };
-  //   if (isSubmit) {
-  //     checkAccount();
-  //   }
-  // }, [isSubmit]);
-
   return (
     <View style={{ flex: 3, backgroundColor: COLORS.green }}>
       <View
@@ -160,99 +116,85 @@ function LoginScreen({ Dimensions, route, navigation }) {
           alignItems: "center",
         }}
       >
-        <TextInput
-          style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width * 0.6,
-            borderRadius: 10,
-            alignItems: "center",
-            fontSize: 20,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: height * 0.2,
-          }}
-          autoComplete="email"
-          placeholder="Email..."
-          onChangeText={(text) => setUserName(text)}
-        ></TextInput>
-        <TextInput
-          style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width * 0.6,
-            borderRadius: 10,
-            fontSize: 20,
-            fontWeight: "bold",
-            alignItems: "center",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: 15,
-          }}
-          autoComplete="password"
-          secureTextEntry={true}
-          placeholder="Password...."
-          onChangeText={(text) => setPassword(text)}
-        ></TextInput>
-        <TouchableOpacity
-          style={{
-            alignSelf: "center",
-            borderRadius: 10,
-            backgroundColor: "#fff",
-            width: width / 2,
-            marginTop: 15,
-            alignItems: "center",
-            padding: 10,
-            borderTopWidth: 2,
-            borderLeftWidth: 2,
-            borderRightWidth: 4,
-            borderBottomWidth: 4,
-            borderColor: "#61d47c",
-          }}
-          onPress={() => {
-            checkAdmin();
-          }}
-        >
-          <Text style={styles.buttonText}>Log in</Text>
-        </TouchableOpacity>
+        <View style={{ marginTop: height / 20 }}>
+          <TextInput
+            style={styles.input}
+            autoComplete="email"
+            placeholder="Email..."
+            onChangeText={(text) => setUserName(text)}
+          ></TextInput>
+          <TextInput
+            style={styles.input}
+            autoComplete="password"
+            secureTextEntry={true}
+            placeholder="Password...."
+            onChangeText={(text) => setPassword(text)}
+          ></TextInput>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => {
+              checkAdmin();
+            }}
+          >
+            <Text style={styles.buttonText}>Log in</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            alignSelf: "center",
-            borderRadius: 10,
-            backgroundColor: "#fff",
-            alignItems: "center",
-            width: width / 2,
-            marginTop: 15,
-            padding: 10,
-            borderTopWidth: 2,
-            borderLeftWidth: 2,
-            borderRightWidth: 4,
-            borderBottomWidth: 4,
-            borderColor: "#61d47c",
-          }}
-          onPress={() => {
-            handleSignUp();
-          }}
-        >
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ alignItems: "center", margin: 30 }}
-          onPress={() => {
-            navigation.navigate("Home");
-          }}
-        >
-          <Text style={{ color: "#3253fa" }}>Just Surf products</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => {
+              handleSignUp();
+            }}
+          >
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ alignItems: "center", margin: 30 }}
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
+          >
+            <Text style={{ fontSize: width / 24, color: COLORS.blue }}>
+              Just Surf products
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
+  buttonText: {
+    color: COLORS.green,
+    fontWeight: "bold",
+    fontSize: width / 22,
+  },
+  btn: {
+    alignSelf: "center",
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    width: width / 2.3,
+    marginTop: 15,
+    alignItems: "center",
+    padding: 10,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 4,
+    borderBottomWidth: 4,
+    borderColor: "#61d47c",
+  },
+  input: {
+    borderColor: "grey",
+    padding: 10,
+    width: width * 0.6,
+    borderRadius: 10,
+    alignItems: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    borderWidth: 1,
+    alignContent: "center",
+    alignSelf: "center",
+    marginTop: height / 40,
+  },
   buyBtn: {
     backgroundColor: COLORS.green,
     borderRadius: 25,
