@@ -18,6 +18,7 @@ import PhotoshootManageScreen from "./src/view/admin/PhotoshootManageScreen";
 import UserManageScreen from "./src/view/admin/UserManageScreen";
 import StaffManageScreen from "./src/view/admin/StaffManageScreen";
 import AddProduct from "./src/view/manage/AddProduct";
+import UpdateBooking from "./src/view/manage/UpdateBooking";
 import AddUser from "./src/view/manage/AddUser";
 import UpdateOrder from "./src/view/manage/UpdateOrder";
 const Stack = createNativeStackNavigator();
@@ -112,6 +113,11 @@ function App() {
         <Stack.Screen
           name="AddUser"
           component={AddUser}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UpdateBooking"
+          component={UpdateBooking}
           options={{ headerShown: false }}
         />
         <Stack.Screen

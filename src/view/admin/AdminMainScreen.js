@@ -8,18 +8,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  TextInput,
-  Image,
-  ScrollView,
 } from "react-native";
-
-import { SliderBox } from "react-native-image-slider-box";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import axios from "axios";
 
 import COLORS from "../../consts/colors";
 const { width } = Dimensions.get("window");
