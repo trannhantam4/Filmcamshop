@@ -16,18 +16,18 @@ import { Base64 } from "js-base64";
 const height = width * 0.6;
 
 
-export default class UpdateOrder extends React.Component {
+export default class OrderDetailScreen extends React.Component {
 
-  state = {ordertStatus: ''}
-  updateOrdertStatus = (ordertStatus) => {
-     this.setState({ ordertStatus: ordertStatus })
-  }
   constructor(props){
 		super(props)
 		this.state={
 			orderID:'',
 			ordertStatus:'',
+
 		}
+    // this.userLogin = this.userLogin.bind(this);
+    // this.adminLogin = this.adminLogin.bind(this);
+
 	}
 
 
@@ -60,11 +60,11 @@ componentDidMount() {
     // we will pass our input data to server
     orderId: orderID,
     orderstatus: ordertStatus
+
   })})
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson === "ok"){
-        
         alert("update order status successfuly!");
       }
       })
@@ -72,14 +72,17 @@ componentDidMount() {
       console.error(error);
     });
 }
-render() {
 
+
+
+
+render() {
   return (
     
     <View>
-      <SafeAreaView>
-        <Text style={styles.pageTitle}>Update Order List</Text>
-      </SafeAreaView>
+          <SafeAreaView>
+      <Text style={styles.pageTitle}>Update Order List</Text>
+    </SafeAreaView>
       <TextInput
         style={{
           borderColor: "grey",
@@ -99,12 +102,8 @@ render() {
         onChangeText={orderID => this.setState({orderID})}
       ></TextInput>
 
-      <Picker
-
+    <TextInput
         style={{
-          height: height * 0.1,
-          width: width * 0.3,
-          size: height * 0.5,
           borderColor: "grey",
           padding: 10,
           width: width / 2,
@@ -116,12 +115,9 @@ render() {
           alignSelf: "center",
           marginTop: 10,
         }}
-        selectedValue = {this.state.ordertStatus} onValueChange = {this.updateOrdertStatus}
-      >
-        <Picker.Item label="Packaging" value="Packaging" />
-        <Picker.Item label="Delivery" value="Delivery" />
-        <Picker.Item label="Successfull" value="Successfull" />
-      </Picker>
+        placeholder="order status"
+        onChangeText={ordertStatus => this.setState({ordertStatus})}
+    ></TextInput>
 
 <TouchableOpacity
         style={{

@@ -78,7 +78,7 @@ render() {
     
     <View>
       <SafeAreaView>
-        <Text style={styles.pageTitle}>Update Order List</Text>
+        <Text style={styles.pageTitle}>Update Booking Status</Text>
       </SafeAreaView>
       <TextInput
         style={{
@@ -95,7 +95,7 @@ render() {
         }}
         keyboardType='numeric'
         maxLength={5}
-        placeholder="Order ID"
+        placeholder="Booking ID"
         onChangeText={orderID => this.setState({orderID})}
       ></TextInput>
 
@@ -118,9 +118,9 @@ render() {
         }}
         selectedValue = {this.state.ordertStatus} onValueChange = {this.updateOrdertStatus}
       >
-        <Picker.Item label="Packaging" value="Packaging" />
-        <Picker.Item label="Delivery" value="Delivery" />
-        <Picker.Item label="Successfull" value="Successfull" />
+        <Picker.Item label="Approve" value="Packaging" />
+        <Picker.Item label="Decline" value="Delivery" />
+        <Picker.Item label="Completed" value="Successfull" />
       </Picker>
 
 <TouchableOpacity

@@ -8,18 +8,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  TextInput,
-  Image,
-  ScrollView,
 } from "react-native";
-
-import { SliderBox } from "react-native-image-slider-box";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import axios from "axios";
 
 import COLORS from "../../consts/colors";
 const { width } = Dimensions.get("window");
@@ -76,6 +65,22 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
         >
           <Text style={styles.buttonText}>Staff Manage</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+          onPress={() => navigation.navigate("UpdateProduct")}
+        >
+          <Text style={styles.buttonText}>Update Product</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+          onPress={() => navigation.navigate("AddProduct")}
+        >
+          <Text style={styles.buttonText}>Add Product</Text>
+        </TouchableOpacity>
+
+        
       </View>
     </SafeAreaView>
   );
