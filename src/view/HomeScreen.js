@@ -19,10 +19,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import axios from "axios";
 import COLORS from "../consts/colors";
-import films from "../consts/films";
 import { auth } from "../../firebase";
 const { width } = Dimensions.get("window");
 const height = width * 0.5;
@@ -305,13 +302,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
-  inputText: {
-    color: "#fff",
-    fontSize: 15,
-    alignSelf: "center",
-    alignItems: "center",
-    alignContent: "center",
-  },
+
   button: {
     shadowOpacity: 0.5,
     shadowRadius: 20,
@@ -330,15 +321,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
-  pagingText: {
-    fontSize: width / 30,
-    color: "#888",
-  },
-  pagingActiveText: {
-    fontSize: width / 25,
-    fontWeight: "bold",
-    color: "#fff",
-  },
+
   icon: {
     width: 25,
     height: 25,
@@ -348,41 +331,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 0,
     color: "#61d47c",
-  },
-  productCard: {
-    width: width * 0.93,
-    height: height * 1.5,
-    borderColor: "#9c9c9c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingBottom: 20,
-  },
-  productImage: {
-    width: "100%",
-    height: height,
-    resizeMode: "contain",
-    borderRadius: 5,
-  },
-  pageTitle: {
-    fontWeight: "bold",
-    fontSize: 35,
-    paddingBottom: height / 5,
-  },
-  productName: {
-    paddingTop: 15,
-    paddingLeft: 5,
-    fontSize: height / 10,
-    fontWeight: "bold",
-  },
-  productDes: {
-    paddingLeft: 5,
-    fontSize: height / 13,
-    marginBottom: 10,
-    paddingBottom: 20,
   },
 });
 export default HomeScreen;

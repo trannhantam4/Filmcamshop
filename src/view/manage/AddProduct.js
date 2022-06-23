@@ -18,7 +18,6 @@ import { Base64 } from "js-base64";
 const height = width * 0.6;
 
 function UpdateProduct({ navigation }) {
-  const [Id, setId] = useState("");
   const [name, setName] = useState("");
   const [des, setDes] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -104,7 +103,6 @@ function UpdateProduct({ navigation }) {
         style={{
           borderColor: "grey",
           padding: 10,
-
           width: width / 2,
           borderRadius: 5,
           fontSize: 15,
@@ -227,33 +225,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
-  button: {
-    shadowOpacity: 0.5,
-    shadowRadius: 20,
-    shadowColor: "gray",
-    width: "45%",
-    alignContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-    backgroundColor: "#fff",
-    padding: 10,
-    borderRadius: 10,
-    position: "relative",
-    borderColor: "#61d47c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-  },
-  pagingText: {
-    fontSize: width / 30,
-    color: "#888",
-  },
-  pagingActiveText: {
-    fontSize: width / 25,
-    fontWeight: "bold",
-    color: "#fff",
-  },
   icon: {
     width: 25,
     height: 25,
@@ -263,24 +234,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 0,
     color: "#61d47c",
-  },
-  productCard: {
-    width: width * 0.93,
-    height: height * 1.5,
-    borderColor: "#9c9c9c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingBottom: 20,
-  },
-  productImage: {
-    width: "100%",
-    height: height,
-    resizeMode: "contain",
-    borderRadius: 5,
   },
   pageTitle: {
     fontWeight: "bold",
@@ -292,12 +245,6 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     fontSize: height / 10,
     fontWeight: "bold",
-  },
-  productDes: {
-    paddingLeft: 5,
-    fontSize: height / 13,
-    marginBottom: 10,
-    paddingBottom: 20,
   },
 });
 export default UpdateProduct;
