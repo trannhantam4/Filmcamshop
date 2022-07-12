@@ -37,18 +37,30 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("AdminOrder")}
         >
+          <Ionicons
+            name="ios-information-circle-outline"
+            style={styles.icon}
+          ></Ionicons>
           <Text style={styles.buttonText}>Order</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("ProductManage")}
         >
+          <Ionicons
+            name="ios-information-circle-outline"
+            style={styles.icon}
+          ></Ionicons>
           <Text style={styles.buttonText}>Update Product</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("PhotoshootManage")}
         >
+          <Ionicons
+            name="ios-information-circle-outline"
+            style={styles.icon}
+          ></Ionicons>
           <Text style={styles.buttonText}>Photoshoot Order</Text>
         </TouchableOpacity>
       </View>
@@ -57,12 +69,20 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("UserManage")}
         >
+          <Ionicons
+            name="ios-information-circle-outline"
+            style={styles.icon}
+          ></Ionicons>
           <Text style={styles.buttonText}>User Manage</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("StaffManage")}
         >
+          <Ionicons
+            name="ios-information-circle-outline"
+            style={styles.icon}
+          ></Ionicons>
           <Text style={styles.buttonText}>Staff Manage</Text>
         </TouchableOpacity>
 
@@ -70,6 +90,10 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("UpdateProduct")}
         >
+          <Ionicons
+            name="ios-information-circle-outline"
+            style={styles.icon}
+          ></Ionicons>
           <Text style={styles.buttonText}>Update Product</Text>
         </TouchableOpacity>
 
@@ -77,10 +101,12 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("AddProduct")}
         >
+          <Ionicons
+            name="ios-information-circle-outline"
+            style={styles.icon}
+          ></Ionicons>
           <Text style={styles.buttonText}>Add Product</Text>
         </TouchableOpacity>
-
-        
       </View>
     </SafeAreaView>
   );
@@ -181,6 +207,16 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontWeight: "bold",
     fontSize: 35,
+  },
+  icon: {
+    width: 25,
+    height: 25,
+    alignSelf: "center",
+    alignItems: "center",
+    alignContent: "center",
+    fontSize: 20,
+    padding: 0,
+    color: "#61d47c",
   },
 });
 export default AdminMainScreen;

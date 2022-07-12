@@ -12,7 +12,7 @@ import {
 } from "react-native";
 // import ImagePicker from "react-native-image-crop-picker";
 import axios from "axios";
-import films from "../../consts/films";
+
 const { width } = Dimensions.get("window");
 import { Base64 } from "js-base64";
 const height = width * 0.6;

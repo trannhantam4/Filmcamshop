@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import COLORS from "../../consts/colors";
-import films from "../../consts/films";
+
 import Ionicons from "react-native-vector-icons/Ionicons";
 const { width } = Dimensions.get("window");
 
