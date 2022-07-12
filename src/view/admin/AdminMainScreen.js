@@ -9,7 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-
+import Ionicons from "react-native-vector-icons/Ionicons";
 import COLORS from "../../consts/colors";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
@@ -37,30 +37,21 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("AdminOrder")}
         >
-          <Ionicons
-            name="ios-information-circle-outline"
-            style={styles.icon}
-          ></Ionicons>
+          <Ionicons name="albums" style={styles.icon}></Ionicons>
           <Text style={styles.buttonText}>Order</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("ProductManage")}
         >
-          <Ionicons
-            name="ios-information-circle-outline"
-            style={styles.icon}
-          ></Ionicons>
+          <Ionicons name="camera" style={styles.icon}></Ionicons>
           <Text style={styles.buttonText}>Update Product</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("PhotoshootManage")}
         >
-          <Ionicons
-            name="ios-information-circle-outline"
-            style={styles.icon}
-          ></Ionicons>
+          <Ionicons name="bookmark" style={styles.icon}></Ionicons>
           <Text style={styles.buttonText}>Photoshoot Order</Text>
         </TouchableOpacity>
       </View>
@@ -69,43 +60,23 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("UserManage")}
         >
-          <Ionicons
-            name="ios-information-circle-outline"
-            style={styles.icon}
-          ></Ionicons>
+          <Ionicons name="people-sharp" style={styles.icon}></Ionicons>
           <Text style={styles.buttonText}>User Manage</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("StaffManage")}
         >
-          <Ionicons
-            name="ios-information-circle-outline"
-            style={styles.icon}
-          ></Ionicons>
+          <Ionicons name="people-outline" style={styles.icon}></Ionicons>
           <Text style={styles.buttonText}>Staff Manage</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("UpdateProduct")}
+          onPress={() => navigation.navigate("Revenue+")}
         >
-          <Ionicons
-            name="ios-information-circle-outline"
-            style={styles.icon}
-          ></Ionicons>
-          <Text style={styles.buttonText}>Update Product</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("AddProduct")}
-        >
-          <Ionicons
-            name="ios-information-circle-outline"
-            style={styles.icon}
-          ></Ionicons>
-          <Text style={styles.buttonText}>Add Product</Text>
+          <Ionicons name="bar-chart" style={styles.icon}></Ionicons>
+          <Text style={styles.buttonText}>Revenues</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -132,19 +103,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  borderBtnText: {
-    color: COLORS.white,
+  buttonText: {
+    color: COLORS.green,
     alignItems: "center",
-    fontSize: width * 0.06,
+    fontSize: width * 0.035,
     alignContent: "center",
-  },
-  priceTag: {
-    width: width * 0.3,
-    backgroundColor: COLORS.green,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
-    height: height * 0.2,
-    alignItems: "center",
+    alignSelf: "center",
+    fontWeight: "bold",
   },
   header: {
     paddingTop: height * 0.15,
@@ -179,6 +144,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 10,
     shadowColor: "gray",
+    width: width * 0.25,
+    height: height * 0.1,
     textAlign: "center",
     flexDirection: "column",
     backgroundColor: "#fff",
@@ -209,14 +176,12 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
   icon: {
-    width: 25,
-    height: 25,
     alignSelf: "center",
     alignItems: "center",
     alignContent: "center",
-    fontSize: 20,
+    fontSize: 25,
     padding: 0,
-    color: "#61d47c",
+    color: COLORS.green,
   },
 });
 export default AdminMainScreen;

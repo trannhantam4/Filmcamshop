@@ -21,6 +21,8 @@ import AddProduct from "./src/view/manage/AddProduct";
 import UpdateBooking from "./src/view/manage/UpdateBooking";
 import AddUser from "./src/view/manage/AddUser";
 import UpdateOrder from "./src/view/manage/UpdateOrder";
+import RevenueScreen from "./src/view/admin/RevenueScreen";
+import UpdateUser from "./src/view/manage/UpdateUser";
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -33,10 +35,20 @@ function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="UpdateUser"
+          component={UpdateUser}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Revenue"
+          component={RevenueScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="UpdateProduct"
           component={UpdateProductScreen}
           options={{ headerShown: false }}
-          />
+        />
         <Stack.Screen
           name="UpdateOrder"
           component={UpdateOrder}

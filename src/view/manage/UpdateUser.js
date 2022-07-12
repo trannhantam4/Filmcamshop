@@ -11,145 +11,13 @@ import {
   Alert,
 } from "react-native";
 import axios from "axios";
+import COLORS from "../../consts/colors";
+
+import Ionicons from "react-native-vector-icons/Ionicons";
 const { width } = Dimensions.get("window");
-import { Base64 } from "js-base64";
+
 const height = width * 0.6;
 
-function UpdateUser({ navigation }) {
-  const [userName, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [userEmail, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [encPass, setEncPass] = useState("");
-  const [isSubmit, setIsSubmit] = useState(false);
-
-  useEffect(() => {
-    const authenticate = async () => {
-      axios
-        .post(
-          "http://www.filmcamshop.com/api/userRegistration.php",
-          JSON.stringify({
-            username: userName,
-            password: encPass,
-            email: userEmail,
-            phone: phoneNumber,
-          })
-        )
-        .then((response) => response.data)
-        .then((responseJson) => {
-          if (responseJson === "ok") {
-            alert("Sign up Success!");
-            navigation.navigate("Home");
-          } else {
-            alert("This Email has been used!");
-            navigation.navigate("Home");
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    };
-    if (isSubmit) {
-      authenticate();
-    }
-  }, [isSubmit]);
-
-  const usernameHandler = (text) => {
-    setUsername(text);
-  };
-
-  const passwordHandler = (text) => {
-    setPassword(text);
-  };
-
-  const emailHandler = (text) => {
-    setEmail(text);
-  };
-
-  const phoneNumberHandler = (text) => {
-    setPhoneNumber(text);
-  };
-
-  return (
-    <View>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: height / 3,
-        }}
-        placeholder="Product ID"
-        onChangeText={usernameHandler}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Password"
-        secureTextEntry={true}
-        onChangeText={passwordHandler}
-      ></TextInput>
-
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Email"
-        onChangeText={emailHandler}
-      ></TextInput>
-
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Phone Number"
-        onChangeText={phoneNumberHandler}
-      ></TextInput>
-      <Button
-        style={styles.buttonMenuTop}
-        onPress={() => {
-          setEncPass(Base64.encode(password));
-          setIsSubmit(true);
-        }}
-        title="Sign Up"
-      ></Button>
-    </View>
-  );
-}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -160,16 +28,13 @@ const styles = StyleSheet.create({
     height: height / 0.2,
   },
   buttonMenuTop: {
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    shadowColor: "gray",
-    textAlign: "center",
-    flexDirection: "column",
-    width: "28%",
+    alignSelf: "center",
+    borderRadius: 10,
     backgroundColor: "#fff",
+    width: width / 2,
+    height: height * 0.22,
+    marginTop: 15,
     padding: 10,
-    marginTop: 20,
-    borderRadius: 5,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
@@ -190,6 +55,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#61d47c",
+    height: height * 0.2,
     fontWeight: "bold",
     fontSize: 15,
     alignSelf: "center",
@@ -276,4 +142,84 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
 });
-export default UpdateUser;
+export default function UpdateProduct({ navigation, route }) {
+  const [Id, setId] = useState("");
+
+  const [stat, setStat] = useState("");
+
+  const [isSubmit, setIsSubmit] = useState(false);
+  const data = route.pagrams;
+  useEffect(() => {
+    const authenticate = async () => {
+      axios
+        .post(
+          "http://www.filmcamshop.com/api/UpdateProduct.php",
+          JSON.stringify({
+            Id: Id,
+            stat: stat,
+          })
+        )
+        .then((response) => response.data)
+        .then((responseJson) => {
+          if (responseJson === "ok") {
+            alert("Update Success!");
+            navigation.navigate("ProductManage");
+          } else {
+            alert("Try again");
+            navigation.navigate("ProductManage");
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    };
+    if (isSubmit) {
+      authenticate();
+    }
+  }, [isSubmit]);
+  return (
+    <View>
+      <TextInput
+        style={{
+          borderColor: "grey",
+          padding: 10,
+          width: width / 2,
+          borderRadius: 5,
+          fontSize: 15,
+          fontWeight: "bold",
+          borderWidth: 1,
+          alignContent: "center",
+          alignSelf: "center",
+          marginTop: height / 3,
+        }}
+        placeholder={"id"}
+        onChangeText={(text) => setId(text)}
+      ></TextInput>
+      <Picker
+        quantity={stat}
+        style={{
+          color: COLORS.green,
+          fontWeight: "bold",
+          alignContent: "center",
+          alignSelf: "center",
+          height: height * 0.1,
+          width: width * 0.3,
+          margin: height * 0.1,
+          size: height * 0.5,
+        }}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+      >
+        <Picker.Item label="active" value="active" />
+        <Picker.Item label="disable" value="disable" />
+      </Picker>
+      <TouchableOpacity
+        style={styles.buttonMenuTop}
+        onPress={() => {
+          setIsSubmit(true);
+        }}
+      >
+        <Text style={styles.buttonText}>Update</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}

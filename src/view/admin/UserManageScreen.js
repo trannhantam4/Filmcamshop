@@ -22,7 +22,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
-
 import COLORS from "../../consts/colors";
 import NumericInput from "react-native-numeric-input";
 const { width } = Dimensions.get("window");
@@ -80,15 +79,7 @@ export default class OrderManageScreen extends React.Component {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              this.props.navigation.navigate("AddUser");
-            }}
-          >
-            <Text style={styles.buttonText}>Add</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.props.navigation.navigate("UpdateProduct");
+              this.props.navigation.navigate("UpdateUser");
             }}
           >
             <Text style={styles.buttonText}>Disable User</Text>
@@ -107,6 +98,7 @@ export default class OrderManageScreen extends React.Component {
                 paddingVertical: 10,
                 borderWidth: 2,
                 borderRadius: 20,
+                marginBottom: 5,
               }}
               onPress={() => {}}
             >
