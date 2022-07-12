@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
 export default function UpdateProduct({ navigation, route }) {
   const [Id, setId] = useState("");
 
-  const [stat, setStat] = useState("");
+  const [stat, setStat] = useState("active");
 
   const [isSubmit, setIsSubmit] = useState(false);
   const data = route.pagrams;
@@ -153,7 +153,7 @@ export default function UpdateProduct({ navigation, route }) {
     const authenticate = async () => {
       axios
         .post(
-          "http://www.filmcamshop.com/api/UpdateProduct.php",
+          "http://www.filmcamshop.com/api/UpdateUser.php",
           JSON.stringify({
             Id: Id,
             stat: stat,
@@ -163,10 +163,10 @@ export default function UpdateProduct({ navigation, route }) {
         .then((responseJson) => {
           if (responseJson === "ok") {
             alert("Update Success!");
-            navigation.navigate("ProductManage");
+            navigation.navigate("AdminScreen");
           } else {
             alert("Try again");
-            navigation.navigate("ProductManage");
+            navigation.navigate("AdminScreen");
           }
         })
         .catch((error) => {
@@ -207,7 +207,7 @@ export default function UpdateProduct({ navigation, route }) {
           margin: height * 0.1,
           size: height * 0.5,
         }}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        onValueChange={(itemValue, itemIndex) => setStat(itemValue)}
       >
         <Picker.Item label="active" value="active" />
         <Picker.Item label="disable" value="disable" />
