@@ -17,12 +17,11 @@ import axios from "axios";
 import COLORS from "../consts/colors";
 import { TextInput } from "react-native-paper";
 import { auth } from "../../firebase";
-import { ScrollView } from "react-native-gesture-handler";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 const quantity = 1;
 
-function DetailScreen({ Dimensions, route, navigation }) {
+function DetailScreen({ route, navigation }) {
   const item = route.params;
   const img = item.imgURL;
   const [quantity, setSelectedValue] = useState("1");
@@ -166,7 +165,7 @@ function DetailScreen({ Dimensions, route, navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
-                fontSize: height * 0.08,
+                fontSize: height * 0.06,
                 justifyContent: "center",
                 alignSelf: "center",
                 height: height * 0.1,
@@ -179,8 +178,8 @@ function DetailScreen({ Dimensions, route, navigation }) {
               quantity={quantity}
               style={{
                 height: height * 0.1,
-                width: width * 0.3,
-                size: height * 0.5,
+                width: width * 0.2,
+                size: height * 0.4,
               }}
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedValue(itemValue)
@@ -206,6 +205,21 @@ function DetailScreen({ Dimensions, route, navigation }) {
               }}
             >
               <Text style={{ color: COLORS.white, fontSize: width * 0.05 }}>
+                Add to cart
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buyBtn}
+              onPress={() => {
+                if (email == null) {
+                  alert("Please login to order product");
+                  navigation.navigate("Home");
+                } else {
+                  setIsSubmit(true);
+                }
+              }}
+            >
+              <Text style={{ color: COLORS.white, fontSize: width * 0.05 }}>
                 Buy
               </Text>
             </TouchableOpacity>
@@ -219,9 +233,10 @@ const styles = StyleSheet.create({
   buyBtn: {
     backgroundColor: COLORS.green,
     borderRadius: 25,
-    width: width * 0.3,
+    paddingHorizontal: width * 0.02,
+    width: width * 0.25,
+    fontSize: height * 0.15,
     height: height * 0.2,
-
     alignItems: "center",
     justifyContent: "center",
     color: "#ffffff",

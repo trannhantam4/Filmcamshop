@@ -85,7 +85,7 @@ function HomeScreen({ navigation }) {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ paddingTop: 20 }}>
+      <View style={{ paddingTop: 20, backgroundColor: COLORS.green }}>
         <View style={styles.header}>
           <Text
             style={auth.currentUser == null ? styles.hiden : styles.emailText}
@@ -101,7 +101,7 @@ function HomeScreen({ navigation }) {
             <Text style={styles.buttonText}>Đăng Xuất</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ marginTop: height * 0.1 }}>
+        <View style={{ marginTop: height * 0.02 }}>
           <SliderBox
             images={images}
             onCurrentImagePressed={(index) =>
@@ -182,7 +182,7 @@ function HomeScreen({ navigation }) {
                   }}
                 >
                   <Image
-                    style={{ flex: 1, width: width * 0.4, borderRadius: 5 }}
+                    style={{ flex: 1, width: width * 0.4, borderRadius: 0 }}
                     source={{ uri: item.imgURL }}
                   ></Image>
                 </View>
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   },
   card: {
     height: height * 0.9,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: COLORS.white,
     width: width * 0.425,
     borderRadius: 10,
     marginBottom: 20,
@@ -254,17 +254,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: height * 0.03,
     opacity: 0.8,
-    color: COLORS.green,
+    color: COLORS.white,
     marginHorizontal: width * 0.02,
     justifyContent: "space-between",
   },
 
   container: {
     flex: 2,
-    backgroundColor: "#fff",
-
+    backgroundColor: "#D9D9D9",
     width: width,
-    height: height / 0.6,
+    height: height / 0.7,
   },
   buttonMenu: {
     shadowOpacity: 0.5,
@@ -274,9 +273,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "30%",
     backgroundColor: "#fff",
+    marginRight: width * 0.03,
     padding: 10,
     marginTop: height * 0.03,
-    borderRadius: 5,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
@@ -307,14 +306,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   header2: {
-    marginHorizontal: width * 0.01,
-    marginVertical: height * 0.1,
+    marginHorizontal: width * 0.05,
+    marginVertical: height * 0.01,
     flexDirection: "row",
-    backgroundColor: COLORS.white,
+    backgroundColor: "#D9D9D9",
     justifyContent: "space-between",
   },
   header: {
-    marginHorizontal: width * 0.01,
+    marginHorizontal: 0,
     marginVertical: height * 0.1,
     flexDirection: "row",
     backgroundColor: COLORS.green,
@@ -330,6 +329,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   emailText: {
+    marginLeft: width * 0.03,
     color: COLORS.white,
     fontWeight: "bold",
     fontSize: height * 0.08,

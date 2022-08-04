@@ -11,6 +11,7 @@ import {
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
+import HeaderSc from "./Header";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 
@@ -69,46 +70,7 @@ function BookingScreen() {
   const showTimepicker = () => {
     showMode("time");
   };
-  return (
-    <SafeAreaView style={{ marginTop: 30, marginLeft: 10 }}>
-      <Text style={styles.pageTitle}>Đặt lịch</Text>
-      <Text style={styles.buttonText}>{text}</Text>
-      <View style={{ alignContent: "center", alignItems: "center" }}>
-        <TouchableOpacity style={styles.button} onPress={showDatepicker}>
-          <Text style={styles.buttonText}>Chọn Ngày</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={{ alignContent: "center", alignItems: "center" }}>
-        <TouchableOpacity style={styles.button} onPress={showTimepicker}>
-          <Text style={styles.buttonText}>Chọn Giờ</Text>
-        </TouchableOpacity>
-      </View>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-          minimumDate={new Date()}
-        />
-      )}
-      <View style={{ alignContent: "center", alignItems: "center" }}></View>
-
-      <View style={{ alignContent: "center", alignItems: "center" }}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            setIsSubmit(true);
-            alert("We will send confirm email for you later");
-          }}
-        >
-          <Text style={styles.buttonText}>Đặt lịch</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  );
+  return <HeaderSc></HeaderSc>;
 }
 const styles = StyleSheet.create({
   container: {

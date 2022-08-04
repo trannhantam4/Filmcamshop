@@ -14,10 +14,11 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import COLORS from "../consts/colors";
+import HeaderSc from "./Header";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
-function BookingScreen() {
+function BookingScreen(navigation, route) {
   const [selectedValue, setSelectedValue] = useState("Đám cưới");
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
@@ -78,6 +79,7 @@ function BookingScreen() {
   };
   return (
     <SafeAreaView style={{}}>
+      <HeaderSc></HeaderSc>
       <ImageBackground
         style={{ width: width, height: height }}
         source={require("../../app/assets/market.png")}
@@ -139,7 +141,6 @@ function BookingScreen() {
           </View>
           <TextInput
             style={styles.input}
-            autoComplete=""
             placeholder="Address"
             onChange={(text) => setAddress(text)}
           ></TextInput>
@@ -148,9 +149,6 @@ function BookingScreen() {
               style={styles.button}
               onPress={() => {
                 setIsSubmit(true);
-                alert(
-                  "We will send confirm email for you later! Please go back"
-                );
               }}
             >
               <Text style={styles.buttonText}>Đặt lịch</Text>
