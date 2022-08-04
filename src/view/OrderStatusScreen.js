@@ -4,26 +4,21 @@ import {
   Text,
   Picker,
   SafeAreaView,
-  ImageBackground,
   StyleSheet,
-  TextInput,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
-import COLORS from "../consts/colors";
 const { width } = Dimensions.get("window");
-const { height } = Dimensions.get("window");
+const height = width * 0.6;
 
 function BookingScreen() {
-  const [selectedValue, setSelectedValue] = useState("Đám cưới");
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [text, setText] = useState("");
-  const [address, setAddress] = useState("");
 
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -34,8 +29,6 @@ function BookingScreen() {
           "http://www.filmcamshop.com/api/bookingPhotoshoot.php",
           JSON.stringify({
             text: text,
-            selectedValue: selectedValue,
-            address: address,
           })
         )
         .then((Response) => Response.data)
@@ -77,103 +70,47 @@ function BookingScreen() {
     showMode("time");
   };
   return (
-    <SafeAreaView style={{}}>
-      <ImageBackground
-        style={{ width: width, height: height }}
-        source={require("../../app/assets/market.png")}
-      >
-        <Text style={styles.pageTitle}>Đặt lịch</Text>
-        <View
-          style={{
-            backgroundColor: COLORS.white,
-            borderRadius: 40,
-            width: width * 0.7,
-            height: height / 2,
-            alignSelf: "center",
-            alignItems: "center",
+    <SafeAreaView style={{ marginTop: 30, marginLeft: 10 }}>
+      <Text style={styles.pageTitle}>Đặt lịch</Text>
+      <Text style={styles.buttonText}>{text}</Text>
+      <View style={{ alignContent: "center", alignItems: "center" }}>
+        <TouchableOpacity style={styles.button} onPress={showDatepicker}>
+          <Text style={styles.buttonText}>Chọn Ngày</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ alignContent: "center", alignItems: "center" }}>
+        <TouchableOpacity style={styles.button} onPress={showTimepicker}>
+          <Text style={styles.buttonText}>Chọn Giờ</Text>
+        </TouchableOpacity>
+      </View>
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+          minimumDate={new Date()}
+        />
+      )}
+      <View style={{ alignContent: "center", alignItems: "center" }}></View>
+
+      <View style={{ alignContent: "center", alignItems: "center" }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            setIsSubmit(true);
+            alert("We will send confirm email for you later");
           }}
         >
-          <Text style={styles.pickDate}>{text}</Text>
-          <TouchableOpacity style={styles.button} onPress={showDatepicker}>
-            <Text style={styles.buttonText}>Chọn Ngày</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={showTimepicker}>
-            <Text style={styles.buttonText}>Chọn Giờ</Text>
-          </TouchableOpacity>
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-              minimumDate={new Date()}
-            />
-          )}
-          <View
-            style={{
-              alignContent: "center",
-              alignItems: "center",
-              color: COLORS.green,
-            }}
-          >
-            <Picker
-              selectedValue={selectedValue}
-              style={{
-                height: height / 10,
-                width: width / 2.5,
-                marginTop: 10,
-                color: COLORS.green,
-              }}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
-              }
-            >
-              <Picker.Item label="Đám Cưới" value="Wedding" />
-              <Picker.Item label="Chân Dung" value="Portrial" />
-              <Picker.Item label="Thương Mại" value="Commercial" />
-              <Picker.Item label="Ảnh Gia Đình" value="Family" />
-              <Picker.Item label="Phong Cảnh" value="Landscape" />
-            </Picker>
-          </View>
-          <TextInput
-            style={styles.input}
-            autoComplete=""
-            placeholder="Address"
-            onChange={(text) => setAddress(text)}
-          ></TextInput>
-          <View style={{ alignContent: "center", alignItems: "center" }}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setIsSubmit(true);
-                alert(
-                  "We will send confirm email for you later! Please go back"
-                );
-              }}
-            >
-              <Text style={styles.buttonText}>Đặt lịch</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
+          <Text style={styles.buttonText}>Đặt lịch</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
-  input: {
-    borderColor: "grey",
-    width: width * 0.6,
-    backgroundColor: "#D9D9D9",
-    alignItems: "flex-start",
-    fontSize: height / 40,
-    height: height / 15,
-    fontWeight: "bold",
-    borderWidth: 1,
-    alignContent: "flex-start",
-    alignSelf: "center",
-  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -191,7 +128,6 @@ const styles = StyleSheet.create({
     width: "28%",
     backgroundColor: "#fff",
     padding: 10,
-    alignSelf: "center",
     marginTop: 20,
     borderRadius: 5,
     borderTopWidth: 2,
@@ -211,16 +147,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  pickDate: {
-    color: "#61d47c",
-    paddingTop: height / 30,
-    height: height / 10,
-    fontWeight: "bold",
-    fontSize: height / 50,
-    alignSelf: "center",
-    alignItems: "center",
-    alignContent: "center",
   },
   buttonText: {
     color: "#61d47c",
@@ -295,8 +221,6 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontWeight: "bold",
     fontSize: 35,
-    paddingTop: height / 15,
-    paddingLeft: width / 15,
     paddingBottom: height / 5,
   },
   productName: {

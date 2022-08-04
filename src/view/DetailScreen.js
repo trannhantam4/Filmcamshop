@@ -64,7 +64,7 @@ function DetailScreen({ Dimensions, route, navigation }) {
     <KeyboardAwareScrollView>
       <SafeAreaView
         style={{
-          backgroundColor: COLORS.white,
+          backgroundColor: "#D9D9D9",
         }}
       >
         <View style={styles.header}>
@@ -76,7 +76,7 @@ function DetailScreen({ Dimensions, route, navigation }) {
           <Ionicons name="cart-outline" size={28}></Ionicons>
         </View>
         <Image
-          style={{ height: height * 1.37, borderRadius: 10 }}
+          style={{ height: height * 1.5, width: width, borderRadius: 0 }}
           source={{ uri: item.imgURL }}
         ></Image>
         <View style={styles.detailContainer}>
@@ -266,13 +266,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   detailContainer: {
-    height: height * 1.7,
+    height: height * 2,
     backgroundColor: COLORS.light,
-    borderRadius: 20,
-    paddingTop: 30,
-    marginTop: height * 0.1,
-    marginLeft: width * 0.03,
-    marginRight: width * 0.03,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingTop: height / 17,
+    marginTop: -height / 10,
+    marginLeft: width * 0.05,
+    marginRight: width * 0.05,
   },
 });
 export default DetailScreen;

@@ -88,19 +88,17 @@ function HomeScreen({ navigation }) {
       <View style={{ paddingTop: 20 }}>
         <View style={styles.header}>
           <Text
-            style={auth.currentUser == null ? styles.hiden : styles.buttonText}
+            style={auth.currentUser == null ? styles.hiden : styles.emailText}
           >
             Email: {auth.currentUser?.email}
           </Text>
           <TouchableOpacity
-            style={
-              auth.currentUser == null ? styles.hiden : styles.buttonMenuTop
-            }
+            style={auth.currentUser == null ? styles.hiden : styles.buttonMenu}
             onPress={() => {
               handleSignOut();
             }}
           >
-            <Text>Sign out</Text>
+            <Text style={styles.buttonText}>Đăng Xuất</Text>
           </TouchableOpacity>
         </View>
         <View style={{ marginTop: height * 0.1 }}>
@@ -123,7 +121,7 @@ function HomeScreen({ navigation }) {
           />
         </View>
       </View>
-      <View style={styles.header}>
+      <View style={styles.header2}>
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("ShopDetails")}
@@ -139,7 +137,7 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("Address")}
         >
           <FontAwesome name="address-book" style={styles.icon}></FontAwesome>
-          <Text style={styles.buttonText}>Address</Text>
+          <Text style={styles.buttonText}>Địa chỉ</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
@@ -147,6 +145,13 @@ function HomeScreen({ navigation }) {
         >
           <FontAwesome name="bookmark" style={styles.icon}></FontAwesome>
           <Text style={styles.buttonText}>Đặt Lịch</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+          onPress={() => navigation.navigate("OrderStatus")}
+        >
+          <FontAwesome name="list" style={styles.icon}></FontAwesome>
+          <Text style={styles.buttonText}>Đơn hàng</Text>
         </TouchableOpacity>
       </View>
       <CategoryList />
@@ -170,8 +175,8 @@ function HomeScreen({ navigation }) {
               <View style={styles.card}>
                 <View
                   style={{
-                    height: 100,
-                    paddingTop: 10,
+                    height: height * 0.45,
+                    paddingTop: 0,
                     alignSelf: "center",
                     alignItems: "center",
                   }}
@@ -227,7 +232,7 @@ const styles = StyleSheet.create({
     height: 0,
   },
   card: {
-    height: height * 1.08,
+    height: height * 0.9,
     backgroundColor: "#e0e0e0",
     width: width * 0.425,
     borderRadius: 10,
@@ -253,12 +258,30 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.02,
     justifyContent: "space-between",
   },
+
   container: {
     flex: 2,
     backgroundColor: "#fff",
-    paddingTop: height * 0.01,
+
     width: width,
     height: height / 0.6,
+  },
+  buttonMenu: {
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    shadowColor: "gray",
+    textAlign: "center",
+    alignItems: "center",
+    width: "30%",
+    backgroundColor: "#fff",
+    padding: 10,
+    marginTop: height * 0.03,
+    borderRadius: 5,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 4,
+    borderBottomWidth: 4,
+    borderColor: "#61d47c",
   },
   buttonMenuTop: {
     shadowOpacity: 0.5,
@@ -266,7 +289,7 @@ const styles = StyleSheet.create({
     shadowColor: "gray",
     textAlign: "center",
     flexDirection: "column",
-    width: "30%",
+    width: "20%",
     backgroundColor: "#fff",
     padding: 10,
     marginTop: height * 0.03,
@@ -283,19 +306,34 @@ const styles = StyleSheet.create({
 
     alignSelf: "center",
   },
+  header2: {
+    marginHorizontal: width * 0.01,
+    marginVertical: height * 0.1,
+    flexDirection: "row",
+    backgroundColor: COLORS.white,
+    justifyContent: "space-between",
+  },
   header: {
     marginHorizontal: width * 0.01,
     marginVertical: height * 0.1,
     flexDirection: "row",
+    backgroundColor: COLORS.green,
     justifyContent: "space-between",
   },
+
   buttonText: {
-    color: "#61d47c",
+    color: COLORS.green,
     fontWeight: "bold",
     fontSize: 15,
     alignSelf: "center",
     alignItems: "center",
     alignContent: "center",
+  },
+  emailText: {
+    color: COLORS.white,
+    fontWeight: "bold",
+    fontSize: height * 0.08,
+    alignSelf: "center",
   },
 
   button: {

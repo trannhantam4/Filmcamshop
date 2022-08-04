@@ -5,7 +5,9 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Image,
   TextInput,
+  ImageBackground,
   Alert,
 } from "react-native";
 
@@ -101,64 +103,65 @@ function LoginScreen({ Dimensions, route, navigation }) {
     return unsubscribe;
   }, []);
   return (
-    <View style={{ flex: 3, backgroundColor: COLORS.green }}>
-      <View
-        style={{
-          marginTop: height / 4,
-          backgroundColor: COLORS.white,
-          borderTopLeftRadius: 50,
-          borderTopRightRadius: 50,
-          width: width,
-          justifyContent: "flex-start",
-          flex: 2,
-          alignContent: "flex-start",
-          alignSelf: "flex-end",
-          alignItems: "center",
-        }}
+    <View style={{ flex: 2, backgroundColor: COLORS.green }}>
+      <ImageBackground
+        style={{ width: width, height: height }}
+        source={require("../../app/assets/market.png")}
       >
-        <View style={{ marginTop: height / 20 }}>
-          <TextInput
-            style={styles.input}
-            autoComplete="email"
-            placeholder="Email..."
-            onChangeText={(text) => setUserName(text)}
-          ></TextInput>
-          <TextInput
-            style={styles.input}
-            autoComplete="password"
-            secureTextEntry={true}
-            placeholder="Password...."
-            onChangeText={(text) => setPassword(text)}
-          ></TextInput>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => {
-              checkAdmin();
-            }}
-          >
-            <Text style={styles.buttonText}>Log in</Text>
-          </TouchableOpacity>
+        <View
+          style={{
+            marginTop: height / 2.7,
+            backgroundColor: COLORS.white,
+            borderRadius: 40,
+            width: width * 0.7,
+            alignSelf: "center",
+            alignItems: "center",
+          }}
+        >
+          <View style={{ marginTop: height / 20 }}>
+            <TextInput
+              style={styles.input}
+              autoComplete="email"
+              placeholder="Email..."
+              onChangeText={(text) => setUserName(text)}
+            ></TextInput>
+            <TextInput
+              style={styles.input}
+              autoComplete="password"
+              secureTextEntry={true}
+              placeholder="Password...."
+              onChangeText={(text) => setPassword(text)}
+            ></TextInput>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => {
+                checkAdmin();
+              }}
+            >
+              <Text style={styles.buttonText}>Log in</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => {
-              handleSignUp();
-            }}
-          >
-            <Text style={styles.buttonText}>Sign Up</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ alignItems: "center", margin: 30 }}
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          >
-            <Text style={{ fontSize: width / 24, color: COLORS.blue }}>
-              Just Surf products
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => {
+                handleSignUp();
+              }}
+            >
+              <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ alignItems: "center", margin: 30 }}
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
+              <Text style={{ fontSize: height / 60, color: COLORS.blue }}>
+                Just Surf products
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -186,9 +189,11 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     padding: 10,
     width: width * 0.6,
+    backgroundColor: "#D9D9D9",
     borderRadius: 10,
     alignItems: "center",
-    fontSize: 20,
+    fontSize: height / 40,
+    height: height / 15,
     fontWeight: "bold",
     borderWidth: 1,
     alignContent: "center",
