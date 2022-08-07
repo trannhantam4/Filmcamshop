@@ -54,7 +54,7 @@ function BookingScreen(navigation, route) {
 
     let tempDate = new Date(currentDate);
     let fDate =
-      "Date: " +
+      "Date: " +a``
       tempDate.getDate() +
       "/" +
       (tempDate.getMonth() + 1) +
