@@ -21,7 +21,7 @@ import { ScrollView } from "react-native-gesture-handler";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 
-export default function HeaderSc({}) {
+function HeaderSc({}) {
   const navigation = useNavigation();
   return (
     <SafeAreaView
@@ -38,6 +38,7 @@ export default function HeaderSc({}) {
     </SafeAreaView>
   );
 }
+export default HeaderSc;
 const styles = StyleSheet.create({
   buyBtn: {
     backgroundColor: COLORS.green,
