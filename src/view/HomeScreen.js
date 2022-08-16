@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginHorizontal: 0,
-    marginVertical: height * 0.1,
+    marginVertical: height * 0.05,
     flexDirection: "row",
     backgroundColor: COLORS.green,
     justifyContent: "space-between",
