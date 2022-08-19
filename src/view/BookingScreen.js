@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  Picker,
   SafeAreaView,
   ImageBackground,
   StyleSheet,
@@ -10,7 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-
+import Picker from "react-native-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import COLORS from "../consts/colors";
@@ -53,9 +52,8 @@ function BookingScreen(navigation, route) {
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
-    let fDate =
-      "Date: " +a``
-      tempDate.getDate() +
+    let fDate = "Date: " + a``;
+    tempDate.getDate() +
       "/" +
       (tempDate.getMonth() + 1) +
       "/" +

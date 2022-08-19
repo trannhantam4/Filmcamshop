@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import {
   View,
   Text,
@@ -6,71 +6,78 @@ import {
   SafeAreaView,
   StyleSheet,
   Dimensions,
+  Button,
   TouchableOpacity,
 } from "react-native";
-
+import { auth } from "../../firebase";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import HeaderSc from "./Header";
+import { TextInput } from "react-native-paper";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 
-function BookingScreen() {
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
-  const [text, setText] = useState("");
-
-  const [isSubmit, setIsSubmit] = useState(false);
-
-  useEffect(() => {
-    const authenticate = async () => {
-      axios
-        .post(
-          "http://www.filmcamshop.com/api/bookingPhotoshoot.php",
-          JSON.stringify({
-            text: text,
-          })
-        )
-        .then((Response) => Response.data)
-        .catch((error) => {
-          alert("Error " + error);
-        });
+export default class OrderStatusScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      orderID: "",
+      productName: "",
+      quantity: "",
+      orderDetail: "",
     };
-    if (isSubmit) authenticate();
-  }, [isSubmit]);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate =
-      "Date: " +
-      tempDate.getDate() +
-      "/" +
-      (tempDate.getMonth() + 1) +
-      "/" +
-      tempDate.getFullYear();
-    let fTime = "Time: " + tempDate.getHours() + "h " + tempDate.getMinutes();
-    setText(fDate + " \n" + fTime);
-    console.log(fDate + " " + fTime);
+  }
+  SearchRecord = () => {
+    var email = this.state.email;
+    if (email.length == 0) {
+      alert("Require field is missing");
+    } else {
+      var SearchAPIURL = "http://www.filmcamshop.com/api/getOrderStatus.php";
+      var header = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      };
+      var Data = {
+        email: email,
+      };
+      fetch(SearchAPIURL, {
+        method: "POST",
+        headers: header,
+        body: JSON.stringify(Data),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          this.setState({ productName: response[0].ProductName });
+          this.setState({ quantity: response[0].quantity });
+          this.setState({ orderDetail: response[0].orderDetail });
+        })
+        .catch((error) => {
+          alert("Error: " + error);
+        });
+    }
   };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode("date");
-  };
-
-  const showTimepicker = () => {
-    showMode("time");
-  };
-  return <HeaderSc></HeaderSc>;
+  render() {
+    return (
+      <SafeAreaView>
+        <View>
+          <TextInput
+            placeholder="enter email"
+            onChangeText={(email) => this.setState({ email })}
+          ></TextInput>
+          <Button
+            title="find data"
+            color="#841584"
+            onPress={this.SearchRecord}
+          />
+          <TextInput placeholder="ID"></TextInput>
+          <TextInput placeholder="Name"></TextInput>
+          <TextInput placeholder="Quantity"></TextInput>
+          <TextInput placeholder="Status"></TextInput>
+        </View>
+      </SafeAreaView>
+    );
+  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -183,7 +190,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontWeight: "bold",
     fontSize: 35,
-    paddingBottom: height / 5,
+    paddingBottom: height / 10,
   },
   productName: {
     paddingTop: 15,
@@ -198,4 +205,3 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
 });
-export default BookingScreen;
