@@ -2,91 +2,194 @@ import React, { useState, useEffect, Component } from "react";
 import {
   View,
   Text,
-  Picker,
-  SafeAreaView,
   StyleSheet,
+  FlatList,
   Dimensions,
-  Button,
   TouchableOpacity,
+  ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { auth } from "../../firebase";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import axios from "axios";
+import COLORS from "../consts/colors";
 import HeaderSc from "./Header";
-import { TextInput } from "react-native-paper";
 const { width } = Dimensions.get("window");
-const height = width * 0.6;
+const { height } = Dimensions.get("screen");
 
-export default class OrderStatusScreen extends Component {
+export default class OrderManageScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      orderID: "",
-      productName: "",
-      quantity: "",
-      orderDetail: "",
+      isLoading: true,
+      dataSource: [],
     };
   }
-  SearchRecord = () => {
-    var email = this.state.email;
-    if (email.length == 0) {
-      alert("Require field is missing");
-    } else {
-      var SearchAPIURL = "http://www.filmcamshop.com/api/getOrderStatus.php";
-      var header = {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      };
-      var Data = {
-        email: email,
-      };
-      fetch(SearchAPIURL, {
-        method: "POST",
-        headers: header,
-        body: JSON.stringify(Data),
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          this.setState({ productName: response[0].ProductName });
-          this.setState({ quantity: response[0].quantity });
-          this.setState({ orderDetail: response[0].orderDetail });
-        })
-        .catch((error) => {
-          alert("Error: " + error);
+
+  componentDidMount() {
+    return fetch("http://www.filmcamshop.com/api/getOrderStatus.php", {
+      method: "POST",
+      headers: {
+        Accepts: "applicattion/json",
+        "Content-Type": "application.json",
+      },
+      body: JSON.stringify({
+        email: auth.currentUser?.email,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          dataSource: responseJson.orders,
+          isLoading: false,
         });
-    }
-  };
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   render() {
-    return (
-      <SafeAreaView>
-        <View>
-          <TextInput
-            placeholder="enter email"
-            onChangeText={(email) => this.setState({ email })}
-          ></TextInput>
-          <Button
-            title="find data"
-            color="#841584"
-            onPress={this.SearchRecord}
-          />
-          <TextInput placeholder="ID"></TextInput>
-          <TextInput placeholder="Name"></TextInput>
-          <TextInput placeholder="Quantity"></TextInput>
-          <TextInput placeholder="Status"></TextInput>
+    if (this.state.isLoading) {
+      return (
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <ActivityIndicator />
         </View>
-      </SafeAreaView>
+      );
+    }
+
+    return (
+      <View>
+        <HeaderSc></HeaderSc>
+        <View
+          style={{
+            width: width,
+            height: height,
+            alignContent: "center",
+            backgroundColor: "#bfbfbf",
+          }}
+        >
+          <ImageBackground
+            style={{ width: width, height: height }}
+            source={require("../../app/assets/market.png")}
+          >
+            <FlatList
+              style={{
+                marginTop: height * 0.03,
+              }}
+              data={this.state.dataSource}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={{
+                    width: width * 0.9,
+                    alignSelf: "center",
+                    backgroundColor: COLORS.white,
+                    marginBottom: height * 0.01,
+                    borderRadius: 20,
+                    padding: 10,
+                  }}
+                  onPress={() => {}}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                    {item.productName}
+                  </Text>
+
+                  <Text>Quantity: {item.quantity}</Text>
+                  <Text>Ordered at: {item.date}</Text>
+                  <Text>Address: {item.address}</Text>
+                  <Text
+                    style={{
+                      padding: 5,
+                      borderWidth: 2,
+                      borderRadius: 30,
+                      alignItems: "center",
+                      alignContent: "center",
+                      textAlign: "center",
+                      width: width * 0.4,
+                      fontWeight: "bold",
+                      fontSize: 20,
+                      borderColor:
+                        item.orderDetail == "waiting"
+                          ? COLORS.red
+                          : COLORS.green,
+                      backgroundColor:
+                        item.orderDetail == "waiting" ? "#ffc2c2" : "#b0fcac",
+                      color: COLORS.white,
+                    }}
+                  >
+                    {item.orderDetail}
+                  </Text>
+                  <Text>{item.date}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index}
+            />
+          </ImageBackground>
+        </View>
+      </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingTop: 20,
-    marginRight: 0,
+  buyBtn: {
+    backgroundColor: COLORS.green,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.2,
+
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#ffffff",
+  },
+  bordetBtn: {
+    borderColor: "grey",
+    borderWidth: 1,
+    borderRadius: 5,
+    width: width * 0.15,
+    height: height * 0.15,
+    backgroundColor: COLORS.green,
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  borderBtnText: {
+    color: COLORS.white,
+    alignItems: "center",
+    fontSize: width * 0.06,
+    alignContent: "center",
+  },
+  priceTag: {
+    width: width * 0.3,
+    backgroundColor: COLORS.green,
+    borderTopLeftRadius: 25,
+    borderBottomLeftRadius: 25,
+    height: height * 0.2,
+    alignItems: "center",
+  },
+  header: {
+    paddingTop: height * 0.15,
+    paddingHorizontal: width * 0.07,
+    paddingBottom: height * 0.06,
+    flexDirection: "row",
+    backgroundColor: COLORS.green,
+    justifyContent: "space-between",
+  },
+  imageContainer: {
+    marginTop: height * 0.1,
     width: width,
-    height: height / 0.2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  header: {
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  detailContainer: {
+    height: height * 1,
+    backgroundColor: COLORS.light,
+    borderRadius: 20,
+    paddingTop: 30,
+    marginTop: height * 0.1,
+    marginLeft: width * 0.03,
+    marginRight: width * 0.03,
   },
   buttonMenuTop: {
     shadowOpacity: 0.5,
@@ -94,7 +197,6 @@ const styles = StyleSheet.create({
     shadowColor: "gray",
     textAlign: "center",
     flexDirection: "column",
-    width: "28%",
     backgroundColor: "#fff",
     padding: 10,
     marginTop: 20,
@@ -105,103 +207,35 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     borderColor: "#61d47c",
   },
-  slider: {
+  CategoryContainer: {
     flexDirection: "row",
-    position: "absolute",
-    bottom: 0,
-    alignSelf: "center",
-  },
-  header: {
-    marginLeft: 20,
+    marginTop: 30,
     marginRight: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  buttonText: {
-    color: "#61d47c",
-    fontWeight: "bold",
-    fontSize: 15,
-    alignSelf: "center",
-    alignItems: "center",
-    alignContent: "center",
-  },
-  inputText: {
-    color: "#fff",
-    fontSize: 15,
-    alignSelf: "center",
-    alignItems: "center",
-    alignContent: "center",
+    marginLeft: 20,
   },
   button: {
-    shadowOpacity: 0.5,
-    shadowRadius: 20,
-    shadowColor: "gray",
-    width: "45%",
+    marginHorizontal: width * 0.02,
+    width: width * 0.4,
+    backgroundColor: "#fff",
+    height: height * 0.05,
+    borderRadius: 10,
     alignContent: "center",
     alignItems: "center",
-    marginTop: 10,
-    backgroundColor: "#fff",
-    padding: 10,
-    borderRadius: 10,
-    position: "relative",
     borderColor: "#61d47c",
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
-  pagingText: {
-    fontSize: width / 30,
-    color: "#888",
-  },
-  pagingActiveText: {
-    fontSize: width / 25,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  icon: {
-    width: 25,
-    height: 25,
-    alignSelf: "center",
-    alignItems: "center",
-    alignContent: "center",
-    fontSize: 20,
-    padding: 0,
-    color: "#61d47c",
-  },
-  productCard: {
-    width: width * 0.93,
-    height: height * 1.5,
-    borderColor: "#9c9c9c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingBottom: 20,
-  },
-  productImage: {
-    width: "100%",
-    height: height,
-    resizeMode: "contain",
-    borderRadius: 5,
+  ButtonContainer: {
+    flexDirection: "column",
+    marginTop: 30,
+    marginRight: 20,
+    marginLeft: 20,
+    justifyContent: "space-between",
   },
   pageTitle: {
     fontWeight: "bold",
     fontSize: 35,
-    paddingBottom: height / 10,
-  },
-  productName: {
-    paddingTop: 15,
-    paddingLeft: 5,
-    fontSize: height / 10,
-    fontWeight: "bold",
-  },
-  productDes: {
-    paddingLeft: 5,
-    fontSize: height / 13,
-    marginBottom: 10,
-    paddingBottom: 20,
   },
 });
