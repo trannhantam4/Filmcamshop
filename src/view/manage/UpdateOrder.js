@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useRoute } from '@react-navigation/native';
 import {
-  Button,
   View,
   Picker,
   Text,
@@ -8,47 +8,54 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  Alert,
   SafeAreaView
 } from "react-native";
 const { width } = Dimensions.get("window");
-import { Base64 } from "js-base64";
 const height = width * 0.6;
 
 
+
+
 export default class UpdateOrder extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state={
+      ordertStatus:'',
+      orderID:'',
+      productName:props.route.params.productName,
+      quantity:props.route.params.quantity,
+      order_temp:props.route.params.orderID,
+      address:props.route.params.address,
+      ordertStatus:props.route.params.orderDetail,
+    }
+
+  }
 
   state = {ordertStatus: ''}
   updateOrdertStatus = (ordertStatus) => {
      this.setState({ ordertStatus: ordertStatus })
   }
-  constructor(props){
-		super(props)
-		this.state={
-			orderID:'',
-			ordertStatus:'',
-		}
-	}
 
 
   checkInput = () =>{
-    const {orderID,ordertStatus} = this.state;
+    const {orderID,ordertStatus,order_temp} = this.state;
   
     if(orderID==""){
       alert("Please enter ID");
-      
     }
     else if(ordertStatus==""){
       alert("Please enter status");
-      
     } else {
     this.componentDidMount();
+    
   }
   
   }
 
-componentDidMount() {
-  const {orderID,ordertStatus} = this.state;
+ componentDidMount() {
+  const {ordertStatus, orderID, order_temp} = this.state;
+  this.setState({ orderID: order_temp})
 
   return fetch("http://www.filmcamshop.com/api/orderStatus.php",{ 
   method:'post',
@@ -73,14 +80,37 @@ componentDidMount() {
     });
 }
 render() {
+  const {orderID, ordertStatus, productName, quantity, address} = this.state;
 
   return (
     
     <View>
       <SafeAreaView>
-        <Text style={styles.pageTitle}>Update Order List</Text>
+        <Text style={styles.pageTitle}>Order Detail</Text>
       </SafeAreaView>
-      <TextInput
+
+      <View>
+        <Text>
+          Order Information
+        </Text>
+        <Text style={{
+          fontSize: width * 0.038,
+          fontSize: width * 0.049,
+          marginLeft: width * 0.075,}}>
+          {(address)}
+        </Text>
+      </View>
+
+      <View>
+        <Text style={styles.pageTitle}>{(productName)}</Text>
+      </View>
+
+      <SafeAreaView>
+        <Text style={styles.pageTitle}>{(quantity)}</Text>
+      </SafeAreaView>
+
+
+      {/* <TextInput
         style={{
           borderColor: "grey",
           padding: 10,
@@ -96,8 +126,8 @@ render() {
         keyboardType='numeric'
         maxLength={5}
         placeholder="Order ID"
-        onChangeText={orderID => this.setState({orderID})}
-      ></TextInput>
+        // onChangeText={orderID => this.setState({orderID})}
+      ></TextInput> */}
 
       <Picker
 
@@ -138,6 +168,7 @@ render() {
           borderColor: "#61d47c",
         }}
         onPress={this.checkInput}
+        
         >
 <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
@@ -145,6 +176,10 @@ render() {
     </View>
   );
 }
+
+
+
+
 }
 const styles = StyleSheet.create({
   container: {

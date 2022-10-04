@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import HeaderSc from "./Header";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 function AddressScreen() {
@@ -15,16 +16,14 @@ function AddressScreen() {
     <View
       style={{
         flex: 1,
-        marginTop: height / 4,
-        marginLeft: 15,
-        marginRight: 15,
       }}
     >
-      <Text style={{ fontWeight: "bold", fontSize: 35 }}>Địa Chỉ</Text>
-      <Text style={{ fontSize: 15, marginTop: height / 6 }}>
-        SDT: 0829 966 632
-      </Text>
-      <View style={{ flexDirection: "row" }}>
+      <HeaderSc></HeaderSc>
+      <View style={{}}>
+        <Text style={{ fontWeight: "bold", fontSize: 35 }}>Địa Chỉ</Text>
+        <Text style={{ fontSize: 15, marginTop: height / 6 }}>
+          SDT: 0829 966 632
+        </Text>
         <Text>Địa chỉ Facebook: </Text>
         <TouchableOpacity
           onPress={() => {

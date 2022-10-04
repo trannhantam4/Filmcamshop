@@ -36,6 +36,7 @@ export default class OrderManageScreen extends React.Component {
         console.error(error);
       });
   }
+  
   render() {
     if (this.state.isLoading) {
       return (
@@ -85,7 +86,7 @@ export default class OrderManageScreen extends React.Component {
                 borderRadius: 20,
                 padding: 10,
               }}
-              onPress={() => {}}
+              onPress={() => {this.props.navigation.navigate("UpdateOrder", item);}}
             >
               <Text style={{ fontWeight: "bold", fontSize: 15 }}>
                 {item.orderID}.{item.productName}
