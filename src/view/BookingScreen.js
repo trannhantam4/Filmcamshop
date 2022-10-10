@@ -17,7 +17,7 @@ import HeaderSc from "./Header";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
-function BookingScreen(navigation, route) {
+function BookingScreen({ navigation }, route) {
   const [selectedValue, setSelectedValue] = useState("Đám cưới");
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");

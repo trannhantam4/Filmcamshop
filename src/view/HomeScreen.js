@@ -19,6 +19,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import COLORS from "../consts/colors";
 import { auth } from "../../firebase";
+import { NavigationContainer } from "@react-navigation/native";
+
+import LoginScreen from "./LoginScreen";
+
 const { width } = Dimensions.get("window");
 const height = width * 0.5;
 const images = [
@@ -182,12 +186,13 @@ function HomeScreen({ navigation }) {
                   }}
                 >
                   <Image
-                    style={{ flex: 1, width: width * 0.4, borderRadius: 0 }}
+                    style={{ flex: 1, width: width * 0.4, borderRadius: 10 }}
                     source={{ uri: item.imgURL }}
                   ></Image>
                 </View>
                 <Text
-                  style={{ fontWeight: "bold", fontSize: 15, marginTop: 5 }}
+                  adjustsFontSizeToFit
+                  style={{ fontWeight: "bold", marginTop: height * 0.01 }}
                 >
                   {item.productName}
                 </Text>
@@ -195,7 +200,7 @@ function HomeScreen({ navigation }) {
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    marginTop: 5,
+                    marginTop: height * 0.01,
                   }}
                 >
                   <Text style={{ fontWeight: "bold", flex: 1 }}>
@@ -203,8 +208,8 @@ function HomeScreen({ navigation }) {
                   </Text>
                   <View
                     style={{
-                      height: 25,
-                      width: 25,
+                      height: height * 0.13,
+                      width: height * 0.13,
                       backgroundColor: COLORS.green,
                       borderRadius: 3,
                       justifyContent: "center",
@@ -252,11 +257,11 @@ const styles = StyleSheet.create({
   },
   CategoryContainer: {
     flexDirection: "row",
-    marginTop: height * 0.03,
+    marginTop: height * 0.05,
     opacity: 0.8,
     color: COLORS.white,
     marginHorizontal: width * 0.02,
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
 
   container: {
