@@ -5,19 +5,21 @@ import {
   SafeAreaView,
   ImageBackground,
   StyleSheet,
+  Picker,
   TextInput,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import Picker from "react-native-picker";
+
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import COLORS from "../consts/colors";
 import HeaderSc from "./Header";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
-function BookingScreen({ navigation }, route) {
+function BookingScreen(navigation, route) {
   const [selectedValue, setSelectedValue] = useState("Đám cưới");
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
@@ -77,83 +79,85 @@ function BookingScreen({ navigation }, route) {
   };
   return (
     <SafeAreaView style={{}}>
-      <HeaderSc></HeaderSc>
-      <ImageBackground
-        style={{ width: width, height: height }}
-        source={require("../../app/assets/market.png")}
-      >
-        <Text style={styles.pageTitle}>Đặt lịch</Text>
-        <View
-          style={{
-            backgroundColor: COLORS.white,
-            borderRadius: 40,
-            width: width * 0.7,
-            height: height / 2,
-            alignSelf: "center",
-            alignItems: "center",
-          }}
+      <KeyboardAwareScrollView>
+        <HeaderSc></HeaderSc>
+        <ImageBackground
+          style={{ width: width, height: height }}
+          source={require("../../app/assets/market.png")}
         >
-          <Text style={styles.pickDate}>{text}</Text>
-          <TouchableOpacity style={styles.button} onPress={showDatepicker}>
-            <Text style={styles.buttonText}>Chọn Ngày</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={showTimepicker}>
-            <Text style={styles.buttonText}>Chọn Giờ</Text>
-          </TouchableOpacity>
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-              minimumDate={new Date()}
-            />
-          )}
+          <Text style={styles.pageTitle}>Đặt lịch</Text>
           <View
             style={{
-              alignContent: "center",
+              backgroundColor: COLORS.white,
+              borderRadius: 40,
+              width: width * 0.7,
+              height: height / 2,
+              alignSelf: "center",
               alignItems: "center",
-              color: COLORS.green,
             }}
           >
-            <Picker
-              selectedValue={selectedValue}
+            <Text style={styles.pickDate}>{text}</Text>
+            <TouchableOpacity style={styles.button} onPress={showDatepicker}>
+              <Text style={styles.buttonText}>Date</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={showTimepicker}>
+              <Text style={styles.buttonText}>Time</Text>
+            </TouchableOpacity>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode}
+                is24Hour={true}
+                display="default"
+                onChange={onChange}
+                minimumDate={new Date()}
+              />
+            )}
+            <View
               style={{
-                height: height / 10,
-                width: width / 2.5,
-                marginTop: 10,
+                alignContent: "center",
+                alignItems: "center",
                 color: COLORS.green,
               }}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
-              }
             >
-              <Picker.Item label="Đám Cưới" value="Wedding" />
-              <Picker.Item label="Chân Dung" value="Portrial" />
-              <Picker.Item label="Thương Mại" value="Commercial" />
-              <Picker.Item label="Ảnh Gia Đình" value="Family" />
-              <Picker.Item label="Phong Cảnh" value="Landscape" />
-            </Picker>
+              <Picker
+                selectedValue={selectedValue}
+                style={{
+                  height: height / 10,
+                  width: width / 2.5,
+                  marginTop: 10,
+                  color: COLORS.green,
+                }}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedValue(itemValue)
+                }
+              >
+                <Picker.Item label="Đám Cưới" value="Wedding" />
+                <Picker.Item label="Chân Dung" value="Portrial" />
+                <Picker.Item label="Thương Mại" value="Commercial" />
+                <Picker.Item label="Ảnh Gia Đình" value="Family" />
+                <Picker.Item label="Phong Cảnh" value="Landscape" />
+              </Picker>
+            </View>
+            <TextInput
+              style={styles.input}
+              placeholder="Address"
+              onChange={(text) => setAddress(text)}
+            ></TextInput>
+            <View style={{ alignContent: "center", alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  setIsSubmit(true);
+                }}
+              >
+                <Text style={styles.buttonText}>Đặt lịch</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <TextInput
-            style={styles.input}
-            placeholder="Address"
-            onChange={(text) => setAddress(text)}
-          ></TextInput>
-          <View style={{ alignContent: "center", alignItems: "center" }}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setIsSubmit(true);
-              }}
-            >
-              <Text style={styles.buttonText}>Đặt lịch</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
@@ -162,12 +166,13 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     width: width * 0.6,
     backgroundColor: "#D9D9D9",
-    alignItems: "flex-start",
+    padding: 10,
+    borderRadius: 10,
     fontSize: height / 40,
     height: height / 15,
     fontWeight: "bold",
     borderWidth: 1,
-    alignContent: "flex-start",
+
     alignSelf: "center",
   },
   container: {
