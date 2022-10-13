@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   View,
-  Picker,
   Text,
   SafeAreaView,
   StyleSheet,
@@ -40,6 +38,15 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
           <Ionicons name="albums" style={styles.icon}></Ionicons>
           <Text style={styles.buttonText}>Order</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+          onPress={() => navigation.navigate("SearchScreen")}
+        >
+          <Ionicons name="albums" style={styles.icon}></Ionicons>
+          <Text style={styles.buttonText}>Order</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("ProductManage")}
