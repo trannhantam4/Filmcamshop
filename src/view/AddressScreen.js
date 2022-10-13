@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
+  Linking,
   StyleSheet,
   Dimensions,
+  Button,
   TouchableOpacity,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -11,6 +13,22 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import HeaderSc from "./Header";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
+
+const supportedURL = "https://www.facebook.com/FimCamShop";
+
+const unsupportedURL = "slack://open?team=123456";
+const OpenURLButton = ({ url, children }) => {
+  const handlePress = useCallback(async () => {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, [url]);
+
+  return <Button title={children} onPress={handlePress} />;
+};
 function AddressScreen() {
   return (
     <View
@@ -25,16 +43,9 @@ function AddressScreen() {
           SDT: 0829 966 632
         </Text>
         <Text>Địa chỉ Facebook: </Text>
-        <TouchableOpacity
-          onPress={() => {
-            Linking.openURL(props.url);
-          }}
-        >
-          <FontAwesome
-            name="facebook-square"
-            style={{ fontSize: 30 }}
-          ></FontAwesome>
-        </TouchableOpacity>
+        <OpenURLButton style={{ width: width / 10 }} url={supportedURL}>
+          See in Facebook
+        </OpenURLButton>
       </View>
 
       <Text style={{ fontSize: 15 }}>

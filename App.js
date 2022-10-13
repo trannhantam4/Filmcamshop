@@ -25,8 +25,8 @@ import RevenueScreen from "./src/view/admin/RevenueScreen";
 import UpdateUser from "./src/view/manage/UpdateUser";
 import OrderStatusScreen from "./src/view/OrderStatusScreen";
 import MyCart from "./src/view/MyCart";
-const Stack = createNativeStackNavigator();
 
+const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
