@@ -10,7 +10,7 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
-
+import { Base64 } from "js-base64";
 import COLORS from "../consts/colors";
 import axios from "axios";
 
