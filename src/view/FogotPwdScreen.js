@@ -14,13 +14,13 @@ import firebase from "firebase";
 import { Base64 } from "js-base64";
 import COLORS from "../consts/colors";
 import axios from "axios";
-
+import HeaderSc from "./Header";
 import { auth } from "../../firebase";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
-function LoginScreen({ Dimensions, route, navigation }) {
+function FogotPwdScreen({ Dimensions, route, navigation }) {
   const [email, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -138,49 +138,13 @@ function LoginScreen({ Dimensions, route, navigation }) {
               placeholder="Email..."
               onChangeText={(text) => setUserName(text)}
             ></TextInput>
-            <TextInput
-              style={styles.input}
-              autoComplete="password"
-              secureTextEntry={true}
-              placeholder="Password...."
-              onChangeText={(text) => setPassword(text)}
-            ></TextInput>
             <TouchableOpacity
               style={styles.btn}
               onPress={() => {
-                checkAdmin();
+                forgetPassword();
               }}
             >
-              <Text style={styles.buttonText}>Log in</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                handleSignUp();
-              }}
-            >
-              <Text style={styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ alignItems: "center", marginTop: 30 }}
-              onPress={() => {
-                navigation.navigate("Home");
-              }}
-            >
-              <Text style={{ fontSize: height / 60, color: COLORS.blue }}>
-                Just Surf products
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ alignItems: "center", marginBottom: 30, marginTop: 10 }}
-              onPress={() => {
-                navigation.navigate("FogotPwd");
-              }}
-            >
-              <Text style={{ fontSize: height / 60, color: COLORS.blue }}>
-                Forgot Password?
-              </Text>
+              <Text style={styles.buttonText}>Reset Password</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -195,6 +159,7 @@ const styles = StyleSheet.create({
     fontSize: width / 22,
   },
   btn: {
+    margin: height / 10,
     alignSelf: "center",
     borderRadius: 10,
     backgroundColor: "#fff",
@@ -281,4 +246,4 @@ const styles = StyleSheet.create({
     marginRight: width * 0.03,
   },
 });
-export default LoginScreen;
+export default FogotPwdScreen;
