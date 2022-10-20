@@ -115,6 +115,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
 
     return unsubscribe;
   }, []);
+
   return (
     <View style={{ flex: 2, backgroundColor: COLORS.green }}>
       <ImageBackground

@@ -29,7 +29,7 @@ import NumericInput from "react-native-numeric-input";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
-export default class OrderManageScreen extends React.Component {
+export default class UpdateProductScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

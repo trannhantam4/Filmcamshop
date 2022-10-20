@@ -80,7 +80,7 @@ render() {
   return (
     
     <View>
-          <SafeAreaView>
+    <SafeAreaView>
       <Text style={styles.pageTitle}>Update Order List</Text>
     </SafeAreaView>
       <TextInput

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useRoute } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import {
-  Button,
   View,
   Picker,
   Text,
@@ -8,79 +9,148 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  Alert,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 const { width } = Dimensions.get("window");
-import { Base64 } from "js-base64";
 const height = width * 0.6;
 
-
 export default class UpdateOrder extends React.Component {
-
-  state = {ordertStatus: ''}
-  updateOrdertStatus = (ordertStatus) => {
-     this.setState({ ordertStatus: ordertStatus })
+  constructor(props) {
+    super(props);
+    this.state = {
+      orderStatus: "",
+      orderID: "",
+      productName: props.route.params.productName,
+      quantity: props.route.params.quantity,
+      order_temp: props.route.params.orderID,
+      address: props.route.params.address,
+      orderStatus: props.route.params.orderDetail,
+      userEmail: props.route.params.userEmail,
+    };
   }
-  constructor(props){
-		super(props)
-		this.state={
-			orderID:'',
-			ordertStatus:'',
-		}
-	}
 
+  state = { orderStatus: "" };
+  updateorderStatus = (orderStatus) => {
+    this.setState({ orderStatus: orderStatus });
+  };
 
-  checkInput = () =>{
-    const {orderID,ordertStatus} = this.state;
-  
-    if(orderID==""){
+  checkInput = () => {
+    const { orderID, orderStatus } = this.state;
+
+    if (orderID == "") {
       alert("Please enter ID");
-      
-    }
-    else if(ordertStatus==""){
+    } else if (orderStatus == "") {
       alert("Please enter status");
-      
     } else {
-    this.componentDidMount();
-  }
-  
-  }
+      this.componentDidMount();
+    }
+  };
 
-componentDidMount() {
-  const {orderID,ordertStatus} = this.state;
+  componentDidMount() {
+    const { orderStatus, orderID, order_temp } = this.state;
+    this.setState({ orderID: order_temp });
 
-  return fetch("http://www.filmcamshop.com/api/orderStatus.php",{ 
-  method:'post',
-  header:{
-    'Accept': 'application/json',
-    'Content-type': 'application/json'
-  },
-  body:JSON.stringify({
-    // we will pass our input data to server
-    orderId: orderID,
-    orderstatus: ordertStatus
-  })})
-    .then((response) => response.json())
-    .then((responseJson) => {
-      if(responseJson === "ok"){
-        
-        alert("update order status successfuly!");
-      }
+    return fetch("http://www.filmcamshop.com/api/orderStatus.php", {
+      method: "post",
+      header: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        // we will pass our input data to server
+        orderId: orderID,
+        orderstatus: orderStatus,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if (responseJson === "ok") {
+          alert("update order status successfuly!");
+        }
       })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-render() {
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  render() {
+    const { orderID, orderStatus, productName, quantity, address, userEmail } =
+      this.state;
 
-  return (
-    
-    <View>
+    return (
       <SafeAreaView>
-        <Text style={styles.pageTitle}>Update Order List</Text>
-      </SafeAreaView>
-      <TextInput
+        <View>
+          <View style={styles.header}>
+            <Ionicons
+              name="arrow-back-outline"
+              size={28}
+              onPress={() => navigation.goBack()}
+            ></Ionicons>
+            <Ionicons name="cart-outline" size={28}></Ionicons>
+          </View>
+
+          <Text style={styles.pageTitle}>Order Detail</Text>
+
+          <View>
+            <Text>Order Information</Text>
+            <Text
+              style={{
+                fontSize: width * 0.038,
+                fontSize: width * 0.049,
+                marginLeft: width * 0.05,
+              }}
+            >
+              Customer information:
+            </Text>
+
+            <Text
+              style={{
+                fontSize: width * 0.038,
+                fontSize: width * 0.049,
+                marginLeft: width * 0.075,
+              }}
+            >
+              {userEmail}
+            </Text>
+
+            <Text
+              style={{
+                fontSize: width * 0.038,
+                fontSize: width * 0.049,
+                marginLeft: width * 0.075,
+              }}
+            >
+              "User phone number here"
+            </Text>
+
+            <Text
+              style={{
+                fontSize: width * 0.038,
+                fontSize: width * 0.049,
+                marginLeft: width * 0.075,
+              }}
+            >
+              {address}
+            </Text>
+
+            <Text
+              style={{
+                fontSize: width * 0.038,
+                fontSize: width * 0.049,
+                marginLeft: width * 0.075,
+                marginTop: height * 0.075,
+              }}
+            >
+              Product: {productName}
+            </Text>
+          </View>
+
+          <View></View>
+
+          <SafeAreaView>
+            <Text style={styles.pageTitle}>{quantity}</Text>
+          </SafeAreaView>
+
+          {/* <TextInput
         style={{
           borderColor: "grey",
           padding: 10,
@@ -96,55 +166,55 @@ render() {
         keyboardType='numeric'
         maxLength={5}
         placeholder="Order ID"
-        onChangeText={orderID => this.setState({orderID})}
-      ></TextInput>
+        // onChangeText={orderID => this.setState({orderID})}
+      ></TextInput> */}
 
-      <Picker
+          <Picker
+            style={{
+              height: height * 0.1,
+              width: width * 0.3,
+              size: height * 0.5,
+              borderColor: "grey",
+              padding: 10,
+              width: width / 2,
+              borderRadius: 5,
+              fontSize: 15,
+              fontWeight: "bold",
+              borderWidth: 1,
+              alignContent: "center",
+              alignSelf: "center",
+              marginTop: 10,
+            }}
+            selectedValue={this.state.orderStatus}
+            onValueChange={this.updateorderStatus}
+          >
+            <Picker.Item label="Packaging" value="Packaging" />
+            <Picker.Item label="Delivery" value="Delivering" />
+            <Picker.Item label="Successfull" value="Successfull" />
+          </Picker>
 
-        style={{
-          height: height * 0.1,
-          width: width * 0.3,
-          size: height * 0.5,
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        selectedValue = {this.state.ordertStatus} onValueChange = {this.updateOrdertStatus}
-      >
-        <Picker.Item label="Packaging" value="Packaging" />
-        <Picker.Item label="Delivery" value="Delivery" />
-        <Picker.Item label="Successfull" value="Successfull" />
-      </Picker>
-
-<TouchableOpacity
-        style={{
-          alignSelf: "center",
-          borderRadius: 10,
-          backgroundColor: "#fff",
-          width: width / 2,
-          marginTop: 15,
-          padding: 10,
-          borderTopWidth: 2,
-          borderLeftWidth: 2,
-          borderRightWidth: 4,
-          borderBottomWidth: 4,
-          borderColor: "#61d47c",
-        }}
-        onPress={this.checkInput}
-        >
-<Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-       
-    </View>
-  );
-}
+          <TouchableOpacity
+            style={{
+              alignSelf: "center",
+              borderRadius: 10,
+              backgroundColor: "#fff",
+              width: width / 2,
+              marginTop: 15,
+              padding: 10,
+              borderTopWidth: 2,
+              borderLeftWidth: 2,
+              borderRightWidth: 4,
+              borderBottomWidth: 4,
+              borderColor: "#61d47c",
+            }}
+            onPress={this.checkInput}
+          >
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -272,9 +342,9 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   pageTitle: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 35,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 30,
   },
 });

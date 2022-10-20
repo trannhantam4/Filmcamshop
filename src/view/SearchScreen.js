@@ -1,42 +1,73 @@
 import React, { useState, useEffect, Component } from "react";
 import {
+  Button,
   View,
   Text,
-  StyleSheet,
   FlatList,
+  StyleSheet,
   Dimensions,
   TouchableOpacity,
   ActivityIndicator,
+  TextInput
 } from "react-native";
 
-import COLORS from "../../consts/colors";
-
+import COLORS from "../consts/colors";
+import NumericInput from "react-native-numeric-input";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
-export default class OrderManageScreen extends React.Component {
+export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
       dataSource: [],
+
+      searchData: "",
     };
   }
 
+  state = { searchData: "" };
+  checkInput = () => {
+    const { searchData } = this.state;
+
+    if (searchData == "") {
+      alert("Please ask me something!");
+    } else {
+      this.componentDidMount();
+    }
+  };
+
   componentDidMount() {
-    return fetch("http://www.filmcamshop.com/api/getOrderList.php")
+    
+    const { searchData } = this.state;
+
+    return fetch("http://www.filmcamshop.com/api/searchFunction.php", {
+      method: "post",
+      header: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        // we will pass our input data to server
+        searchData: searchData,
+      }),
+    })
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
-          dataSource: responseJson.orders,
+          dataSource: responseJson.results,
           isLoading: false,
         });
+
+        alert(responseJson)
+
       })
       .catch((error) => {
         console.error(error);
       });
   }
-  
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -55,23 +86,36 @@ export default class OrderManageScreen extends React.Component {
           marginHorizontal: width * 0.05,
         }}
       >
+
         <View
           style={{
-            flexDirection: "row",
-            padding: 20,
-            width: width,
-            height: height * 0.09,
+            marginTop: height / 10,
+            backgroundColor: COLORS.white,
+            borderRadius: 40,
+            width: width * 0.7,
+            alignSelf: "center",
+            alignItems: "center",
           }}
         >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.props.navigation.navigate("UpdateOrder");
-            }}
-          >
-            <Text style={styles.buttonText}>Update</Text>
-          </TouchableOpacity>
+          <View style={{ marginTop: height / 20 }}>
+            <TextInput
+              style={styles.input}
+              placeholder="Looking for somethings..?"
+              onChangeText={(text) => this.setState({searchData:text})}
+            ></TextInput>
+
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => {
+                this.checkInput();
+              }}
+            >
+              <Text style={styles.buttonText}>Search</Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
+
         <FlatList
           style={{
             marginTop: height * 0.03,
@@ -89,32 +133,9 @@ export default class OrderManageScreen extends React.Component {
               onPress={() => {this.props.navigation.navigate("UpdateOrder", item);}}
             >
               <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                {item.orderID}.{item.productName}
+                {item.productName}
               </Text>
-              <Text>Quantity: {item.quantity}</Text>
-              <Text>{item.address}</Text>
-              <Text
-                style={{
-                  padding: 5,
-                  borderWidth: 2,
-                  borderRadius: 30,
-                  alignItems: "center",
-                  alignContent: "center",
-                  width: width * 0.3,
-                  fontWeight: "bold",
-                  fontSize: 20,
-                  borderColor:
-                    item.orderDetail == "awaiting" ? COLORS.red : COLORS.green,
-                  backgroundColor:
-                    item.orderDetail == "awaiting" ? "#ffc2c2" : COLORS.green,
 
-                  color:
-                    item.orderDetail == "awaiting" ? COLORS.red : COLORS.green,
-                }}
-              >
-                {item.orderDetail}
-              </Text>
-              <Text>{item.date}</Text>
             </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index}
@@ -124,6 +145,40 @@ export default class OrderManageScreen extends React.Component {
   }
 }
 const styles = StyleSheet.create({
+  buttonText: {
+    color: COLORS.green,
+    fontWeight: "bold",
+    fontSize: width / 22,
+  },
+  btn: {
+    alignSelf: "center",
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    width: width / 2.3,
+    marginTop: 15,
+    alignItems: "center",
+    padding: 10,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 4,
+    borderBottomWidth: 4,
+    borderColor: "#61d47c",
+  },
+  input: {
+    borderColor: "grey",
+    padding: 10,
+    width: width * 0.6,
+    backgroundColor: "#D9D9D9",
+    borderRadius: 10,
+    alignItems: "center",
+    fontSize: height / 40,
+    height: height / 15,
+    fontWeight: "bold",
+    borderWidth: 1,
+    alignContent: "center",
+    alignSelf: "center",
+    marginTop: height / 40,
+  },
   buyBtn: {
     backgroundColor: COLORS.green,
     borderRadius: 25,
@@ -172,66 +227,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  header: {
-    marginLeft: 20,
-    marginRight: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   detailContainer: {
-    height: height * 1,
+    height: height * 1.7,
     backgroundColor: COLORS.light,
     borderRadius: 20,
     paddingTop: 30,
     marginTop: height * 0.1,
     marginLeft: width * 0.03,
     marginRight: width * 0.03,
-  },
-  buttonMenuTop: {
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    shadowColor: "gray",
-    textAlign: "center",
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    padding: 10,
-    marginTop: 20,
-    borderRadius: 5,
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderColor: "#61d47c",
-  },
-  CategoryContainer: {
-    flexDirection: "row",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  button: {
-    marginHorizontal: width * 0.02,
-    width: width * 0.4,
-    backgroundColor: "#fff",
-    height: height * 0.05,
-    borderRadius: 10,
-    alignContent: "center",
-    alignItems: "center",
-    borderColor: "#61d47c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-  },
-  ButtonContainer: {
-    flexDirection: "column",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-    justifyContent: "space-between",
-  },
-  pageTitle: {
-    fontWeight: "bold",
-    fontSize: 35,
   },
 });
