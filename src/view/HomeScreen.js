@@ -20,10 +20,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import COLORS from "../consts/colors";
 import { auth } from "../../firebase";
 import { NavigationContainer } from "@react-navigation/native";
-
 import LoginScreen from "./LoginScreen";
-
 const { width } = Dimensions.get("window");
+
 const height = width * 0.5;
 const images = [
   "https://lh3.googleusercontent.com/gyAvgly0xYf0JOdr7oVbUn1EZ1a3XhyvbrVs73iizK_dZO-Gp3oxNiLh2qYX8t91zP-d3evUtIaqkTu0ZO29PClWhXi3BUGg5ETFp3asK5hLCbG3sx_oL8gfmciLmMrWEISSufOYjSeseMdGCsc0YompwflHl40NiLXTkKq4jlV7eQ0-ADtPwoBFsNmKCwY2oyaIn7L3LV5uDlp2I3FX3tK5Jk6-l66YMdr4g6lLwJfGThsF-9XrC1FbJ6fh1732ivlA_NlZlmtxOszulgk_wpVXLGm-j9w6QmGLw8yiDXCjvfql_gf0vLdToW-x8B7R32zdTnvennAh72o4O3QmtPEePS-YS65IGrZBGVjGdN3MbTYorLH71eZtT0G1b7esuf2Ecc4tRtn9fmHi5V78nDJahuyHfg0L_6zRGL_sfHh59BjFZFhG23CpkOBtofYhOO4B1sqfyNen26lU6WwCGomYsZiu-iedghv1ABXSKHjSasMJYTHDD7Jkx4WWY0MPlvFaCnW1y_eX2mAj_jvhbbePqFsy_cbCBIQLHc98kk4uOaa1zj7y35YiMCk58HF5bvlmpRyrt3LtduuY--amr7gt5OluZ-EqXBNYsdRadKXvEIYnDCJdsMqtnUzlqb6qEmKhH0-JGv-0L3PdHxZ430Q1OELCcTd5d6AsDcbeoyOGkcyRjGE2b5WpN_xnAqQvuRDYdVzsoPlsrpwe2vPpnp2J=w1295-h870-no?authuser=1",
@@ -186,6 +185,7 @@ function HomeScreen({ navigation }) {
                   }}
                 >
                   <Image
+
                     style={{ flex: 1, width: width * 0.4, borderRadius: 10 }}
                     source={{ uri: item.imgURL }}
                   ></Image>
@@ -194,16 +194,18 @@ function HomeScreen({ navigation }) {
                   adjustsFontSizeToFit
                   style={{ fontWeight: "bold", marginTop: height * 0.01 }}
                 >
+
                   {item.productName}
                 </Text>
                 <View
                   style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    marginTop: height * 0.01,
-                  }}
-                >
-                  <Text style={{ fontWeight: "bold", flex: 1 }}>
+
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: 5,
+                  }}>
+                  <Text style={{ fontWeight: 'bold', flex: 1 }}>
+
                     {item.price} k vnđ
                   </Text>
                   <View
@@ -256,14 +258,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   CategoryContainer: {
+
     flexDirection: "row",
     marginTop: height * 0.05,
     opacity: 0.8,
     color: COLORS.white,
     marginHorizontal: width * 0.02,
     justifyContent: "center",
-  },
 
+  },
   container: {
     flex: 2,
     backgroundColor: "#D9D9D9",
@@ -319,8 +322,10 @@ const styles = StyleSheet.create({
   },
   header: {
     marginHorizontal: 0,
+
     marginVertical: height * 0.05,
     flexDirection: "row",
+
     backgroundColor: COLORS.green,
     justifyContent: "space-between",
   },
