@@ -6,8 +6,10 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
+  ImageBackground,
   ActivityIndicator,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import COLORS from "../../consts/colors";
 
@@ -36,7 +38,7 @@ export default class OrderManageScreen extends React.Component {
         console.error(error);
       });
   }
-  
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -47,79 +49,93 @@ export default class OrderManageScreen extends React.Component {
     }
 
     return (
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: height * 0.08,
-          marginHorizontal: width * 0.05,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            padding: 20,
-            width: width,
-            height: height * 0.09,
-          }}
+      <SafeAreaView style={{ marginBottom: height * 0.5 }}>
+        <ImageBackground
+          style={{ width: width, height: height }}
+          source={require("../../../app/assets/market.png")}
         >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.props.navigation.navigate("UpdateOrder");
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: height * 0.08,
+              marginHorizontal: width * 0.05,
             }}
           >
-            <Text style={styles.buttonText}>Update</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          style={{
-            marginTop: height * 0.03,
-          }}
-          data={this.state.dataSource}
-          renderItem={({ item }) => (
-            <TouchableOpacity
+            <View
               style={{
-                width: width * 0.8,
-                borderColor: COLORS.green,
-                borderWidth: 2,
-                borderRadius: 20,
-                padding: 10,
+                flexDirection: "row",
+                padding: 20,
+                width: width,
+                height: height * 0.09,
               }}
-              onPress={() => {this.props.navigation.navigate("UpdateOrder", item);}}
             >
-              <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                {item.orderID}.{item.productName}
-              </Text>
-              <Text>Quantity: {item.quantity}</Text>
-              <Text>{item.address}</Text>
-              <Text
-                style={{
-                  padding: 5,
-                  borderWidth: 2,
-                  borderRadius: 30,
-                  alignItems: "center",
-                  alignContent: "center",
-                  width: width * 0.3,
-                  fontWeight: "bold",
-                  fontSize: 20,
-                  borderColor:
-                    item.orderDetail == "awaiting" ? COLORS.red : COLORS.green,
-                  backgroundColor:
-                    item.orderDetail == "awaiting" ? "#ffc2c2" : COLORS.green,
-
-                  color:
-                    item.orderDetail == "awaiting" ? COLORS.red : COLORS.green,
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  this.props.navigation.navigate("UpdateOrder");
                 }}
               >
-                {item.orderDetail}
-              </Text>
-              <Text>{item.date}</Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
+                <Text style={styles.buttonText}>Update</Text>
+              </TouchableOpacity>
+            </View>
+            <FlatList
+              style={{
+                marginTop: height * 0.03,
+                marginBottom: height * 0.15,
+              }}
+              data={this.state.dataSource}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={{
+                    width: width * 0.8,
+                    borderColor: COLORS.green,
+                    borderWidth: 2,
+                    borderRadius: 20,
+                    padding: 10,
+                    backgroundColor: COLORS.white,
+                  }}
+                  onPress={() => {
+                    this.props.navigation.navigate("UpdateOrder", item);
+                  }}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                    {item.orderID}.{item.productName}
+                  </Text>
+                  <Text>Quantity: {item.quantity}</Text>
+                  <Text>{item.address}</Text>
+                  <Text
+                    style={{
+                      padding: 5,
+                      borderWidth: 2,
+                      borderRadius: 30,
+                      alignItems: "center",
+                      alignContent: "center",
+                      width: width * 0.35,
+                      fontWeight: "bold",
+                      fontSize: 20,
+                      borderColor:
+                        item.orderDetail == "awaiting"
+                          ? COLORS.red
+                          : COLORS.green,
+                      backgroundColor:
+                        item.orderDetail == "awaiting"
+                          ? "#ffc2c2"
+                          : COLORS.green,
+                      alignContent: "center",
+                      color: COLORS.white,
+                    }}
+                  >
+                    {item.orderDetail}
+                  </Text>
+                  <Text>{item.date}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index}
+            />
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }

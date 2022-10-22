@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { ImageBackground } from "react-native";
 import COLORS from "../../consts/colors";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
@@ -22,70 +23,67 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
       style={{
         width: width,
         height: height,
-        paddingLeft: width * 0.06,
-        paddingTop: height * 0.05,
+
         backgroundColor: COLORS.white,
       }}
     >
-      <View>
-        <Text style={styles.pageTitle}>Admin page</Text>
-      </View>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("AdminOrder")}
-        >
-          <Ionicons name="albums" style={styles.icon}></Ionicons>
-          <Text style={styles.buttonText}>Order</Text>
-        </TouchableOpacity>
+      <ImageBackground
+        style={{ width: width, height: height }}
+        source={require("../../../app/assets/market.png")}
+      >
+        <View>
+          <Text style={styles.pageTitle}>Admin page</Text>
+        </View>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => navigation.navigate("AdminOrder")}
+          >
+            <Ionicons name="albums" style={styles.icon}></Ionicons>
+            <Text style={styles.buttonText}>Order</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("SearchScreen")}
-        >
-          <Ionicons name="albums" style={styles.icon}></Ionicons>
-          <Text style={styles.buttonText}>Order</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => navigation.navigate("SearchScreen")}
+          >
+            <Ionicons name="albums" style={styles.icon}></Ionicons>
+            <Text style={styles.buttonText}>Order</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("ProductManage")}
-        >
-          <Ionicons name="camera" style={styles.icon}></Ionicons>
-          <Text style={styles.buttonText}>Update Product</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("PhotoshootManage")}
-        >
-          <Ionicons name="bookmark" style={styles.icon}></Ionicons>
-          <Text style={styles.buttonText}>Photoshoot Order</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("UserManage")}
-        >
-          <Ionicons name="people-sharp" style={styles.icon}></Ionicons>
-          <Text style={styles.buttonText}>User Manage</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("StaffManage")}
-        >
-          <Ionicons name="people-outline" style={styles.icon}></Ionicons>
-          <Text style={styles.buttonText}>Staff Manage</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("Revenue+")}
-        >
-          <Ionicons name="bar-chart" style={styles.icon}></Ionicons>
-          <Text style={styles.buttonText}>Revenues</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => navigation.navigate("ProductManage")}
+          >
+            <Ionicons name="camera" style={styles.icon}></Ionicons>
+            <Text style={styles.buttonText}>Update Product</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => navigation.navigate("PhotoshootManage")}
+          >
+            <Ionicons name="bookmark" style={styles.icon}></Ionicons>
+            <Text style={styles.buttonText}>Photoshoot Order</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => navigation.navigate("UserManage")}
+          >
+            <Ionicons name="people-sharp" style={styles.icon}></Ionicons>
+            <Text style={styles.buttonText}>User Manage</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => navigation.navigate("Revenue+")}
+          >
+            <Ionicons name="bar-chart" style={styles.icon}></Ionicons>
+            <Text style={styles.buttonText}>Revenues</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.header}></View>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
@@ -179,6 +177,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   pageTitle: {
+    paddingLeft: width * 0.06,
+    paddingTop: height * 0.05,
     fontWeight: "bold",
     fontSize: 35,
   },

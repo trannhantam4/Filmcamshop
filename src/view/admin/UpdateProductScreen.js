@@ -61,63 +61,65 @@ export default class UpdateProductScreen extends React.Component {
     }
 
     return (
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: height * 0.08,
-          marginHorizontal: width * 0.05,
-        }}
-      >
+      <SafeAreaView>
         <View
           style={{
-            flexDirection: "row",
-            padding: 20,
-            width: width,
-            height: height * 0.09,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: height * 0.08,
+            marginHorizontal: width * 0.05,
           }}
         >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.props.navigation.navigate("AddProduct");
+          <View
+            style={{
+              flexDirection: "row",
+              padding: 20,
+              width: width,
+              height: height * 0.09,
             }}
           >
-            <Text style={styles.buttonText}>Add</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.props.navigation.navigate("UpdateProduct");
-            }}
-          >
-            <Text style={styles.buttonText}>Update Product</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          style={{ marginTop: height * 0.01 }}
-          data={this.state.dataSource}
-          renderItem={({ item }) => (
             <TouchableOpacity
-              style={{ margin: height * 0.01 }}
+              style={styles.button}
+              onPress={() => {
+                this.props.navigation.navigate("AddProduct");
+              }}
+            >
+              <Text style={styles.buttonText}>Add</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
               onPress={() => {
                 this.props.navigation.navigate("UpdateProduct");
               }}
             >
-              <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-                {item.productID}.{item.productName}
-              </Text>
-              <Image
-                style={{ width: width * 0.8, height: height * 0.3 }}
-                source={{ uri: item.imgURL }}
-              ></Image>
-              <Text>Quantity: {item.quantity}</Text>
-              <Text>{item.productDescription}</Text>
+              <Text style={styles.buttonText}>Update Product</Text>
             </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
+          </View>
+          <FlatList
+            style={{ marginTop: height * 0.01 }}
+            data={this.state.dataSource}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={{ margin: height * 0.01 }}
+                onPress={() => {
+                  this.props.navigation.navigate("UpdateProduct");
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  {item.productID}.{item.productName}
+                </Text>
+                <Image
+                  style={{ width: width * 0.8, height: height * 0.3 }}
+                  source={{ uri: item.imgURL }}
+                ></Image>
+                <Text>Quantity: {item.quantity}</Text>
+                <Text>{item.productDescription}</Text>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index}
+          />
+        </View>
+      </SafeAreaView>
     );
   }
 }

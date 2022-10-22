@@ -11,6 +11,8 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
+import HeaderSc from "../Header";
+import COLORS from "../../consts/colors";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 
@@ -57,7 +59,6 @@ export default class UpdateOrder extends React.Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        // we will pass our input data to server
         orderId: orderID,
         orderstatus: orderStatus,
       }),
@@ -78,96 +79,92 @@ export default class UpdateOrder extends React.Component {
 
     return (
       <SafeAreaView>
+        <HeaderSc></HeaderSc>
         <View>
-          <View style={styles.header}>
-            <Ionicons
-              name="arrow-back-outline"
-              size={28}
-              onPress={() => navigation.goBack()}
-            ></Ionicons>
-            <Ionicons name="cart-outline" size={28}></Ionicons>
-          </View>
-
           <Text style={styles.pageTitle}>Order Detail</Text>
 
           <View>
-            <Text>Order Information</Text>
-            <Text
-              style={{
-                fontSize: width * 0.038,
-                fontSize: width * 0.049,
-                marginLeft: width * 0.05,
-              }}
-            >
-              Customer information:
-            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: width * 0.038,
+                  marginLeft: width * 0.05,
+                }}
+              >
+                Customer:
+              </Text>
 
-            <Text
-              style={{
-                fontSize: width * 0.038,
-                fontSize: width * 0.049,
-                marginLeft: width * 0.075,
-              }}
-            >
-              {userEmail}
-            </Text>
+              <Text
+                style={{
+                  fontSize: width * 0.038,
+                  marginLeft: width * 0.075,
+                }}
+              >
+                {userEmail}
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: width * 0.038,
+                  marginLeft: width * 0.05,
+                }}
+              >
+                Address:
+              </Text>
 
-            <Text
-              style={{
-                fontSize: width * 0.038,
-                fontSize: width * 0.049,
-                marginLeft: width * 0.075,
-              }}
-            >
-              "User phone number here"
-            </Text>
+              <Text
+                style={{
+                  fontSize: width * 0.038,
+                  marginLeft: width * 0.075,
+                }}
+              >
+                {address}
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: width * 0.038,
+                  marginLeft: width * 0.05,
+                }}
+              >
+                Product:
+              </Text>
 
-            <Text
-              style={{
-                fontSize: width * 0.038,
-                fontSize: width * 0.049,
-                marginLeft: width * 0.075,
-              }}
-            >
-              {address}
-            </Text>
+              <Text
+                style={{
+                  fontSize: width * 0.038,
+                  marginLeft: width * 0.075,
+                }}
+              >
+                {productName}
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: width * 0.038,
+                  marginLeft: width * 0.05,
+                }}
+              >
+                Quantity:
+              </Text>
 
-            <Text
-              style={{
-                fontSize: width * 0.038,
-                fontSize: width * 0.049,
-                marginLeft: width * 0.075,
-                marginTop: height * 0.075,
-              }}
-            >
-              Product: {productName}
-            </Text>
+              <Text
+                style={{
+                  fontSize: width * 0.038,
+                  marginLeft: width * 0.075,
+                }}
+              >
+                {quantity}
+              </Text>
+            </View>
           </View>
-
-          <View></View>
-
-          <SafeAreaView>
-            <Text style={styles.pageTitle}>{quantity}</Text>
-          </SafeAreaView>
-
-          {/* <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: height / 3,
-        }}
-        keyboardType='numeric'
-        maxLength={5}
-        placeholder="Order ID"
-        // onChangeText={orderID => this.setState({orderID})}
-      ></TextInput> */}
 
           <Picker
             style={{
@@ -175,14 +172,12 @@ export default class UpdateOrder extends React.Component {
               width: width * 0.3,
               size: height * 0.5,
               borderColor: "grey",
-              padding: 10,
+              padding: height / 10,
               width: width / 2,
-              borderRadius: 5,
-              fontSize: 15,
+              fontSize: height * 0.15,
               fontWeight: "bold",
               borderWidth: 1,
-              alignContent: "center",
-              alignSelf: "center",
+              marginLeft: height / 15,
               marginTop: 10,
             }}
             selectedValue={this.state.orderStatus}
@@ -194,19 +189,7 @@ export default class UpdateOrder extends React.Component {
           </Picker>
 
           <TouchableOpacity
-            style={{
-              alignSelf: "center",
-              borderRadius: 10,
-              backgroundColor: "#fff",
-              width: width / 2,
-              marginTop: 15,
-              padding: 10,
-              borderTopWidth: 2,
-              borderLeftWidth: 2,
-              borderRightWidth: 4,
-              borderBottomWidth: 4,
-              borderColor: "#61d47c",
-            }}
+            style={styles.buttonMenuTop}
             onPress={this.checkInput}
           >
             <Text style={styles.buttonText}>Submit</Text>
@@ -234,6 +217,7 @@ const styles = StyleSheet.create({
     width: "28%",
     backgroundColor: "#fff",
     padding: 10,
+    alignSelf: "center",
     marginTop: 20,
     borderRadius: 5,
     borderTopWidth: 2,
@@ -344,7 +328,8 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontWeight: "bold",
     fontSize: 35,
-    textAlign: "center",
-    marginTop: 30,
+    marginLeft: width / 12,
+    marginTop: height / 10,
+    marginBottom: height / 10,
   },
 });
