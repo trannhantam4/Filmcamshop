@@ -10,6 +10,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { auth } from "../../firebase";
 import COLORS from "../consts/colors";
 import HeaderSc from "./Header";
@@ -59,77 +60,80 @@ export default class OrderManageScreen extends React.Component {
     return (
       <View>
         <HeaderSc></HeaderSc>
-        <ScrollView>
-          <View
-            style={{
-              width: width,
-              height: height,
-              alignContent: "center",
-              backgroundColor: "#bfbfbf",
-            }}
-          >
-            <ImageBackground
-              style={{ width: width, height: height }}
-              source={require("../../app/assets/market.png")}
-            >
-              <FlatList
-                style={{
-                  marginTop: height * 0.03,
-                }}
-                data={this.state.dataSource}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={{
-                      width: width * 0.9,
-                      alignSelf: "center",
-                      backgroundColor: COLORS.white,
-                      marginBottom: height * 0.01,
-                      borderRadius: 20,
-                      padding: 10,
-                    }}
-                    onPress={() => {}}
-                  >
-                    <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                      {item.productName}
-                    </Text>
 
-                    <Text>Quantity: {item.quantity}</Text>
-                    <Text>Ordered at: {item.date}</Text>
-                    <Text>Address: {item.address}</Text>
-                    <Text
+        <View
+          style={{
+            width: width,
+            height: height,
+            alignContent: "center",
+            backgroundColor: "#bfbfbf",
+          }}
+        >
+          <ImageBackground
+            style={{ width: width, height: height }}
+            source={require("../../app/assets/market.png")}
+          >
+            <SafeAreaView>
+              <ScrollView>
+                <FlatList
+                  style={{
+                    marginTop: height * 0.03,
+                  }}
+                  data={this.state.dataSource}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity
                       style={{
-                        padding: 5,
-                        borderWidth: 2,
-                        borderRadius: 30,
-                        alignItems: "center",
-                        alignContent: "center",
-                        textAlign: "center",
-                        width: width * 0.4,
-                        fontWeight: "bold",
-                        fontSize: 20,
-                        borderColor:
-                          item.orderDetail == "awaiting" ||
-                          item.orderDetail == "canceled"
-                            ? COLORS.red
-                            : COLORS.green,
-                        backgroundColor:
-                          item.orderDetail == "awaiting" ||
-                          item.orderDetail == "canceled"
-                            ? "#ffc2c2"
-                            : "#b0fcac",
-                        color: COLORS.white,
+                        width: width * 0.9,
+                        alignSelf: "center",
+                        backgroundColor: COLORS.white,
+                        marginBottom: height * 0.01,
+                        borderRadius: 20,
+                        padding: 10,
                       }}
+                      onPress={() => {}}
                     >
-                      {item.orderDetail}
-                    </Text>
-                    <Text>{item.date}</Text>
-                  </TouchableOpacity>
-                )}
-                keyExtractor={(item, index) => index}
-              />
-            </ImageBackground>
-          </View>
-        </ScrollView>
+                      <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                        {item.productName}
+                      </Text>
+
+                      <Text>Quantity: {item.quantity}</Text>
+                      <Text>Ordered at: {item.date}</Text>
+                      <Text>Address: {item.address}</Text>
+                      <Text
+                        style={{
+                          padding: 5,
+                          borderWidth: 2,
+                          borderRadius: 30,
+                          alignItems: "center",
+                          alignContent: "center",
+                          textAlign: "center",
+                          width: width * 0.4,
+                          fontWeight: "bold",
+                          fontSize: 20,
+                          borderColor:
+                            item.orderDetail == "awaiting" ||
+                            item.orderDetail == "canceled"
+                              ? COLORS.red
+                              : COLORS.green,
+                          backgroundColor:
+                            item.orderDetail == "awaiting" ||
+                            item.orderDetail == "canceled"
+                              ? "#ffc2c2"
+                              : "#b0fcac",
+                          color: COLORS.white,
+                        }}
+                      >
+                        {item.orderDetail}
+                      </Text>
+                      <Text>{item.date}</Text>
+                    </TouchableOpacity>
+                  )}
+                  keyExtractor={(item, index) => index}
+                />
+              </ScrollView>
+            </SafeAreaView>
+          </ImageBackground>
+        </View>
       </View>
     );
   }

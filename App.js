@@ -24,7 +24,7 @@ import UpdateOrder from "./src/view/manage/UpdateOrder";
 import RevenueScreen from "./src/view/admin/RevenueScreen";
 import UpdateUser from "./src/view/manage/UpdateUser";
 import OrderStatusScreen from "./src/view/OrderStatusScreen";
-import MyCart from "./src/view/MyCart";
+
 import FogotPwdScreen from "./src/view/FogotPwdScreen";
 
 const Stack = createNativeStackNavigator();
@@ -42,11 +42,7 @@ function App() {
           component={FogotPwdScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="MyCart"
-          component={MyCart}
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="OrderStatus"
           component={OrderStatusScreen}

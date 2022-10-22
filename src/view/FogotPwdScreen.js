@@ -22,30 +22,6 @@ const { height } = Dimensions.get("screen");
 
 function FogotPwdScreen({ Dimensions, route, navigation }) {
   const [email, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-
-  const adminLog = async () => {
-    axios
-      .post(
-        "http://www.filmcamshop.com/api/adminLogin.php",
-        JSON.stringify({
-          email: email,
-          password: password,
-        })
-      )
-      .then((response) => response.data)
-      .then((responseJson) => {
-        if (responseJson === "ok") {
-          alert("Sign up Success!");
-          navigation.navigate("AdminScreen");
-        } else {
-          alert("Wrong email or password");
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
 
   const forgetPassword = () => {
     firebase
@@ -59,53 +35,6 @@ function FogotPwdScreen({ Dimensions, route, navigation }) {
       });
   };
 
-  const authenticate = async () => {
-    axios
-      .post(
-        "http://www.filmcamshop.com/api/userRegistration.php",
-        JSON.stringify({
-          email: email,
-          password: password,
-        })
-      )
-      .then((response) => response.data)
-      .then((responseJson) => {
-        if (responseJson === "ok") {
-          alert("Sign up Success!");
-          navigation.navigate("Home");
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
-  const checkAdmin = () => {
-    let regex = /^[A-Za-z0-9._%+-]+@filmcamshop\.com$/;
-    if (regex.test(email) == false) {
-      handleLogIn();
-    } else {
-      adminLog();
-    }
-  };
-  const handleLogIn = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Logged in with", user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
-  const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log(user.email);
-        authenticate();
-      })
-      .catch((error) => alert(error.message));
-  };
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
