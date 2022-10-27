@@ -5,15 +5,17 @@ import {
   StyleSheet,
   FlatList,
   Dimensions,
+  ImageBackground,
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-
+import { ScrollView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../../consts/colors";
-
+import HeaderSc from "../Header";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
-
+const [date, setDate] = "";
 export default class RevenueScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -22,11 +24,86 @@ export default class RevenueScreen extends React.Component {
       dataSource: [],
     };
   }
-
+  componentDidMount() {
+    return fetch("http://www.filmcamshop.com/api/getRevenue.php", {
+      method: "POST",
+      headers: {
+        Accepts: "applicattion/json",
+        "Content-Type": "application.json",
+      },
+      body: JSON.stringify({
+        date: date,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          dataSource: responseJson.orders,
+          isLoading: false,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
     return (
-      <View style={{ flex: 1, paddingTop: 20 }}>
-        <Text>Revenue</Text>
+      <View>
+        <HeaderSc></HeaderSc>
+
+        <View
+          style={{
+            width: width,
+            height: height,
+            alignContent: "center",
+            backgroundColor: "#bfbfbf",
+          }}
+        >
+          <ImageBackground
+            style={{ width: width, height: height }}
+            source={require("../../../app/assets/market.png")}
+          >
+            <SafeAreaView>
+              <ScrollView>
+                <FlatList
+                  style={{
+                    marginTop: height * 0.03,
+                    marginBottom: height * 0.01,
+                  }}
+                  data={this.state.dataSource}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity
+                      style={{
+                        width: width * 0.9,
+                        alignSelf: "center",
+                        backgroundColor: COLORS.white,
+                        marginBottom: height * 0.01,
+                        borderRadius: 20,
+                        padding: 10,
+                      }}
+                      onPress={() => {}}
+                    >
+                      <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                        {item.productName}
+                      </Text>
+
+                      <Text>Sold: {item.quantity}</Text>
+                      <Text>Revenue: {item.price}</Text>
+                    </TouchableOpacity>
+                  )}
+                  keyExtractor={(item, index) => index}
+                />
+              </ScrollView>
+            </SafeAreaView>
+          </ImageBackground>
+        </View>
       </View>
     );
   }

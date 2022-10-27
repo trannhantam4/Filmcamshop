@@ -21,10 +21,10 @@ import AddProduct from "./src/view/manage/AddProduct";
 import UpdateBooking from "./src/view/manage/UpdateBooking";
 import AddUser from "./src/view/manage/AddUser";
 import UpdateOrder from "./src/view/manage/UpdateOrder";
-import RevenueScreen from "./src/view/admin/RevenueScreen";
+
 import UpdateUser from "./src/view/manage/UpdateUser";
 import OrderStatusScreen from "./src/view/OrderStatusScreen";
-
+import RevenueScreen from "./src/view/admin/RevenueScreen";
 import FogotPwdScreen from "./src/view/FogotPwdScreen";
 
 const Stack = createNativeStackNavigator();

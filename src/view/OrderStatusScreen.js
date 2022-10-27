@@ -78,6 +78,7 @@ export default class OrderManageScreen extends React.Component {
                 <FlatList
                   style={{
                     marginTop: height * 0.03,
+                    marginBottom: height * 0.01,
                   }}
                   data={this.state.dataSource}
                   renderItem={({ item }) => (

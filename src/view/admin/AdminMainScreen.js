@@ -76,7 +76,7 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonMenuTop}
-            onPress={() => navigation.navigate("Revenue+")}
+            onPress={() => navigation.navigate("Revenue")}
           >
             <Ionicons name="bar-chart" style={styles.icon}></Ionicons>
             <Text style={styles.buttonText}>Revenues</Text>
