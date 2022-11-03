@@ -71,6 +71,7 @@ function FogotPwdScreen({ Dimensions, route, navigation }) {
               style={styles.btn}
               onPress={() => {
                 forgetPassword();
+                navigation.navigate("Login");
               }}
             >
               <Text style={styles.buttonText}>Reset Password</Text>

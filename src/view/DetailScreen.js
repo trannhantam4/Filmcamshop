@@ -28,6 +28,7 @@ function DetailScreen({ route, navigation }) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState(auth.currentUser?.email);
+  const price = item.price;
   useEffect(() => {
     const authenticate = async () => {
       axios
@@ -38,12 +39,14 @@ function DetailScreen({ route, navigation }) {
             quantity: quantity,
             email: email,
             address: address,
+            price: price,
           })
         )
         .then((response) => response.data)
         .then((responseJson) => {
           if (responseJson === "no") {
             alert("This product is out of stock!");
+
             navigation.navigate("Home");
           } else {
             alert(quantity + " product ordered!");
@@ -104,6 +107,7 @@ function DetailScreen({ route, navigation }) {
                   padding: width * 0.03,
                   fontSize: width * 0.04,
                 }}
+                textBreakStrategy
               >
                 {item.price} k VND
               </Text>

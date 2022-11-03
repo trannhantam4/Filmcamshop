@@ -8,7 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ActivityIndicator,
-  TextInput
+  TextInput,
 } from "react-native";
 
 import COLORS from "../consts/colors";
@@ -16,13 +16,12 @@ import NumericInput from "react-native-numeric-input";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
-export default class SearchScreen extends React.Component {
+export default class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
       dataSource: [],
-
       searchData: "",
     };
   }
@@ -39,7 +38,6 @@ export default class SearchScreen extends React.Component {
   };
 
   componentDidMount() {
-    
     const { searchData } = this.state;
 
     return fetch("http://www.filmcamshop.com/api/searchFunction.php", {
@@ -49,7 +47,6 @@ export default class SearchScreen extends React.Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        // we will pass our input data to server
         searchData: searchData,
       }),
     })
@@ -60,8 +57,7 @@ export default class SearchScreen extends React.Component {
           isLoading: false,
         });
 
-        alert(responseJson)
-
+        alert(responseJson);
       })
       .catch((error) => {
         console.error(error);
@@ -86,7 +82,6 @@ export default class SearchScreen extends React.Component {
           marginHorizontal: width * 0.05,
         }}
       >
-
         <View
           style={{
             marginTop: height / 10,
@@ -101,7 +96,7 @@ export default class SearchScreen extends React.Component {
             <TextInput
               style={styles.input}
               placeholder="Looking for somethings..?"
-              onChangeText={(text) => this.setState({searchData:text})}
+              onChangeText={(text) => this.setState({ searchData: text })}
             ></TextInput>
 
             <TouchableOpacity
@@ -112,7 +107,6 @@ export default class SearchScreen extends React.Component {
             >
               <Text style={styles.buttonText}>Search</Text>
             </TouchableOpacity>
-
           </View>
         </View>
 
@@ -130,12 +124,13 @@ export default class SearchScreen extends React.Component {
                 borderRadius: 20,
                 padding: 10,
               }}
-              onPress={() => {this.props.navigation.navigate("UpdateOrder", item);}}
+              onPress={() => {
+                this.props.navigation.navigate("UpdateOrder", item);
+              }}
             >
               <Text style={{ fontWeight: "bold", fontSize: 15 }}>
                 {item.productName}
               </Text>
-
             </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index}

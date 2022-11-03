@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  ImageBackground,
   TextInput,
   Alert,
 } from "react-native";
@@ -178,7 +179,7 @@ export default function UpdateProduct({ navigation, route }) {
     }
   }, [isSubmit]);
   return (
-    <View>
+    <View style={{ height: height, width: width }}>
       <TextInput
         style={{
           borderColor: "grey",
@@ -187,6 +188,7 @@ export default function UpdateProduct({ navigation, route }) {
           borderRadius: 5,
           fontSize: 15,
           fontWeight: "bold",
+          backgroundColor: COLORS.white,
           borderWidth: 1,
           alignContent: "center",
           alignSelf: "center",
@@ -200,12 +202,15 @@ export default function UpdateProduct({ navigation, route }) {
         style={{
           color: COLORS.green,
           fontWeight: "bold",
+          backgroundColor: COLORS.white,
           alignContent: "center",
           alignSelf: "center",
           height: height * 0.1,
           width: width * 0.3,
           margin: height * 0.1,
           size: height * 0.5,
+          borderRadius: 2,
+          borderColor: COLORS.green,
         }}
         onValueChange={(itemValue, itemIndex) => setStat(itemValue)}
       >

@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../../consts/colors";
 import HeaderSc from "../Header";
@@ -48,62 +48,72 @@ export default class RevenueScreen extends React.Component {
   }
   render() {
     if (this.state.isLoading) {
-      return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <ActivityIndicator />
-        </View>
-      );
+      return <View style={{ flex: 1, paddingTop: 20 }}></View>;
     }
     return (
       <View>
         <HeaderSc></HeaderSc>
-
-        <View
-          style={{
-            width: width,
-            height: height,
-            alignContent: "center",
-            backgroundColor: "#bfbfbf",
-          }}
-        >
-          <ImageBackground
-            style={{ width: width, height: height }}
-            source={require("../../../app/assets/market.png")}
+        <View style={styles.header2}>
+          <TextInput></TextInput>
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => navigation.navigate("ShopDetails")}
           >
-            <SafeAreaView>
-              <ScrollView>
-                <FlatList
-                  style={{
-                    marginTop: height * 0.03,
-                    marginBottom: height * 0.01,
-                  }}
-                  data={this.state.dataSource}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      style={{
-                        width: width * 0.9,
-                        alignSelf: "center",
-                        backgroundColor: COLORS.white,
-                        marginBottom: height * 0.01,
-                        borderRadius: 20,
-                        padding: 10,
-                      }}
-                      onPress={() => {}}
-                    >
-                      <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                        {item.productName}
-                      </Text>
-
-                      <Text>Sold: {item.quantity}</Text>
-                      <Text>Revenue: {item.price}</Text>
-                    </TouchableOpacity>
-                  )}
-                  keyExtractor={(item, index) => index}
-                />
-              </ScrollView>
-            </SafeAreaView>
-          </ImageBackground>
+            <Ionicons
+              name="ios-information-circle-outline"
+              style={styles.icon}
+            ></Ionicons>
+            <Text style={styles.buttonText}>Shop info</Text>
+          </TouchableOpacity>
         </View>
+        <ScrollView>
+          <View
+            style={{
+              width: width,
+              height: height,
+              alignContent: "center",
+              backgroundColor: "#bfbfbf",
+            }}
+          >
+            <ImageBackground
+              style={{ width: width, height: height }}
+              source={require("../../../app/assets/market.png")}
+            >
+              <SafeAreaView>
+                <ScrollView>
+                  <FlatList
+                    style={{
+                      marginTop: height * 0.03,
+                      marginBottom: height * 0.01,
+                    }}
+                    data={this.state.dataSource}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        style={{
+                          width: width * 0.9,
+                          alignSelf: "center",
+                          backgroundColor: COLORS.white,
+                          marginBottom: height * 0.01,
+                          borderRadius: 20,
+                          padding: 10,
+                        }}
+                        onPress={() => {}}
+                      >
+                        <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                          {item.productName}
+                        </Text>
+
+                        <Text>Sold: {item.quantity}</Text>
+                        <Text>Revenue: {item.price}</Text>
+                      </TouchableOpacity>
+                    )}
+                    keyExtractor={(item, index) => index}
+                  />
+                </ScrollView>
+              </SafeAreaView>
+            </ImageBackground>
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -117,6 +127,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     color: "#ffffff",
+  },
+  header2: {
+    marginHorizontal: width * 0.05,
+    marginVertical: height * 0.01,
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    justifyContent: "space-between",
   },
   bordetBtn: {
     borderColor: "grey",

@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  ImageBackground,
   ScrollView,
 } from "react-native";
 
@@ -68,48 +69,54 @@ export default class OrderManageScreen extends React.Component {
           marginHorizontal: width * 0.05,
         }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            padding: 20,
-            width: width,
-            height: height * 0.09,
-          }}
+        <ImageBackground
+          style={{ width: width, height: height }}
+          source={require("../../../app/assets/market.png")}
         >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.props.navigation.navigate("UpdateUser");
+          <View
+            style={{
+              flexDirection: "row",
+              padding: 20,
+              width: width,
+              height: height * 0.09,
             }}
           >
-            <Text style={styles.buttonText}>Disable User</Text>
-          </TouchableOpacity>
-        </View>
-
-        <FlatList
-          style={{
-            marginTop: height * 0.03,
-          }}
-          data={this.state.dataSource}
-          renderItem={({ item }) => (
             <TouchableOpacity
-              style={{
-                borderColor: COLORS.green,
-                paddingVertical: 10,
-                borderWidth: 2,
-                borderRadius: 20,
-                marginBottom: 5,
+              style={styles.button}
+              onPress={() => {
+                this.props.navigation.navigate("UpdateUser");
               }}
-              onPress={() => {}}
             >
-              <Text style={{ fontSize: 16, margin: 10 }}>
-                {item.userEmail}-{item.active}
-              </Text>
-              <Text>{item.status}</Text>
+              <Text style={styles.buttonText}>Disable User</Text>
             </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index}
-        />
+          </View>
+
+          <FlatList
+            style={{
+              marginTop: height * 0.03,
+            }}
+            data={this.state.dataSource}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={{
+                  borderColor: COLORS.green,
+                  paddingVertical: 10,
+                  borderWidth: 2,
+                  backgroundColor: COLORS.white,
+                  borderRadius: 20,
+                  marginBottom: 5,
+                }}
+                onPress={() => {}}
+              >
+                <Text style={{ fontSize: 16, margin: 10 }}>
+                  {item.userEmail}-{item.active}
+                </Text>
+                <Text>{item.status}</Text>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index}
+          />
+        </ImageBackground>
       </View>
     );
   }

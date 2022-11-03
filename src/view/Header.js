@@ -30,7 +30,7 @@ function HeaderSc({}) {
       }}
     >
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={28} />
         </TouchableOpacity>
         <Ionicons name="cart-outline" size={28}></Ionicons>
