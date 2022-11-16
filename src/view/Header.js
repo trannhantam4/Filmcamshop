@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  TextInput,
   Image,
   Alert,
 } from "react-native";
