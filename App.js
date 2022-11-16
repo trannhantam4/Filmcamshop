@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import UpdateProduct from "./src/view/manage/UpdateProduct";
+import { ViewPropTypes } from "deprecated-react-native-prop-types";
 import DetailScreen from "./src/view/DetailScreen";
 import HomeScreen from "./src/view/HomeScreen";
 import LoginScreen from "./src/view/LoginScreen";

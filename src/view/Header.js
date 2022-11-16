@@ -16,7 +16,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { NavigationContainer } from "@react-navigation/native";
 import COLORS from "../consts/colors";
-import { TextInput } from "react-native-paper";
+
 import { auth } from "../../firebase";
 import { ScrollView } from "react-native-gesture-handler";
 const { width } = Dimensions.get("window");

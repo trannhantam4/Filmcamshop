@@ -11,7 +11,7 @@ import {
 
 import COLORS from "../consts/colors";
 import axios from "axios";
-import { Title } from "react-native-paper";
+
 import { Base64 } from "js-base64";
 import { auth } from "../../firebase";
 
@@ -111,7 +111,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
   //     } else if (password == "") {
   //       alert("Please enter password address");
   //     } else if (reg.test(userName) == false) {
-//       alert("Wrong");
+  //       alert("Wrong");
   //       return false;
   //     } else {
   //       adminLogin();
@@ -220,7 +220,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-style={{
+          style={{
             alignSelf: "center",
             borderRadius: 10,
             backgroundColor: "#fff",

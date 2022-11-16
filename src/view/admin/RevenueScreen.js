@@ -15,7 +15,7 @@ import COLORS from "../../consts/colors";
 import HeaderSc from "../Header";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
-const [date, setDate] = "";
+var date = "";
 export default class RevenueScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +24,7 @@ export default class RevenueScreen extends React.Component {
       dataSource: [],
     };
   }
+
   componentDidMount() {
     return fetch("http://www.filmcamshop.com/api/getRevenue.php", {
       method: "POST",
@@ -53,19 +54,7 @@ export default class RevenueScreen extends React.Component {
     return (
       <View>
         <HeaderSc></HeaderSc>
-        <View style={styles.header2}>
-          <TextInput></TextInput>
-          <TouchableOpacity
-            style={styles.buttonMenuTop}
-            onPress={() => navigation.navigate("ShopDetails")}
-          >
-            <Ionicons
-              name="ios-information-circle-outline"
-              style={styles.icon}
-            ></Ionicons>
-            <Text style={styles.buttonText}>Shop info</Text>
-          </TouchableOpacity>
-        </View>
+
         <ScrollView>
           <View
             style={{
@@ -81,6 +70,25 @@ export default class RevenueScreen extends React.Component {
             >
               <SafeAreaView>
                 <ScrollView>
+                  <View style={styles.header2}>
+                    <TextInput
+                      style={{
+                        margin: 5,
+                        paddingHorizontal: 10,
+                        borderRadius: 10,
+                        height: height * 0.06,
+                        width: width * 0.7,
+
+                        backgroundColor: COLORS.white,
+                      }}
+                      keyboardType={"visible-password"}
+                      placeholder={"YYYY-MM Example 2022-08"}
+                      onChangeText={(text) => (date = text)}
+                    ></TextInput>
+                    <TouchableOpacity style={styles.buttonMenuTop}>
+                      <Text style={styles.buttonText}>See Rev</Text>
+                    </TouchableOpacity>
+                  </View>
                   <FlatList
                     style={{
                       marginTop: height * 0.03,
@@ -132,7 +140,6 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.05,
     marginVertical: height * 0.01,
     flexDirection: "row",
-    backgroundColor: "#fff",
     justifyContent: "space-between",
   },
   bordetBtn: {
@@ -193,10 +200,10 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowColor: "gray",
     textAlign: "center",
-    flexDirection: "column",
+
     backgroundColor: "#fff",
     padding: 10,
-    marginTop: 20,
+
     borderRadius: 5,
     borderTopWidth: 2,
     borderLeftWidth: 2,

@@ -9,6 +9,7 @@ import {
   TextInput,
   ImageBackground,
   Alert,
+  Keyboard,
 } from "react-native";
 import firebase from "firebase";
 import { Base64 } from "js-base64";

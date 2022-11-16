@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  TextInput,
   Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -15,7 +16,6 @@ import * as firebase from "firebase";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import COLORS from "../consts/colors";
-import { TextInput } from "react-native-paper";
 import { auth } from "../../firebase";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
