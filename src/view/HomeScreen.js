@@ -141,13 +141,13 @@ function HomeScreen({ navigation }) {
           <FontAwesome name="address-book" style={styles.icon}></FontAwesome>
           <Text style={styles.buttonText}>Địa chỉ</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("Booking")}
         >
           <FontAwesome name="bookmark" style={styles.icon}></FontAwesome>
           <Text style={styles.buttonText}>Đặt Lịch</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("OrderStatus")}
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     shadowColor: "gray",
     textAlign: "center",
     flexDirection: "column",
-    width: "20%",
+    width: "30%",
     backgroundColor: "#fff",
     padding: 10,
     marginTop: height * 0.03,

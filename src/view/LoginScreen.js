@@ -24,7 +24,26 @@ const { height } = Dimensions.get("screen");
 function LoginScreen({ Dimensions, route, navigation }) {
   const [email, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
+  const checkActive = async () => {
+    axios
+      .post(
+        "http://www.filmcamshop.com/api/checkActive.php",
+        JSON.stringify({
+          email: email,
+        })
+      )
+      .then((response) => response.data)
+      .then((responseJson) => {
+        if (responseJson === "ok") {
+          handleLogIn();
+        } else {
+          alert("This acccount has been Disable due to bad activities");
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
   const adminLog = async () => {
     axios
       .post(
@@ -40,7 +59,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
           alert("Sign up Success!");
           navigation.navigate("AdminScreen");
         } else {
-          alert("Wrong email or password");
+          checkActive();
         }
       })
       .catch((error) => {
@@ -66,7 +85,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
         "http://www.filmcamshop.com/api/userRegistration.php",
         JSON.stringify({
           email: email,
-          password: password,
+          password: Base64.password,
         })
       )
       .then((response) => response.data)
@@ -83,7 +102,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
   const checkAdmin = () => {
     let regex = /^[A-Za-z0-9._%+-]+@filmcamshop\.com$/;
     if (regex.test(email) == false) {
-      handleLogIn();
+      checkActive();
     } else {
       adminLog();
     }
@@ -159,6 +178,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
             <TouchableOpacity
               style={styles.btn}
               onPress={() => {
+                authenticate();
                 handleSignUp();
               }}
             >

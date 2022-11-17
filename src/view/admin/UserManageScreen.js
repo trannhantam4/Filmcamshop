@@ -108,7 +108,7 @@ export default class OrderManageScreen extends React.Component {
                 onPress={() => {}}
               >
                 <Text style={{ fontSize: 16, margin: 10 }}>
-                  {item.userEmail}-{item.active}
+                  {item.id}-{item.userEmail}-{item.active}
                 </Text>
                 <Text>{item.status}</Text>
               </TouchableOpacity>
