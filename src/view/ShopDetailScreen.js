@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   View,
-  Picker,
   Text,
   SafeAreaView,
   StyleSheet,
@@ -12,6 +11,7 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { SliderBox } from "react-native-image-slider-box";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  Picker,
   Text,
   SafeAreaView,
   StyleSheet,
@@ -11,6 +10,7 @@ import {
   TextInput,
   Alert,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as firebase from "firebase";
 import Ionicons from "react-native-vector-icons/Ionicons";
