@@ -3,7 +3,6 @@ import { useRoute } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   View,
-  Picker,
   Text,
   StyleSheet,
   Dimensions,
@@ -11,6 +10,7 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import HeaderSc from "../Header";
 import COLORS from "../../consts/colors";
 const { width } = Dimensions.get("window");

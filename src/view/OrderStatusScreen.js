@@ -126,7 +126,6 @@ export default class OrderManageScreen extends React.Component {
                       >
                         {item.orderDetail}
                       </Text>
-                      <Text>{item.date}</Text>
                     </TouchableOpacity>
                   )}
                   keyExtractor={(item, index) => index}

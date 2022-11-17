@@ -5,12 +5,11 @@ import {
   SafeAreaView,
   ImageBackground,
   StyleSheet,
-  Picker,
   TextInput,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-
+import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import COLORS from "../consts/colors";

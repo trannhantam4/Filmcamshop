@@ -101,7 +101,7 @@ function HomeScreen({ navigation }) {
               handleSignOut();
             }}
           >
-            <Text style={styles.buttonText}>Đăng Xuất</Text>
+            <Text style={styles.buttonText}>Log Out</Text>
           </TouchableOpacity>
         </View>
         <View style={{ marginTop: height * 0.02 }}>
@@ -185,7 +185,6 @@ function HomeScreen({ navigation }) {
                   }}
                 >
                   <Image
-
                     style={{ flex: 1, width: width * 0.4, borderRadius: 10 }}
                     source={{ uri: item.imgURL }}
                   ></Image>
@@ -194,19 +193,17 @@ function HomeScreen({ navigation }) {
                   adjustsFontSizeToFit
                   style={{ fontWeight: "bold", marginTop: height * 0.01 }}
                 >
-
                   {item.productName}
                 </Text>
                 <View
                   style={{
-
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                     marginTop: 5,
-                  }}>
-                  <Text style={{ fontWeight: 'bold', flex: 1 }}>
-
-                    {item.price} k vnđ
+                  }}
+                >
+                  <Text style={{ fontWeight: "bold", flex: 1 }}>
+                    {item.price} Vnd
                   </Text>
                   <View
                     style={{
@@ -258,14 +255,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   CategoryContainer: {
-
     flexDirection: "row",
     marginTop: height * 0.05,
     opacity: 0.8,
     color: COLORS.white,
     marginHorizontal: width * 0.02,
     justifyContent: "center",
-
   },
   container: {
     flex: 2,

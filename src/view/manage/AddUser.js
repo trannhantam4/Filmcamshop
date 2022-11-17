@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   View,
-  Picker,
   Text,
   StyleSheet,
   Dimensions,
@@ -10,6 +9,7 @@ import {
   TextInput,
   Alert,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 const { width } = Dimensions.get("window");
 import { Base64 } from "js-base64";

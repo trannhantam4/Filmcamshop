@@ -2,145 +2,130 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   View,
-  Picker,
   Text,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
   TextInput,
   Alert,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 const { width } = Dimensions.get("window");
 import { Base64 } from "js-base64";
 const height = width * 0.6;
-
-
+import { Picker } from "@react-native-picker/picker";
 export default class OrderDetailScreen extends React.Component {
-
-  constructor(props){
-		super(props)
-		this.state={
-			orderID:'',
-			ordertStatus:'',
-
-		}
+  constructor(props) {
+    super(props);
+    this.state = {
+      orderID: "",
+      ordertStatus: "",
+    };
     // this.userLogin = this.userLogin.bind(this);
     // this.adminLogin = this.adminLogin.bind(this);
+  }
 
-	}
+  checkInput = () => {
+    const { orderID, ordertStatus } = this.state;
 
-
-  checkInput = () =>{
-    const {orderID,ordertStatus} = this.state;
-  
-    if(orderID==""){
+    if (orderID == "") {
       alert("Please enter ID");
-      
-    }
-    else if(ordertStatus==""){
+    } else if (ordertStatus == "") {
       alert("Please enter status");
-      
     } else {
-    this.componentDidMount();
-  }
-  
-  }
+      this.componentDidMount();
+    }
+  };
 
-componentDidMount() {
-  const {orderID,ordertStatus} = this.state;
+  componentDidMount() {
+    const { orderID, ordertStatus } = this.state;
 
-  return fetch("http://www.filmcamshop.com/api/orderStatus.php",{ 
-  method:'post',
-  header:{
-    'Accept': 'application/json',
-    'Content-type': 'application/json'
-  },
-  body:JSON.stringify({
-    // we will pass our input data to server
-    orderId: orderID,
-    orderstatus: ordertStatus
-
-  })})
-    .then((response) => response.json())
-    .then((responseJson) => {
-      if(responseJson === "ok"){
-        alert("update order status successfuly!");
-      }
+    return fetch("http://www.filmcamshop.com/api/orderStatus.php", {
+      method: "post",
+      header: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        // we will pass our input data to server
+        orderId: orderID,
+        orderstatus: ordertStatus,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if (responseJson === "ok") {
+          alert("update order status successfuly!");
+        }
       })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
+  render() {
+    return (
+      <View>
+        <SafeAreaView>
+          <Text style={styles.pageTitle}>Update Order List</Text>
+        </SafeAreaView>
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: height / 3,
+          }}
+          keyboardType="numeric"
+          maxLength={5}
+          placeholder="Order ID"
+          onChangeText={(orderID) => this.setState({ orderID })}
+        ></TextInput>
 
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          placeholder="order status"
+          onChangeText={(ordertStatus) => this.setState({ ordertStatus })}
+        ></TextInput>
 
-
-render() {
-  return (
-    
-    <View>
-    <SafeAreaView>
-      <Text style={styles.pageTitle}>Update Order List</Text>
-    </SafeAreaView>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: height / 3,
-        }}
-        keyboardType='numeric'
-        maxLength={5}
-        placeholder="Order ID"
-        onChangeText={orderID => this.setState({orderID})}
-      ></TextInput>
-
-    <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="order status"
-        onChangeText={ordertStatus => this.setState({ordertStatus})}
-    ></TextInput>
-
-<TouchableOpacity
-        style={{
-          alignSelf: "center",
-          borderRadius: 10,
-          backgroundColor: "#fff",
-          width: width / 2,
-          marginTop: 15,
-          padding: 10,
-          borderTopWidth: 2,
-          borderLeftWidth: 2,
-          borderRightWidth: 4,
-          borderBottomWidth: 4,
-          borderColor: "#61d47c",
-        }}
-        onPress={this.checkInput}
+        <TouchableOpacity
+          style={{
+            alignSelf: "center",
+            borderRadius: 10,
+            backgroundColor: "#fff",
+            width: width / 2,
+            marginTop: 15,
+            padding: 10,
+            borderTopWidth: 2,
+            borderLeftWidth: 2,
+            borderRightWidth: 4,
+            borderBottomWidth: 4,
+            borderColor: "#61d47c",
+          }}
+          onPress={this.checkInput}
         >
-<Text style={styles.buttonText}>Submit</Text>
+          <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-       
-    </View>
-  );
-}
+      </View>
+    );
+  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -268,9 +253,9 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   pageTitle: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 35,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 30,
   },
 });

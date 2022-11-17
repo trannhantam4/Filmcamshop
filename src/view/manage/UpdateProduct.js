@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   View,
-  Picker,
   Text,
   StyleSheet,
   Dimensions,
@@ -12,7 +11,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import COLORS from "../../consts/colors";
-
+import { Picker } from "@react-native-picker/picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 const { width } = Dimensions.get("window");
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  Picker,
   Text,
   StyleSheet,
   Dimensions,
@@ -12,7 +11,7 @@ import {
 const { width } = Dimensions.get("window");
 import { Base64 } from "js-base64";
 const height = width * 0.6;
-
+import { Picker } from "@react-native-picker/picker";
 export default class UpdateOrder extends React.Component {
   state = { ordertStatus: "" };
   updateOrdertStatus = (ordertStatus) => {
