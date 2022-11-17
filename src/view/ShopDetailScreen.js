@@ -1,27 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  TextInput,
-  Image,
-  ScrollView,
-} from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import { SliderBox } from "react-native-image-slider-box";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import axios from "axios";
+import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import HeaderSc from "./Header";
 const { width } = Dimensions.get("window");
-const height = width * 0.6;
+const { height } = Dimensions.get("window");
 function DetailScreen({ Dimensions }) {
   return (
     <View style={{ flex: 1 }}>
@@ -36,8 +17,20 @@ function DetailScreen({ Dimensions }) {
       >
         Film Cam Shop
       </Text>
+
+      <Image
+        style={{
+          marginVertical: height * 0.05,
+          width: width * 0.9,
+          height: width * 0.9,
+          borderRadius: 200,
+          alignSelf: "center",
+        }}
+        source={require("../../app/assets/nhan.jpg")}
+      ></Image>
       <Text
         style={{ fontSize: 15, marginLeft: 10, marginRight: 10, marginTop: 20 }}
+        ad
       >
         “Trong nhiếp ảnh, không có bóng tối nào là không thể sáng soi”{"\n"}
         Chào mừng các bạn đến với Film Cam Shop.{"\n"}

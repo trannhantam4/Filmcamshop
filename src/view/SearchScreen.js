@@ -12,7 +12,6 @@ import {
 } from "react-native";
 
 import COLORS from "../consts/colors";
-import NumericInput from "react-native-numeric-input";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 

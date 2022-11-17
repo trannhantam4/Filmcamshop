@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   View,
-  Picker,
   Text,
   SafeAreaView,
   FlatList,

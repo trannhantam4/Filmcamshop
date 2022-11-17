@@ -185,7 +185,7 @@ export default class UpdateOrder extends React.Component {
           >
             <Picker.Item label="Packaging" value="Packaging" />
             <Picker.Item label="Delivery" value="Delivering" />
-            <Picker.Item label="Successfull" value="Successfull" />
+            <Picker.Item label="Successful" value="Successful" />
           </Picker>
 
           <TouchableOpacity
