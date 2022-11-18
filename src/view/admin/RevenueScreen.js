@@ -10,12 +10,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
-
 import COLORS from "../../consts/colors";
 import HeaderSc from "../Header";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
-
 export default class RevenueScreen extends Component {
   constructor(props) {
     super(props);
@@ -200,7 +198,6 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowColor: "gray",
     textAlign: "center",
-
     backgroundColor: "#fff",
     padding: 10,
 

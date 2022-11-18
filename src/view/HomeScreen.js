@@ -124,36 +124,37 @@ function HomeScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.header2}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("ShopDetails")}
+        >
+          <FontAwesome name="address-book" style={styles.icon}></FontAwesome>
+          <Text style={styles.buttonText}>Shop info</Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+          onPress={() => navigation.navigate("Address")}
         >
           <Ionicons
             name="ios-information-circle-outline"
             style={styles.icon}
           ></Ionicons>
+
           <Text style={styles.buttonText}>Shop info</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("Address")}
-        >
-          <FontAwesome name="address-book" style={styles.icon}></FontAwesome>
-          <Text style={styles.buttonText}>Địa chỉ</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity
-          style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("Booking")}
         >
           <FontAwesome name="bookmark" style={styles.icon}></FontAwesome>
-          <Text style={styles.buttonText}>Đặt Lịch</Text>
-        </TouchableOpacity> */}
+          <Text style={styles.buttonText}>Booking</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("OrderStatus")}
         >
           <FontAwesome name="list" style={styles.icon}></FontAwesome>
-          <Text style={styles.buttonText}>Đơn hàng</Text>
+          <Text style={styles.buttonText}>My Order</Text>
         </TouchableOpacity>
       </View>
       <CategoryList />

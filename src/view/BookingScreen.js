@@ -20,9 +20,7 @@ const { height } = Dimensions.get("window");
 
 function BookingScreen(navigation, route) {
   const [selectedValue, setSelectedValue] = useState("Đám cưới");
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
+  const [date, setDate] = useState("");
   const [text, setText] = useState("");
   const [address, setAddress] = useState("");
 
@@ -34,7 +32,7 @@ function BookingScreen(navigation, route) {
         .post(
           "http://www.filmcamshop.com/api/bookingPhotoshoot.php",
           JSON.stringify({
-            text: text,
+            text: date,
             selectedValue: selectedValue,
             address: address,
           })
@@ -47,35 +45,35 @@ function BookingScreen(navigation, route) {
     if (isSubmit) authenticate();
   }, [isSubmit]);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
+  // const onChange = (event, selectedDate) => {
+  //   const currentDate = selectedDate || date;
+  //   setShow(Platform.OS === "ios");
+  //   setDate(currentDate);
 
-    let tempDate = new Date(currentDate);
-    let fDate = "Date: " + a``;
-    tempDate.getDate() +
-      "/" +
-      (tempDate.getMonth() + 1) +
-      "/" +
-      tempDate.getFullYear();
-    let fTime = "Time: " + tempDate.getHours() + "h " + tempDate.getMinutes();
-    setText(fDate + " \n" + fTime);
-    console.log(fDate + " " + fTime);
-  };
+  //   let tempDate = new Date(currentDate);
+  //   let fDate = "Date: " + a``;
+  //   tempDate.getDate() +
+  //     "/" +
+  //     (tempDate.getMonth() + 1) +
+  //     "/" +
+  //     tempDate.getFullYear();
+  //   let fTime = "Time: " + tempDate.getHours() + "h " + tempDate.getMinutes();
+  //   setText(fDate + " \n" + fTime);
+  //   console.log(fDate + " " + fTime);
+  // };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
+  // const showMode = (currentMode) => {
+  //   setShow(true);
+  //   setMode(currentMode);
+  // };
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
+  // const showDatepicker = () => {
+  //   showMode("date");
+  // };
 
-  const showTimepicker = () => {
-    showMode("time");
-  };
+  // const showTimepicker = () => {
+  //   showMode("time");
+  // };
   return (
     <SafeAreaView style={{}}>
       <KeyboardAwareScrollView>
@@ -95,7 +93,14 @@ function BookingScreen(navigation, route) {
               alignItems: "center",
             }}
           >
-            <Text style={styles.pickDate}>{text}</Text>
+            <Text adjustsFontSizeToFit style={{ fontWeight: "bold" }}>
+              Date:
+            </Text>
+            <TextInput
+              placeholder="DD-MM-YYYY Example 18-12-2022"
+              onChange={(text) => setDate(text)}
+            ></TextInput>
+            {/* <Text style={styles.pickDate}>{text}</Text>
             <TouchableOpacity style={styles.button} onPress={showDatepicker}>
               <Text style={styles.buttonText}>Date</Text>
             </TouchableOpacity>
@@ -112,7 +117,7 @@ function BookingScreen(navigation, route) {
                 onChange={onChange}
                 minimumDate={new Date()}
               />
-            )}
+            )} */}
             <View
               style={{
                 alignContent: "center",
