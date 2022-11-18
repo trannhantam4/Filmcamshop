@@ -6,122 +6,122 @@ import {
   FlatList,
   Dimensions,
   ImageBackground,
+  Button,
   TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import COLORS from "../../consts/colors";
 import HeaderSc from "../Header";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
-var date = "";
-export default class RevenueScreen extends React.Component {
+
+export default class RevenueScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
       dataSource: [],
+      date: "",
     };
   }
-
-  componentDidMount() {
-    return fetch("http://www.filmcamshop.com/api/getRevenue.php", {
-      method: "POST",
-      headers: {
-        Accepts: "applicattion/json",
-        "Content-Type": "application.json",
-      },
-      body: JSON.stringify({
+  searchRev = () => {
+    var date = this.state.date;
+    if (date.length == 0) {
+      alert("require field is missing");
+    } else {
+      var searchAPIURL = "http://www.filmcamshop.com/api/getRevenue.php";
+      var header = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      };
+      var Data = {
         date: date,
-      }),
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dataSource: responseJson.orders,
-          isLoading: false,
-        });
+      };
+      fetch(searchAPIURL, {
+        method: "POST",
+        headers: header,
+        body: JSON.stringify(Data),
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-  render() {
-    if (this.state.isLoading) {
-      return <View style={{ flex: 1, paddingTop: 20 }}></View>;
+        .then((response) => response.json())
+        .then((responseJson) => {
+          this.setState({
+            dataSource: responseJson.orders,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
+  };
+  render() {
     return (
       <View>
         <HeaderSc></HeaderSc>
-
-        <ScrollView>
-          <View
-            style={{
-              width: width,
-              height: height,
-              alignContent: "center",
-              backgroundColor: "#bfbfbf",
-            }}
+        <View
+          style={{
+            width: width,
+            height: height,
+            alignContent: "center",
+            backgroundColor: "#bfbfbf",
+          }}
+        >
+          <ImageBackground
+            style={{ width: width, height: height }}
+            source={require("../../../app/assets/market.png")}
           >
-            <ImageBackground
-              style={{ width: width, height: height }}
-              source={require("../../../app/assets/market.png")}
-            >
-              <SafeAreaView>
-                <ScrollView>
-                  <View style={styles.header2}>
-                    <TextInput
-                      style={{
-                        margin: 5,
-                        paddingHorizontal: 10,
-                        borderRadius: 10,
-                        height: height * 0.06,
-                        width: width * 0.7,
+            <ScrollView>
+              <View style={styles.header2}>
+                <TextInput
+                  style={{
+                    margin: 5,
+                    paddingHorizontal: 10,
+                    borderRadius: 10,
+                    height: height * 0.06,
+                    width: width * 0.7,
 
-                        backgroundColor: COLORS.white,
-                      }}
-                      keyboardType={"visible-password"}
-                      placeholder={"YYYY-MM Example 2022-08"}
-                      onChangeText={(text) => (date = text)}
-                    ></TextInput>
-                    <TouchableOpacity style={styles.buttonMenuTop}>
-                      <Text style={styles.buttonText}>See Rev</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <FlatList
+                    backgroundColor: COLORS.white,
+                  }}
+                  keyboardType={"visible-password"}
+                  placeholder={"YYYY-MM Example 2022-08"}
+                  onChangeText={(date) => this.setState({ date })}
+                ></TextInput>
+                <Button
+                  style={styles.buttonMenuTop}
+                  title={"See Rev"}
+                  onPress={this.searchRev}
+                ></Button>
+              </View>
+              <FlatList
+                style={{
+                  marginTop: height * 0.03,
+                  marginBottom: height * 0.01,
+                }}
+                data={this.state.dataSource}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
                     style={{
-                      marginTop: height * 0.03,
+                      width: width * 0.9,
+                      alignSelf: "center",
+                      backgroundColor: COLORS.white,
                       marginBottom: height * 0.01,
+                      borderRadius: 20,
+                      padding: 10,
                     }}
-                    data={this.state.dataSource}
-                    renderItem={({ item }) => (
-                      <TouchableOpacity
-                        style={{
-                          width: width * 0.9,
-                          alignSelf: "center",
-                          backgroundColor: COLORS.white,
-                          marginBottom: height * 0.01,
-                          borderRadius: 20,
-                          padding: 10,
-                        }}
-                        onPress={() => {}}
-                      >
-                        <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                          {item.productName}
-                        </Text>
+                    onPress={() => {}}
+                  >
+                    <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                      {item.productName}
+                    </Text>
 
-                        <Text>Sold: {item.quantity}</Text>
-                        <Text>Revenue: {item.price}</Text>
-                      </TouchableOpacity>
-                    )}
-                    keyExtractor={(item, index) => index}
-                  />
-                </ScrollView>
-              </SafeAreaView>
-            </ImageBackground>
-          </View>
-        </ScrollView>
+                    <Text>Sold: {item.quantity}</Text>
+                    <Text>Revenue: {item.price}</Text>
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item, index) => index}
+              />
+            </ScrollView>
+          </ImageBackground>
+        </View>
       </View>
     );
   }
@@ -243,3 +243,23 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
 });
+// return fetch("http://www.filmcamshop.com/api/getRevenue.php", {
+//   method: "POST",
+//   headers: {
+//     Accepts: "applicattion/json",
+//     "Content-Type": "application.json",
+//   },
+//   body: JSON.stringify({
+//     date: date,
+//   }),
+// })
+//   .then((response) => response.json())
+//   .then((responseJson) => {
+//     this.setState({
+//       dataSource: responseJson.orders,
+//       isLoading: false,
+//     });
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
