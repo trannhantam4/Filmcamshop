@@ -157,6 +157,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
               style={styles.input}
               autoComplete="email"
               placeholder="Email..."
+              
               onChangeText={(text) => setUserName(text)}
             ></TextInput>
             <TextInput

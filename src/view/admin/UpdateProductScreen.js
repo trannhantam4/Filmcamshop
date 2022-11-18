@@ -85,34 +85,41 @@ export default class UpdateProductScreen extends React.Component {
             >
               <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("UpdateProduct");
-              }}
-            >
-              <Text style={styles.buttonText}>Update Product</Text>
-            </TouchableOpacity>
           </View>
+
           <FlatList
-            style={{ marginTop: height * 0.01 }}
+            style={{
+              marginTop: height * 0.03,
+              marginBottom: height * 0.15,
+            }}
             data={this.state.dataSource}
             renderItem={({ item }) => (
               <TouchableOpacity
-                style={{ margin: height * 0.01 }}
+                style={{
+                  width: width * 0.9,
+                  borderColor: COLORS.green,
+                  borderWidth: 2,
+                  borderRadius: 20,
+                  padding: 10,
+                  backgroundColor: COLORS.white,
+                }}
                 onPress={() => {
-                  this.props.navigation.navigate("UpdateProduct");
+                  this.props.navigation.navigate("UpdateProduct", item);
                 }}
               >
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-                  {item.productID}.{item.productName}
-                </Text>
                 <Image
-                  style={{ width: width * 0.8, height: height * 0.3 }}
+                  style={{
+                    width: width * 0.84,
+                    height: height * 0.3,
+                    borderRadius: 20,
+                  }}
                   source={{ uri: item.imgURL }}
                 ></Image>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  {item.productName}
+                </Text>
                 <Text>Quantity: {item.quantity}</Text>
-                <Text>{item.productDescription}</Text>
+                <Text numberOfLines={1}>{item.productDescription}</Text>
               </TouchableOpacity>
             )}
             keyExtractor={(item, index) => index}

@@ -79,6 +79,7 @@ export default class OrderManageScreen extends React.Component {
                 <Text style={styles.buttonText}>Update</Text>
               </TouchableOpacity>
             </View>
+            
             <FlatList
               style={{
                 marginTop: height * 0.03,

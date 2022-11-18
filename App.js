@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import UpdateProduct from "./src/view/manage/UpdateProduct";
-import { ViewPropTypes } from "deprecated-react-native-prop-types";
+
 import DetailScreen from "./src/view/DetailScreen";
 import HomeScreen from "./src/view/HomeScreen";
 import LoginScreen from "./src/view/LoginScreen";
@@ -23,6 +23,7 @@ import UpdateBooking from "./src/view/manage/UpdateBooking";
 import AddUser from "./src/view/manage/AddUser";
 import UpdateOrder from "./src/view/manage/UpdateOrder";
 
+import SearchScreen from "./src/view/SearchScreen";
 import UpdateUser from "./src/view/manage/UpdateUser";
 import OrderStatusScreen from "./src/view/OrderStatusScreen";
 import RevenueScreen from "./src/view/admin/RevenueScreen";
@@ -45,6 +46,12 @@ function App() {
         />
 
         <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
           name="OrderStatus"
           component={OrderStatusScreen}
           options={{ headerShown: false }}
@@ -61,7 +68,7 @@ function App() {
         />
         <Stack.Screen
           name="UpdateProduct"
-          component={UpdateProductScreen}
+          component={UpdateProduct}
           options={{ headerShown: false }}
         />
         <Stack.Screen

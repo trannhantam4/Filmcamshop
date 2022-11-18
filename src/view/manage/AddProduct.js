@@ -43,10 +43,6 @@ function UpdateProduct({ navigation }) {
         .then((responseJson) => {
           if (responseJson === "ok") {
             alert("Add Success!");
-            films.push(
-              "{id: " +
-                ",img: require(), price: 2000, like: true, quantity: 0, name: anything, about: none, des:none,},"
-            );
             navigation.navigate("ProductManage");
           } else {
             alert("Try again");

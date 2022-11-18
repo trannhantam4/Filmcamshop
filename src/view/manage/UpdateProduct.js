@@ -1,22 +1,266 @@
 import React, { useState, useEffect } from "react";
+import { useRoute } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import {
-  Button,
   View,
   Text,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
   TextInput,
-  Alert,
+  SafeAreaView,
 } from "react-native";
-import axios from "axios";
+import { Picker } from "@react-native-picker/picker";
+import HeaderSc from "../Header";
 import COLORS from "../../consts/colors";
 import { Picker } from "@react-native-picker/picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 const { width } = Dimensions.get("window");
-
 const height = width * 0.6;
 
+export default class UpdateProduct extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productID: "",
+      productName: "",
+      Description: "",
+      Quantity: "",
+      Brand: "",
+      Type: "",
+
+      productID_temp: props.route.params.productID,
+      productName_temp: props.route.params.productName,
+      Description_temp: props.route.params.productDescription,
+      Quantity_temp: props.route.params.quantity,
+      Brand_temp: props.route.params.productBrand,
+      Type_temp: props.route.params.productType,
+
+      category_brand: [
+        "Nikon",
+        "Olympus",
+        "Canon",
+        "Fujifilm",
+        "Pentax",
+        "Minolta",
+      ],
+    };
+  }
+
+  // updateProduct = (
+  //   productName,
+  //   Description,
+  //   Quantity,
+  //   Brand,
+  //   Type
+  // ) => {
+  //   this.setState(
+  //     { productName: productName },
+  //     { Description: Description },
+  //     { Quantity: Quantity },
+  //     { Brand: Brand },
+  //     { Type: Type }
+  //   );
+  // };
+
+  checkInput = () => {
+    this.componentDidMount();
+  };
+
+  componentDidMount() {
+    const {
+      productID,
+      productName,
+      Description,
+      Quantity,
+      Brand,
+      Type,
+      productID_temp,
+    } = this.state;
+    this.setState({ productID: productID_temp });
+
+    return fetch("http://www.filmcamshop.com/api/UpdateProduct.php", {
+      method: "post",
+      header: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        id: productID,
+        proName: productName,
+        description: Description,
+        quantity: Quantity,
+        brand: Brand,
+        type: Type,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if (responseJson === "ok") {
+          alert("Update product status successfuly!");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  render() {
+    const {
+      productName_temp,
+      Description_temp,
+      Quantity_temp,
+      Brand_temp,
+      Type_temp,
+
+      productName,
+      Description,
+      Quantity,
+      Brand,
+      Type,
+    } = this.state;
+
+    return (
+      <View>
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          defaultValue={productName_temp}
+          onChangeText={(text) => this.setState({ productName: text })}
+        ></TextInput>
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          multiline
+          onChangeText={(text) => this.setState({ Description: text })}
+          defaultValue={Description_temp}
+          editable
+        ></TextInput>
+
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          defaultValue={Quantity_temp}
+          onChangeText={(text) => this.setState({ Quantity: text })}
+        ></TextInput>
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          defaultValue={Brand_temp}
+          onChangeText={(text) => this.setState({ Brand: text })}
+        ></TextInput>
+
+        <Picker
+          style={{
+            height: height * 0.1,
+            width: width * 0.3,
+            size: height * 0.5,
+            borderColor: "grey",
+            padding: height / 10,
+            width: width / 2,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          selectedValue={this.state.Brand_temp}
+          onValueChange={(itemValue, itemIndex) => {
+            this.setState({ selectedValue: itemValue });
+          }}
+        >
+          {this.state.category_brand.map((item, index) => (
+            <Picker.Item label={item} value={item} key={index} />
+          ))}
+        </Picker>
+
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          defaultValue={Type_temp}
+          onChangeText={(text) => this.setState({ Type: text })}
+        ></TextInput>
+        {/* <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          placeholder="ImageUrl"
+        ></TextInput> */}
+
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+          onPress={this.checkInput}
+        >
+          <Text style={styles.buttonText}>Update</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonMenuTop}
+        >
+          <Text style={styles.buttonText}>Disable Product</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -27,13 +271,17 @@ const styles = StyleSheet.create({
     height: height / 0.2,
   },
   buttonMenuTop: {
-    alignSelf: "center",
-    borderRadius: 10,
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    shadowColor: "gray",
+    textAlign: "center",
+    flexDirection: "column",
+    width: "28%",
     backgroundColor: "#fff",
-    width: width / 2,
-    height: height * 0.22,
-    marginTop: 15,
     padding: 10,
+    alignSelf: "center",
+    marginTop: 20,
+    borderRadius: 5,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
@@ -54,7 +302,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#61d47c",
-    height: height * 0.2,
     fontWeight: "bold",
     fontSize: 15,
     alignSelf: "center",
@@ -140,174 +387,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingBottom: 20,
   },
+  pageTitle: {
+    fontWeight: "bold",
+    fontSize: 35,
+    marginLeft: width / 12,
+    marginTop: height / 10,
+    marginBottom: height / 10,
+  },
 });
-export default function UpdateProduct({ navigation, route }) {
-  const [Id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [des, setDes] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [brand, setBrand] = useState("");
-  const [type, setType] = useState("");
-  const [image, setImage] = useState("");
-  const [isSubmit, setIsSubmit] = useState(false);
-  const data = route.pagrams;
-  useEffect(() => {
-    const authenticate = async () => {
-      axios
-        .post(
-          "http://www.filmcamshop.com/api/UpdateProduct.php",
-          JSON.stringify({
-            Id: Id,
-            name: name,
-            des: des,
-            quantity: quantity,
-            brand: brand,
-            type: type,
-            image: image,
-          })
-        )
-        .then((response) => response.data)
-        .then((responseJson) => {
-          if (responseJson === "ok") {
-            alert("Update Success!");
-
-            navigation.navigate("ProductManage");
-          } else {
-            alert("Try again");
-            navigation.navigate("ProductManage");
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    };
-    if (isSubmit) {
-      authenticate();
-    }
-  }, [isSubmit]);
-  return (
-    <View>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: height / 3,
-        }}
-        placeholder={"id"}
-        onChangeText={(text) => setId(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Product Name"
-        onChangeText={(text) => setName(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Description"
-        onChangeText={(text) => setDes(text)}
-      ></TextInput>
-
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Quantity"
-        onChangeText={(text) => setQuantity(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Brand"
-        onChangeText={(text) => setBrand(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Type"
-        onChangeText={(text) => setType(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="ImageUrl"
-        onChangeText={(text) => setImage(text)}
-      ></TextInput>
-      <TouchableOpacity
-        style={styles.buttonMenuTop}
-        onPress={() => {
-          setIsSubmit(true);
-        }}
-      >
-        <Text style={styles.buttonText}>Update</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}

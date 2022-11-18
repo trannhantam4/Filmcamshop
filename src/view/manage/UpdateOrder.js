@@ -31,18 +31,14 @@ export default class UpdateOrder extends React.Component {
     };
   }
 
-  state = { orderStatus: "" };
   updateorderStatus = (orderStatus) => {
     this.setState({ orderStatus: orderStatus });
   };
 
   checkInput = () => {
     const { orderID, orderStatus } = this.state;
-
-    if (orderID == "") {
-      alert("Please enter ID");
-    } else if (orderStatus == "") {
-      alert("Please enter status");
+    if (orderStatus == "") {
+      alert("Please chose status");
     } else {
       this.componentDidMount();
     }

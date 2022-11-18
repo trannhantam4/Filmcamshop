@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
 import {
-  Button,
   View,
   Text,
   FlatList,
@@ -12,24 +11,33 @@ import {
 } from "react-native";
 
 import COLORS from "../consts/colors";
+import { Picker } from "@react-native-picker/picker";
+import NumericInput from "react-native-numeric-input";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
-export default class SearchScreen extends Component {
+export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
       dataSource: [],
+
       searchData: "",
+      searchData_temp: "",
+      
+      category_brand: ["Nikon", "Olympus", "Canon", "Fujifilm", "Pentax", "Minolta" ],
     };
   }
 
-  state = { searchData: "" };
-  checkInput = () => {
-    const { searchData } = this.state;
+  // updateSearchData = (searchData) => {
+  //   this.setState({ searchData: searchData });
+  // };
 
-    if (searchData == "") {
+  checkInput = () => {
+    const { searchData_temp } = this.state;
+
+    if (searchData_temp == "") {
       alert("Please ask me something!");
     } else {
       this.componentDidMount();
@@ -37,7 +45,8 @@ export default class SearchScreen extends Component {
   };
 
   componentDidMount() {
-    const { searchData } = this.state;
+    const { searchData, searchData_temp } = this.state;
+    this.setState({ searchData: searchData_temp });
 
     return fetch("http://www.filmcamshop.com/api/searchFunction.php", {
       method: "post",
@@ -46,6 +55,7 @@ export default class SearchScreen extends Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
+        // we will pass our input data to server
         searchData: searchData,
       }),
     })
@@ -55,8 +65,6 @@ export default class SearchScreen extends Component {
           dataSource: responseJson.results,
           isLoading: false,
         });
-
-        alert(responseJson);
       })
       .catch((error) => {
         console.error(error);
@@ -95,8 +103,33 @@ export default class SearchScreen extends Component {
             <TextInput
               style={styles.input}
               placeholder="Looking for somethings..?"
-              onChangeText={(text) => this.setState({ searchData: text })}
+              onChangeText={(text) => this.setState({ searchData_temp: text })}
             ></TextInput>
+
+            <Picker
+              style={{
+                height: height * 0.1,
+                width: width * 0.3,
+                size: height * 0.5,
+                borderColor: "grey",
+                padding: height / 10,
+                width: width / 2,
+                fontSize: height * 0.15,
+                fontWeight: "bold",
+                borderWidth: 1,
+                marginLeft: height / 15,
+                marginTop: 10,
+              }}
+              selectedValue={this.state.selectedValue}
+              onValueChange={(itemValue, itemIndex) => {
+                this.setState({ selectedValue: itemValue });
+              }}>
+              {this.state.category_brand.map((item, index) => (
+                  <Picker.Item label={item} value={item} key={index} />
+                ))}
+            </Picker>
+
+            
 
             <TouchableOpacity
               style={styles.btn}
@@ -124,7 +157,7 @@ export default class SearchScreen extends Component {
                 padding: 10,
               }}
               onPress={() => {
-                this.props.navigation.navigate("UpdateOrder", item);
+                this.props.navigation.navigate("Details", item);
               }}
             >
               <Text style={{ fontWeight: "bold", fontSize: 15 }}>

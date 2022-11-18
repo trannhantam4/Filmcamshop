@@ -9,9 +9,11 @@ import {
   Image,
   TextInput,
   Alert,
+  TextInput
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Picker } from "@react-native-picker/picker";
 import * as firebase from "firebase";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import axios from "axios";
@@ -28,7 +30,6 @@ function DetailScreen({ route, navigation }) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState(auth.currentUser?.email);
-  const price = item.price;
   useEffect(() => {
     const authenticate = async () => {
       axios
@@ -39,14 +40,12 @@ function DetailScreen({ route, navigation }) {
             quantity: quantity,
             email: email,
             address: address,
-            price: price,
           })
         )
         .then((response) => response.data)
         .then((responseJson) => {
           if (responseJson === "no") {
             alert("This product is out of stock!");
-
             navigation.navigate("Home");
           } else {
             alert(quantity + " product ordered!");
@@ -107,7 +106,6 @@ function DetailScreen({ route, navigation }) {
                   padding: width * 0.03,
                   fontSize: width * 0.04,
                 }}
-                textBreakStrategy
               >
                 {item.price} k VND
               </Text>
