@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   View,
   Text,
@@ -13,7 +12,7 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import HeaderSc from "../Header";
 import COLORS from "../../consts/colors";
-import { Picker } from "@react-native-picker/picker";
+
 import Ionicons from "react-native-vector-icons/Ionicons";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
@@ -252,9 +251,7 @@ export default class UpdateProduct extends React.Component {
           <Text style={styles.buttonText}>Update</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-        >
+        <TouchableOpacity style={styles.buttonMenuTop}>
           <Text style={styles.buttonText}>Disable Product</Text>
         </TouchableOpacity>
       </View>

@@ -45,35 +45,6 @@ function BookingScreen(navigation, route) {
     if (isSubmit) authenticate();
   }, [isSubmit]);
 
-  // const onChange = (event, selectedDate) => {
-  //   const currentDate = selectedDate || date;
-  //   setShow(Platform.OS === "ios");
-  //   setDate(currentDate);
-
-  //   let tempDate = new Date(currentDate);
-  //   let fDate = "Date: " + a``;
-  //   tempDate.getDate() +
-  //     "/" +
-  //     (tempDate.getMonth() + 1) +
-  //     "/" +
-  //     tempDate.getFullYear();
-  //   let fTime = "Time: " + tempDate.getHours() + "h " + tempDate.getMinutes();
-  //   setText(fDate + " \n" + fTime);
-  //   console.log(fDate + " " + fTime);
-  // };
-
-  // const showMode = (currentMode) => {
-  //   setShow(true);
-  //   setMode(currentMode);
-  // };
-
-  // const showDatepicker = () => {
-  //   showMode("date");
-  // };
-
-  // const showTimepicker = () => {
-  //   showMode("time");
-  // };
   return (
     <SafeAreaView style={{}}>
       <KeyboardAwareScrollView>
@@ -100,24 +71,6 @@ function BookingScreen(navigation, route) {
               placeholder="DD-MM-YYYY Example 18-12-2022"
               onChange={(text) => setDate(text)}
             ></TextInput>
-            {/* <Text style={styles.pickDate}>{text}</Text>
-            <TouchableOpacity style={styles.button} onPress={showDatepicker}>
-              <Text style={styles.buttonText}>Date</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={showTimepicker}>
-              <Text style={styles.buttonText}>Time</Text>
-            </TouchableOpacity>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={mode}
-                is24Hour={true}
-                display="default"
-                onChange={onChange}
-                minimumDate={new Date()}
-              />
-            )} */}
             <View
               style={{
                 alignContent: "center",
