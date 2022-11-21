@@ -10,9 +10,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import COLORS from "../consts/colors";
+import { auth } from "../../firebase";
 import HeaderSc from "./Header";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const { width } = Dimensions.get("window");
@@ -21,28 +21,41 @@ const { height } = Dimensions.get("window");
 function BookingScreen(navigation, route) {
   const [selectedValue, setSelectedValue] = useState("Đám cưới");
   const [date, setDate] = useState("");
-  const [text, setText] = useState("");
   const [address, setAddress] = useState("");
-
+  const [email] = useState(auth.currentUser?.email);
   const [isSubmit, setIsSubmit] = useState(false);
 
   useEffect(() => {
     const authenticate = async () => {
-      axios
+      let result = await axios
         .post(
           "http://www.filmcamshop.com/api/bookingPhotoshoot.php",
           JSON.stringify({
-            text: date,
+            date: date,
             selectedValue: selectedValue,
             address: address,
+            email: email,
           })
         )
+
         .then((Response) => Response.data)
+        .then((responseJson) => {
+          if (responseJson === "no") {
+            alert("Error");
+          } else {
+            alert("Photoshoot booked!");
+
+            setIsSubmit(false);
+          }
+        })
         .catch((error) => {
-          alert("Error " + error);
+          alert(error);
+          setIsSubmit(false);
         });
     };
-    if (isSubmit) authenticate();
+    if (isSubmit) {
+      authenticate();
+    }
   }, [isSubmit]);
 
   return (
@@ -64,12 +77,22 @@ function BookingScreen(navigation, route) {
               alignItems: "center",
             }}
           >
-            <Text adjustsFontSizeToFit style={{ fontWeight: "bold" }}>
+            <Text
+              adjustsFontSizeToFit
+              style={{ marginTop: height * 0.02, fontWeight: "bold" }}
+            >
               Date:
             </Text>
             <TextInput
-              placeholder="DD-MM-YYYY Example 18-12-2022"
-              onChange={(text) => setDate(text)}
+              style={{
+                margin: height * 0.02,
+                borderWidth: 2,
+                padding: height * 0.01,
+                borderRadius: 5,
+                borderColor: COLORS.green,
+              }}
+              placeholder="DD/MM/YYYY Example 18/12/2022"
+              onChangeText={(text) => setDate(text)}
             ></TextInput>
             <View
               style={{
@@ -100,13 +123,18 @@ function BookingScreen(navigation, route) {
             <TextInput
               style={styles.input}
               placeholder="Address"
-              onChange={(text) => setAddress(text)}
+              onChangeText={(text) => setAddress(text)}
             ></TextInput>
             <View style={{ alignContent: "center", alignItems: "center" }}>
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
-                  setIsSubmit(true);
+                  if (email == null) {
+                    alert("Please login to book a photoshoot");
+                    navigation.navigate("Home");
+                  } else {
+                    setIsSubmit(true);
+                  }
                 }}
               >
                 <Text style={styles.buttonText}>Đặt lịch</Text>
@@ -253,7 +281,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontWeight: "bold",
     fontSize: 35,
-    paddingTop: height / 15,
+    paddingTop: height / 20,
     paddingLeft: width / 15,
     paddingBottom: height / 5,
   },
