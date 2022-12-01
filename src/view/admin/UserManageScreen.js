@@ -80,14 +80,14 @@ export default class OrderManageScreen extends React.Component {
               height: height * 0.09,
             }}
           >
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.button}
               onPress={() => {
                 this.props.navigation.navigate("UpdateUser");
               }}
             >
               <Text style={styles.buttonText}>Disable User</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           <FlatList
@@ -104,13 +104,19 @@ export default class OrderManageScreen extends React.Component {
                   backgroundColor: COLORS.white,
                   borderRadius: 20,
                   marginBottom: 5,
+                }}                
+                onPress={() => {
+                  /* 1. Navigate to the Details route with params */
+                  this.props.navigation.navigate('UpdateUser', item);
                 }}
-                onPress={() => {}}
               >
                 <Text style={{ fontSize: 16, margin: 10 }}>
-                  {item.id}-{item.userEmail}-{item.active}
+                  {item.userEmail}
                 </Text>
-                <Text>{item.status}</Text>
+                
+                <Text style={{ fontSize: 16, margin: 10 }}>
+                {item.active}
+                </Text>
               </TouchableOpacity>
             )}
             keyExtractor={(item, index) => index}

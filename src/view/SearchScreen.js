@@ -30,9 +30,9 @@ export default class SearchScreen extends React.Component {
     };
   }
 
-  // updateSearchData = (searchData) => {
-  //   this.setState({ searchData: searchData });
-  // };
+  updateSearchData = (searchData) => {
+    this.setState({ searchData: searchData });
+  };
 
   checkInput = () => {
     const { searchData_temp } = this.state;

@@ -9,9 +9,7 @@ import {
   Image,
   TextInput,
   Alert,
-  TextInput
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Picker } from "@react-native-picker/picker";
 import * as firebase from "firebase";

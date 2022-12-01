@@ -142,21 +142,21 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
 });
+
 export default function UpdateProduct({ navigation, route }) {
-  const [Id, setId] = useState("");
 
-  const [stat, setStat] = useState("active");
-
+  const [status, setStat] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
-  const data = route.pagrams;
+  const { userEmail } = route.params;
+  const { active } = route.params;
   useEffect(() => {
     const authenticate = async () => {
       axios
         .post(
           "http://www.filmcamshop.com/api/UpdateUser.php",
           JSON.stringify({
-            Id: Id,
-            stat: stat,
+            userEmail: userEmail,
+            status: status,
           })
         )
         .then((response) => response.data)
@@ -179,25 +179,10 @@ export default function UpdateProduct({ navigation, route }) {
   }, [isSubmit]);
   return (
     <View style={{ height: height, width: width }}>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          backgroundColor: COLORS.white,
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: height / 3,
-        }}
-        placeholder={"id"}
-        onChangeText={(text) => setId(text)}
-      ></TextInput>
+      <Text style={styles.buttonText}>User Email: {userEmail}</Text>
+
       <Picker
-        quantity={stat}
+        quantity={status}
         style={{
           color: COLORS.green,
           fontWeight: "bold",
@@ -211,6 +196,7 @@ export default function UpdateProduct({ navigation, route }) {
           borderRadius: 2,
           borderColor: COLORS.green,
         }}
+        selectedValue={active}
         onValueChange={(itemValue, itemIndex) => setStat(itemValue)}
       >
         <Picker.Item label="active" value="active" />

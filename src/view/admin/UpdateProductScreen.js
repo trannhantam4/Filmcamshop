@@ -13,18 +13,10 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import { SliderBox } from "react-native-image-slider-box";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Ionicons from "react-native-vector-icons/Ionicons";
-// import { withNavigation } from "react-navigation";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import axios from "axios";
 
 import COLORS from "../../consts/colors";
 import NumericInput from "react-native-numeric-input";
+import { value } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
@@ -34,8 +26,19 @@ export default class UpdateProductScreen extends React.Component {
     this.state = {
       isLoading: true,
       dataSource: [],
+
+      dataSource_disable: [],
+      dataSource_display: [],
     };
   }
+
+  dataSource_control_component = () => {
+    const { dataSource_disable, dataSource_display } = this.state;
+    this.setState({ dataSource_display: dataSource_disable });
+
+
+  }
+
 
   componentDidMount() {
     return fetch("http://www.filmcamshop.com/api/SearchProductList.php")
@@ -44,6 +47,8 @@ export default class UpdateProductScreen extends React.Component {
         this.setState({
           dataSource: responseJson.item,
           isLoading: false,
+          dataSource_display: responseJson.item.filter((item) => item.status == "active"),
+          dataSource_disable: responseJson.item.filter((item) => item.status == "disable")
         });
       })
       .catch((error) => {
@@ -77,23 +82,20 @@ export default class UpdateProductScreen extends React.Component {
               height: height * 0.09,
             }}
           >
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("AddProduct");
-              }}
-            >
+            <TouchableOpacity style={styles.button} 
+            onPress={() => {this.props.navigation.navigate("AddProduct");}}>
               <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} 
+            onPress={() => {this.dataSource_control_component()}}>
+              <Text style={styles.buttonText}>Disable List</Text>
+            </TouchableOpacity> 
           </View>
 
           <FlatList
-            style={{
-              marginTop: height * 0.03,
-              marginBottom: height * 0.15,
-            }}
-            data={this.state.dataSource}
-            renderItem={({ item }) => (
+            data={this.state.dataSource_display}
+            renderItem={({ item, index, separators }) => (
               <TouchableOpacity
                 style={{
                   width: width * 0.9,
@@ -119,7 +121,7 @@ export default class UpdateProductScreen extends React.Component {
                   {item.productName}
                 </Text>
                 <Text>Quantity: {item.quantity}</Text>
-                <Text numberOfLines={1}>{item.productDescription}</Text>
+                <Text numberOfLines={2}>{item.productDescription}</Text>
               </TouchableOpacity>
             )}
             keyExtractor={(item, index) => index}

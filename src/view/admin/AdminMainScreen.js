@@ -47,7 +47,7 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
             style={styles.buttonMenuTop}
             onPress={() => navigation.navigate("SearchScreen")}
           >
-            <Ionicons name="albums" style={styles.icon}></Ionicons>
+            <Ionicons name="search" style={styles.icon}></Ionicons>
             <Text style={styles.buttonText}>Search</Text>
           </TouchableOpacity>
 

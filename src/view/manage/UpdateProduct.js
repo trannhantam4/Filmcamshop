@@ -9,12 +9,11 @@ import {
   TouchableOpacity,
   TextInput,
   SafeAreaView,
+  Alert,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import HeaderSc from "../Header";
 import COLORS from "../../consts/colors";
 import { Picker } from "@react-native-picker/picker";
-import Ionicons from "react-native-vector-icons/Ionicons";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 
@@ -28,6 +27,7 @@ export default class UpdateProduct extends React.Component {
       Quantity: "",
       Brand: "",
       Type: "",
+      Status: "disable",
 
       productID_temp: props.route.params.productID,
       productName_temp: props.route.params.productName,
@@ -35,6 +35,7 @@ export default class UpdateProduct extends React.Component {
       Quantity_temp: props.route.params.quantity,
       Brand_temp: props.route.params.productBrand,
       Type_temp: props.route.params.productType,
+      Status_temp: props.route.params.status,
 
       category_brand: [
         "Nikon",
@@ -47,27 +48,33 @@ export default class UpdateProduct extends React.Component {
     };
   }
 
-  // updateProduct = (
-  //   productName,
-  //   Description,
-  //   Quantity,
-  //   Brand,
-  //   Type
-  // ) => {
-  //   this.setState(
-  //     { productName: productName },
-  //     { Description: Description },
-  //     { Quantity: Quantity },
-  //     { Brand: Brand },
-  //     { Type: Type }
-  //   );
-  // };
-
   checkInput = () => {
     this.componentDidMount();
+
+    Alert.alert("Update Product", "Update this product successfully!");
   };
 
-  componentDidMount() {
+  disableProduct_Component = () => {
+    const { Status } = this.state;
+    this.componentDidMount(Status);
+    Alert.alert("Disable Product", "Disable this product successfully.");
+  };
+
+  disableProduct = () => {
+    const { Status_temp } = this.state;
+    if (Status_temp === "active") {
+      Alert.alert("Disable Product?", "Do you want to disable this product?", [
+        { text: "YES", onPress: this.disableProduct_Component },
+        { text: "CANCLE" },
+      ]);
+    } else {
+      Alert.alert("Disable Product?", "This product is already deleted!", [
+        { text: "OK" },
+      ]);
+    }
+  };
+
+  componentDidMount(Status) {
     const {
       productID,
       productName,
@@ -75,7 +82,9 @@ export default class UpdateProduct extends React.Component {
       Quantity,
       Brand,
       Type,
+
       productID_temp,
+      Status_temp,
     } = this.state;
     this.setState({ productID: productID_temp });
 
@@ -92,18 +101,21 @@ export default class UpdateProduct extends React.Component {
         quantity: Quantity,
         brand: Brand,
         type: Type,
+
+        status: Status_temp,
       }),
     })
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson === "ok") {
-          alert("Update product status successfuly!");
+          
         }
       })
       .catch((error) => {
         console.error(error);
       });
   }
+
   render() {
     const {
       productName_temp,
@@ -111,7 +123,9 @@ export default class UpdateProduct extends React.Component {
       Quantity_temp,
       Brand_temp,
       Type_temp,
+      Status_temp,
 
+      Status,
       productName,
       Description,
       Quantity,
@@ -137,6 +151,24 @@ export default class UpdateProduct extends React.Component {
           defaultValue={productName_temp}
           onChangeText={(text) => this.setState({ productName: text })}
         ></TextInput>
+
+        <TextInput
+          style={{
+            borderColor: "grey",
+            padding: 10,
+            width: width / 2,
+            borderRadius: 5,
+            fontSize: 15,
+            fontWeight: "bold",
+            borderWidth: 1,
+            alignContent: "center",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          defaultValue={Status_temp}
+          onChangeText={(text) => this.setState({ Status_temp: text })}
+        ></TextInput>
+
         <TextInput
           style={{
             borderColor: "grey",
@@ -229,21 +261,6 @@ export default class UpdateProduct extends React.Component {
           defaultValue={Type_temp}
           onChangeText={(text) => this.setState({ Type: text })}
         ></TextInput>
-        {/* <TextInput
-          style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width / 2,
-            borderRadius: 5,
-            fontSize: 15,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          placeholder="ImageUrl"
-        ></TextInput> */}
 
         <TouchableOpacity
           style={styles.buttonMenuTop}
@@ -254,6 +271,7 @@ export default class UpdateProduct extends React.Component {
 
         <TouchableOpacity
           style={styles.buttonMenuTop}
+          onPress={this.disableProduct}
         >
           <Text style={styles.buttonText}>Disable Product</Text>
         </TouchableOpacity>
