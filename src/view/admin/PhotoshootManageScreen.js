@@ -74,6 +74,7 @@ export default class PhotoshootManageScreen extends React.Component {
         <FlatList
           style={{
             marginTop: height * 0.03,
+            marginBottom: height * 0.05,
           }}
           data={this.state.dataSource}
           renderItem={({ item }) => (

@@ -8,11 +8,8 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Picker } from "@react-native-picker/picker";
-import * as firebase from "firebase";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import COLORS from "../consts/colors";
@@ -28,6 +25,7 @@ function DetailScreen({ route, navigation }) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState(auth.currentUser?.email);
+  const price = item.price;
   useEffect(() => {
     const authenticate = async () => {
       axios
@@ -38,6 +36,7 @@ function DetailScreen({ route, navigation }) {
             quantity: quantity,
             email: email,
             address: address,
+            price: price,
           })
         )
         .then((response) => response.data)
@@ -193,7 +192,7 @@ function DetailScreen({ route, navigation }) {
               <Picker.Item label="6" value="6" />
               <Picker.Item label="7" value="7" />
             </Picker>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.buyBtn}
               onPress={() => {
                 if (email == null) {
@@ -207,7 +206,7 @@ function DetailScreen({ route, navigation }) {
               <Text style={{ color: COLORS.white, fontSize: width * 0.05 }}>
                 Add to cart
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={styles.buyBtn}
               onPress={() => {
