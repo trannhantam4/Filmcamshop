@@ -7,15 +7,15 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  SafeAreaView,
+  ImageBackground,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import HeaderSc from "../Header";
-import COLORS from "../../consts/colors";
-
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { Picker } from "@react-native-picker/picker";
 const { width } = Dimensions.get("window");
-const height = width * 0.6;
+const { height } = Dimensions.get("screen");
+import COLORS from "../../consts/colors";
 
 export default class UpdateProduct extends React.Component {
   constructor(props) {
@@ -102,13 +102,12 @@ export default class UpdateProduct extends React.Component {
         brand: Brand,
         type: Type,
 
-        status: Status_temp,
+        status: Status,
       }),
     })
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson === "ok") {
-          
         }
       })
       .catch((error) => {
@@ -134,145 +133,87 @@ export default class UpdateProduct extends React.Component {
     } = this.state;
 
     return (
-      <View>
-        <TextInput
-          style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width / 2,
-            borderRadius: 5,
-            fontSize: 15,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          defaultValue={productName_temp}
-          onChangeText={(text) => this.setState({ productName: text })}
-        ></TextInput>
-
-        <TextInput
-          style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width / 2,
-            borderRadius: 5,
-            fontSize: 15,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          defaultValue={Status_temp}
-          onChangeText={(text) => this.setState({ Status_temp: text })}
-        ></TextInput>
-
-        <TextInput
-          style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width / 2,
-            borderRadius: 5,
-            fontSize: 15,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          multiline
-          onChangeText={(text) => this.setState({ Description: text })}
-          defaultValue={Description_temp}
-          editable
-        ></TextInput>
-
-        <TextInput
-          style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width / 2,
-            borderRadius: 5,
-            fontSize: 15,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          defaultValue={Quantity_temp}
-          onChangeText={(text) => this.setState({ Quantity: text })}
-        ></TextInput>
-        <TextInput
-          style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width / 2,
-            borderRadius: 5,
-            fontSize: 15,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          defaultValue={Brand_temp}
-          onChangeText={(text) => this.setState({ Brand: text })}
-        ></TextInput>
-
-        <Picker
-          style={{
-            height: height * 0.1,
-            width: width * 0.3,
-            size: height * 0.5,
-            borderColor: "grey",
-            padding: height / 10,
-            width: width / 2,
-            fontSize: 15,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          selectedValue={this.state.Brand_temp}
-          onValueChange={(itemValue, itemIndex) => {
-            this.setState({ selectedValue: itemValue });
-          }}
+      <SafeAreaView
+        style={{
+          width: width,
+          height: height,
+        }}
+      >
+        <ImageBackground
+          style={{ width: width, height: height }}
+          source={require("../../../app/assets/logo_wallpaper_2.png")}
         >
-          {this.state.category_brand.map((item, index) => (
-            <Picker.Item label={item} value={item} key={index} />
-          ))}
-        </Picker>
+          <View >
+            <Text style={styles.pageTitle}>Film Cam Shop</Text>
+          </View>
 
-        <TextInput
+          <View style={{ marginTop: height * 0.04}}>
+            <TextInput
+              style={styles.inputText}
+              defaultValue={productName_temp}
+              onChangeText={(text) => this.setState({ productName: text })}
+            ></TextInput>
+
+            <TextInput
+              style={styles.inputText}
+              defaultValue={Status_temp}
+              onChangeText={(text) => this.setState({ Status_temp: text })}
+            ></TextInput>
+
+            <TextInput
+              style={styles.inputText}
+              multiline
+              onChangeText={(text) => this.setState({ Description: text })}
+              defaultValue={Description_temp}
+              editable
+            ></TextInput>
+
+            <TextInput
+              style={styles.inputText}
+              defaultValue={Quantity_temp}
+              onChangeText={(text) => this.setState({ Quantity: text })}
+            ></TextInput>
+
+            <Picker
+              style={styles.inputText}
+              selectedValue={this.state.Brand_temp}
+              onValueChange={(itemValue, itemIndex) => {
+                this.setState({ selectedValue: itemValue });
+              }}
+            >
+              {this.state.category_brand.map((item, index) => (
+                <Picker.Item label={item} value={item} key={index} />
+              ))}
+            </Picker>
+
+            <TextInput
+              style={styles.inputText}
+              defaultValue={Type_temp}
+              onChangeText={(text) => this.setState({ Type: text })}
+            ></TextInput>
+
+          <View
           style={{
-            borderColor: "grey",
-            padding: 10,
-            width: width / 2,
-            borderRadius: 5,
-            fontSize: 15,
-            fontWeight: "bold",
-            borderWidth: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          defaultValue={Type_temp}
-          onChangeText={(text) => this.setState({ Type: text })}
-        ></TextInput>
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            width: width,
+            height: height * 0.2,
+          }}>
+            <TouchableOpacity
+              style={styles.buttonMenuTop}
+              onPress={this.checkInput}
+            >
+              <Text style={styles.buttonText}>Update</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={this.checkInput}
-        >
-          <Text style={styles.buttonText}>Update</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonMenuTop}>
-          <Text style={styles.buttonText}>Disable Product</Text>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity style={styles.buttonMenuTop} onPress={this.disableProduct}>
+              <Text style={styles.buttonText}>Disable Product</Text>
+            </TouchableOpacity>
+          </View>
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
@@ -284,6 +225,13 @@ const styles = StyleSheet.create({
     marginRight: 0,
     width: width,
     height: height / 0.2,
+  },
+  pageTitle: {
+    color: COLORS.green,
+    paddingTop: height * 0.1,
+    fontWeight: "bold",
+    fontSize: 35,
+    textAlign: "center",
   },
   buttonMenuTop: {
     shadowOpacity: 0.5,
@@ -297,6 +245,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 20,
     borderRadius: 5,
+    
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
@@ -324,11 +273,16 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   inputText: {
-    color: "#fff",
+    borderColor: "grey",
+    padding: 10,
+    width: width * 0.8,
+    borderRadius: 5,
     fontSize: 15,
-    alignSelf: "center",
-    alignItems: "center",
+    fontWeight: "bold",
+    borderWidth: 1,
     alignContent: "center",
+    alignSelf: "center",
+    marginTop: 10,
   },
   button: {
     shadowOpacity: 0.5,
@@ -347,66 +301,5 @@ const styles = StyleSheet.create({
     borderLeftWidth: 2,
     borderRightWidth: 4,
     borderBottomWidth: 4,
-  },
-  pagingText: {
-    fontSize: width / 30,
-    color: "#888",
-  },
-  pagingActiveText: {
-    fontSize: width / 25,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  icon: {
-    width: 25,
-    height: 25,
-    alignSelf: "center",
-    alignItems: "center",
-    alignContent: "center",
-    fontSize: 20,
-    padding: 0,
-    color: "#61d47c",
-  },
-  productCard: {
-    width: width * 0.93,
-    height: height * 1.5,
-    borderColor: "#9c9c9c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingBottom: 20,
-  },
-  productImage: {
-    width: "100%",
-    height: height,
-    resizeMode: "contain",
-    borderRadius: 5,
-  },
-  pageTitle: {
-    fontWeight: "bold",
-    fontSize: 35,
-    paddingBottom: height / 5,
-  },
-  productName: {
-    paddingTop: 15,
-    paddingLeft: 5,
-    fontSize: height / 10,
-    fontWeight: "bold",
-  },
-  productDes: {
-    paddingLeft: 5,
-    fontSize: height / 13,
-    marginBottom: 10,
-    paddingBottom: 20,
-  },
-  pageTitle: {
-    fontWeight: "bold",
-    fontSize: 35,
-    marginLeft: width / 12,
-    marginTop: height / 10,
-    marginBottom: height / 10,
   },
 });

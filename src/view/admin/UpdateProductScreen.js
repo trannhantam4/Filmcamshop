@@ -9,14 +9,10 @@ import {
   Dimensions,
   ActivityIndicator,
   TouchableOpacity,
-  TextInput,
   Image,
-  ScrollView,
 } from "react-native";
 
 import COLORS from "../../consts/colors";
-import NumericInput from "react-native-numeric-input";
-import { value } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
@@ -38,7 +34,6 @@ export default class UpdateProductScreen extends React.Component {
 
 
   }
-
 
   componentDidMount() {
     return fetch("http://www.filmcamshop.com/api/SearchProductList.php")
@@ -84,7 +79,7 @@ export default class UpdateProductScreen extends React.Component {
           >
             <TouchableOpacity style={styles.button} 
             onPress={() => {this.props.navigation.navigate("AddProduct");}}>
-              <Text style={styles.buttonText}>Add</Text>
+              <Text style={styles.buttonText}>Add New Product</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} 
@@ -140,12 +135,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     alignContent: "center",
+    paddingTop: 7,
   },
   button: {
-    marginHorizontal: width * 0.02,
+    marginHorizontal: width * 0.025,
     width: width * 0.4,
-    backgroundColor: "#fff",
     height: height * 0.05,
+    backgroundColor: "#fff",
     borderRadius: 10,
     alignContent: "center",
     alignItems: "center",

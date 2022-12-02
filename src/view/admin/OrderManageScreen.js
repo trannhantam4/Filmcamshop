@@ -8,11 +8,9 @@ import {
   TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
 import COLORS from "../../consts/colors";
-
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
@@ -52,34 +50,20 @@ export default class OrderManageScreen extends React.Component {
       <SafeAreaView style={{ marginBottom: height * 0.5 }}>
         <ImageBackground
           style={{ width: width, height: height }}
-          source={require("../../../app/assets/market.png")}
+          source={require("../../../app/assets/logo_wallpaper_2.png")}
         >
+          <View>
+            <Text style={styles.pageTitle}>Film Cam Shop</Text>
+          </View>
+
           <View
             style={{
               justifyContent: "center",
               alignItems: "center",
-              marginTop: height * 0.08,
+
               marginHorizontal: width * 0.05,
             }}
           >
-            <View
-              style={{
-                flexDirection: "row",
-                padding: 20,
-                width: width,
-                height: height * 0.09,
-              }}
-            >
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  this.props.navigation.navigate("UpdateOrder");
-                }}
-              >
-                <Text style={styles.buttonText}>Update</Text>
-              </TouchableOpacity>
-            </View>
-            
             <FlatList
               style={{
                 marginTop: height * 0.03,
@@ -89,11 +73,12 @@ export default class OrderManageScreen extends React.Component {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={{
-                    width: width * 0.8,
+                    width: width * 0.9,
                     borderColor: COLORS.green,
                     borderWidth: 2,
                     borderRadius: 20,
                     padding: 10,
+                    marginBottom: 10,
                     backgroundColor: COLORS.white,
                   }}
                   onPress={() => {
@@ -141,40 +126,6 @@ export default class OrderManageScreen extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  buyBtn: {
-    backgroundColor: COLORS.green,
-    borderRadius: 25,
-    width: width * 0.3,
-    height: height * 0.2,
-
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#ffffff",
-  },
-  bordetBtn: {
-    borderColor: "grey",
-    borderWidth: 1,
-    borderRadius: 5,
-    width: width * 0.15,
-    height: height * 0.15,
-    backgroundColor: COLORS.green,
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  borderBtnText: {
-    color: COLORS.white,
-    alignItems: "center",
-    fontSize: width * 0.06,
-    alignContent: "center",
-  },
-  priceTag: {
-    width: width * 0.3,
-    backgroundColor: COLORS.green,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
-    height: height * 0.2,
-    alignItems: "center",
-  },
   header: {
     paddingTop: height * 0.15,
     paddingHorizontal: width * 0.07,
@@ -182,27 +133,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: COLORS.green,
     justifyContent: "space-between",
-  },
-  imageContainer: {
-    marginTop: height * 0.1,
-    width: width,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  header: {
-    marginLeft: 20,
-    marginRight: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  detailContainer: {
-    height: height * 1,
-    backgroundColor: COLORS.light,
-    borderRadius: 20,
-    paddingTop: 30,
-    marginTop: height * 0.1,
-    marginLeft: width * 0.03,
-    marginRight: width * 0.03,
   },
   buttonMenuTop: {
     shadowOpacity: 0.5,
@@ -220,12 +150,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     borderColor: "#61d47c",
   },
-  CategoryContainer: {
-    flexDirection: "row",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-  },
   button: {
     marginHorizontal: width * 0.02,
     width: width * 0.4,
@@ -240,15 +164,11 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
-  ButtonContainer: {
-    flexDirection: "column",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-    justifyContent: "space-between",
-  },
   pageTitle: {
+    color: COLORS.green,
+    paddingTop: height * 0.1,
     fontWeight: "bold",
     fontSize: 35,
+    textAlign: "center",
   },
 });

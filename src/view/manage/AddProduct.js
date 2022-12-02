@@ -7,14 +7,15 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  Alert,
+  SafeAreaView,
+  ImageBackground,
 } from "react-native";
 // import ImagePicker from "react-native-image-crop-picker";
 import axios from "axios";
-import { Picker } from "@react-native-picker/picker";
+import COLORS from "../../consts/colors";
+
 const { width } = Dimensions.get("window");
-import { Base64 } from "js-base64";
-const height = width * 0.6;
+const { height } = Dimensions.get("screen");
 
 function UpdateProduct({ navigation }) {
   const [name, setName] = useState("");
@@ -57,116 +58,69 @@ function UpdateProduct({ navigation }) {
       authenticate();
     }
   }, [isSubmit]);
+
   return (
-    <View style={{ marginTop: height * 0.3 }}>
-      <TextInput
-        style={{
-          borderColor: "grey",
-
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Product Name"
-        onChangeText={(text) => setName(text)}
-      ></TextInput>
-
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Description"
-        onChangeText={(text) => setDes(text)}
-      ></TextInput>
-
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Quantity"
-        onChangeText={(text) => setQuantity(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Brand"
-        onChangeText={(text) => setBrand(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="Type"
-        onChangeText={(text) => setType(text)}
-      ></TextInput>
-      <TextInput
-        style={{
-          borderColor: "grey",
-          padding: 10,
-          width: width / 2,
-          borderRadius: 5,
-          fontSize: 15,
-          fontWeight: "bold",
-          borderWidth: 1,
-          alignContent: "center",
-          alignSelf: "center",
-          marginTop: 10,
-        }}
-        placeholder="ImageUrl"
-        onChangeText={(text) => setImage(text)}
-      ></TextInput>
-      <TouchableOpacity
-        style={styles.buttonMenuTop}
-        onPress={() => {
-          setIsSubmit(true);
-        }}
+    <SafeAreaView
+      style={{
+        width: width,
+        height: height,
+      }}
+    >
+      <ImageBackground
+        style={{ width: width, height: height }}
+        source={require("../../../app/assets/logo_wallpaper_2.png")}
       >
-        <Text style={styles.buttonText}>Add</Text>
-      </TouchableOpacity>
-    </View>
+
+        <View>
+          <Text style={styles.pageTitle}>Film Cam Shop</Text>
+        </View>
+
+        <View style={{ marginTop: height * 0.05 }}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Product Name"
+            onChangeText={(text) => setName(text)}
+          ></TextInput>
+
+          <TextInput
+            style={styles.inputText}
+            placeholder="Description"
+            multiline
+            onChangeText={(text) => setDes(text)}
+          ></TextInput>
+
+          <TextInput
+            style={styles.inputText}
+            placeholder="Quantity"
+            keyboardType="numeric"
+            onChangeText={(text) => setQuantity(text)}
+          ></TextInput>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Brand"
+            onChangeText={(text) => setBrand(text)}
+          ></TextInput>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Type"
+            onChangeText={(text) => setType(text)}
+          ></TextInput>
+          <TextInput
+            style={styles.inputText}
+            placeholder="ImageUrl"
+            onChangeText={(text) => setImage(text)}
+          ></TextInput>
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => {
+              setIsSubmit(true);
+            }}
+          >
+            <Text style={styles.buttonText}>Add</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -183,7 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#fff",
     width: width / 2,
-    height: height * 0.22,
+    height: height * 0.05,
     marginTop: 15,
     padding: 10,
     borderTopWidth: 2,
@@ -214,11 +168,16 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   inputText: {
-    color: "#fff",
+    borderColor: "grey",
+    padding: 10,
+    width: width * 0.8,
+    borderRadius: 5,
     fontSize: 15,
-    alignSelf: "center",
-    alignItems: "center",
+    fontWeight: "bold",
+    borderWidth: 1,
     alignContent: "center",
+    alignSelf: "center",
+    marginTop: 10,
   },
   icon: {
     width: 25,
@@ -231,9 +190,11 @@ const styles = StyleSheet.create({
     color: "#61d47c",
   },
   pageTitle: {
+    color: COLORS.green,
+    paddingTop: height * 0.1,
     fontWeight: "bold",
     fontSize: 35,
-    paddingBottom: height / 5,
+    textAlign: "center",
   },
   productName: {
     paddingTop: 15,

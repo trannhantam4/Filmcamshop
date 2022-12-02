@@ -23,16 +23,15 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
       style={{
         width: width,
         height: height,
-
         backgroundColor: COLORS.white,
       }}
     >
       <ImageBackground
         style={{ width: width, height: height }}
-        source={require("../../../app/assets/market.png")}
+        source={require("../../../app/assets/logo_wallpaper.png")}
       >
         <View>
-          <Text style={styles.pageTitle}>Admin page</Text>
+          <Text style={styles.pageTitle}>Film Cam Shop</Text>
         </View>
         <View style={styles.header}>
           <TouchableOpacity
@@ -88,26 +87,6 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
   );
 }
 const styles = StyleSheet.create({
-  buyBtn: {
-    backgroundColor: COLORS.green,
-    borderRadius: 25,
-    width: width * 0.3,
-    height: height * 0.2,
-
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#ffffff",
-  },
-  bordetBtn: {
-    borderColor: "grey",
-    borderWidth: 1,
-    borderRadius: 5,
-    width: width * 0.15,
-    height: height * 0.15,
-    backgroundColor: COLORS.green,
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
   buttonText: {
     color: COLORS.green,
     alignItems: "center",
@@ -156,7 +135,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 10,
     marginTop: 20,
-    borderRadius: 5,
+    borderRadius: 10,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
@@ -177,10 +156,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   pageTitle: {
-    paddingLeft: width * 0.06,
-    paddingTop: height * 0.05,
+    color: COLORS.green,
+    paddingTop: height * 0.1,
     fontWeight: "bold",
     fontSize: 35,
+    textAlign: "center",
   },
   icon: {
     alignSelf: "center",

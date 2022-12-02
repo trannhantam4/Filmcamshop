@@ -139,6 +139,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
         style={{ width: width, height: height }}
         source={require("../../app/assets/market.png")}
       >
+        
         <View
           style={{
             marginTop: height / 2.7,

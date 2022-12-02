@@ -9,9 +9,7 @@ import {
   Dimensions,
   ActivityIndicator,
   TouchableOpacity,
-
   ImageBackground,
-  ScrollView,
 } from "react-native";
 import COLORS from "../../consts/colors";
 import NumericInput from "react-native-numeric-input";
@@ -51,35 +49,27 @@ export default class OrderManageScreen extends React.Component {
     }
 
     return (
-      <View
+      <SafeAreaView
         style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: height * 0.08,
-          marginHorizontal: width * 0.05,
+          width: width,
+          height: height,
         }}
       >
-        <ImageBackground
-          style={{ width: width, height: height }}
-          source={require("../../../app/assets/market.png")}
+      <ImageBackground
+        style={{ width: width, height: height }}
+        source={require("../../../app/assets/logo_wallpaper_2.png")}
+      >
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: height * 0.08,
+            marginHorizontal: width * 0.05,
+          }}
         >
-          {/* <View
-            style={{
-              flexDirection: "row",
-              padding: 20,
-              width: width,
-              height: height * 0.09,
-            }}
-          >
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("UpdateUser");
-              }}
-            >
-              <Text style={styles.buttonText}>Disable User</Text>
-            </TouchableOpacity>
-          </View> */}
+          <View>
+            <Text style={styles.pageTitle}>Film Cam Shop</Text>
+          </View>
 
           <FlatList
             style={{
@@ -96,25 +86,49 @@ export default class OrderManageScreen extends React.Component {
                   borderWidth: 2,
                   borderRadius: 20,
                   padding: 10,
-                }}                
+                  marginBottom: 10,
+                }}
                 onPress={() => {
                   /* 1. Navigate to the Details route with params */
-                  this.props.navigation.navigate('UpdateUser', item);
+                  this.props.navigation.navigate("UpdateUser", item);
                 }}
               >
                 <Text style={{ fontSize: 16, margin: 10 }}>
                   {item.userEmail}
                 </Text>
-                
-                <Text style={{ fontSize: 16, margin: 10 }}>
-                {item.active}
-                </Text>
+
+                <Text
+                    style={{
+                      padding: 5,
+                      borderWidth: 2,
+                      borderRadius: 30,
+                      alignItems: "center",
+                      alignContent: "center",
+                      width: width * 0.25,
+                      fontWeight: "bold",
+                      fontSize: 20,
+                      textAlign: "center",
+                      borderColor:
+                      item.active == "disable"
+                          ? COLORS.red
+                          : COLORS.green,
+                      backgroundColor:
+                      item.active == "disable"
+                          ? "#ffc2c2"
+                          : COLORS.green,
+                      alignContent: "center",
+                      color: COLORS.white,
+                    }}
+                  >
+                    {item.active}
+                  </Text>
               </TouchableOpacity>
             )}
             keyExtractor={(item, index) => index}
           />
-        </ImageBackground>
-      </View>
+        </View>
+      </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
@@ -142,16 +156,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
-  buyBtn: {
-    backgroundColor: COLORS.green,
-    borderRadius: 25,
-    width: width * 0.3,
-    height: height * 0.2,
-
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#ffffff",
-  },
   bordetBtn: {
     borderColor: "grey",
     borderWidth: 1,
@@ -167,14 +171,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: width * 0.06,
     alignContent: "center",
-  },
-  priceTag: {
-    width: width * 0.3,
-    backgroundColor: COLORS.green,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
-    height: height * 0.2,
-    alignItems: "center",
   },
   header: {
     paddingTop: height * 0.15,
@@ -221,21 +217,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     borderColor: "#61d47c",
   },
-  CategoryContainer: {
-    flexDirection: "row",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  ButtonContainer: {
-    flexDirection: "column",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-    justifyContent: "space-between",
-  },
   pageTitle: {
+    color: COLORS.green,
+    paddingTop: height * 0.1,
     fontWeight: "bold",
     fontSize: 35,
+    textAlign: "center",
   },
 });

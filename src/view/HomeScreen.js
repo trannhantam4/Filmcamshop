@@ -119,13 +119,6 @@ function HomeScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.header2}>
-        {/* <TouchableOpacity
-          style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("ShopDetails")}
-        >
-          <FontAwesome name="address-book" style={styles.icon}></FontAwesome>
-          <Text style={styles.buttonText}>Shop info</Text>
-        </TouchableOpacity> */}
         <TouchableOpacity
           style={styles.buttonMenuTop}
           onPress={() => navigation.navigate("Address")}

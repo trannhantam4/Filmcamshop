@@ -9,12 +9,13 @@ import {
   TouchableOpacity,
   TextInput,
   SafeAreaView,
+  ImageBackground,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import HeaderSc from "../Header";
 import COLORS from "../../consts/colors";
 const { width } = Dimensions.get("window");
-const height = width * 0.6;
+const { height } = Dimensions.get("screen");
 
 export default class UpdateOrder extends React.Component {
   constructor(props) {
@@ -70,120 +71,76 @@ export default class UpdateOrder extends React.Component {
       });
   }
   render() {
-    const { orderID, orderStatus, productName, quantity, address, userEmail } =
+    const { orderStatus, productName, quantity, address, userEmail } =
       this.state;
 
     return (
       <SafeAreaView>
+        
+        <ImageBackground
+        style={{ width: width, height: height  }}
+        source={require("../../../app/assets/logo_wallpaper_2.png")}
+      >
         <HeaderSc></HeaderSc>
         <View>
           <Text style={styles.pageTitle}>Order Detail</Text>
 
-          <View>
-            <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "column", paddingBottom: 20 }}>
+              <Text style={styles.textField}>Customer:</Text>
+              <Text style={styles.textField}>Address:</Text>
               <Text
                 style={{
                   fontWeight: "bold",
                   fontSize: width * 0.038,
-                  marginLeft: width * 0.05,
-                }}
-              >
-                Customer:
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: width * 0.038,
-                  marginLeft: width * 0.075,
-                }}
-              >
-                {userEmail}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: width * 0.038,
-                  marginLeft: width * 0.05,
-                }}
-              >
-                Address:
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: width * 0.038,
-                  marginLeft: width * 0.075,
-                }}
-              >
-                {address}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: width * 0.038,
-                  marginLeft: width * 0.05,
-                }}
-              >
+                  marginLeft: width * 0.03,
+                  marginTop: 16,
+                  padding: 10,
+                }}>
                 Product:
               </Text>
-
-              <Text
-                style={{
-                  fontSize: width * 0.038,
-                  marginLeft: width * 0.075,
-                }}
-              >
-                {productName}
-              </Text>
+              <Text style={styles.textField}>Quantity:</Text>
+              <Text style={styles.textField}>Order Status:</Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: width * 0.038,
-                  marginLeft: width * 0.05,
-                }}
-              >
-                Quantity:
-              </Text>
 
-              <Text
-                style={{
-                  fontSize: width * 0.038,
-                  marginLeft: width * 0.075,
-                }}
-              >
-                {quantity}
-              </Text>
+            <View>
+              <TextInput
+                style={styles.inputText}
+                defaultValue={userEmail}
+                editable={false}
+              ></TextInput>
+
+              <TextInput
+                style={styles.inputText}
+                defaultValue={address}
+                multiline
+                editable={false}
+              ></TextInput>
+
+              <TextInput
+                style={styles.inputText}
+                defaultValue={productName}
+                editable={false}
+              ></TextInput>
+
+              <TextInput
+                style={styles.inputText}
+                defaultValue={quantity}
+                editable={false}
+              ></TextInput>
+
+
+            <Picker
+              style={styles.picker}
+              selectedValue={this.state.orderStatus}
+              onValueChange={this.updateorderStatus}>
+              <Picker.Item label="Packaging" value="Packaging" />
+              <Picker.Item label="Delivery" value="Delivering" />
+              <Picker.Item label="Successful" value="Successful" />
+            </Picker>
             </View>
           </View>
-
-          <Picker
-            style={{
-              height: height * 0.1,
-              width: width * 0.3,
-              size: height * 0.5,
-              borderColor: "grey",
-              padding: height / 10,
-              width: width / 2,
-              fontSize: height * 0.15,
-              fontWeight: "bold",
-              borderWidth: 1,
-              marginLeft: height / 15,
-              marginTop: 10,
-            }}
-            selectedValue={this.state.orderStatus}
-            onValueChange={this.updateorderStatus}
-          >
-            <Picker.Item label="Packaging" value="Packaging" />
-            <Picker.Item label="Delivery" value="Delivering" />
-            <Picker.Item label="Successful" value="Successful" />
-          </Picker>
-
+          
           <TouchableOpacity
             style={styles.buttonMenuTop}
             onPress={this.checkInput}
@@ -191,42 +148,38 @@ export default class UpdateOrder extends React.Component {
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
+        </ImageBackground>
       </SafeAreaView>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingTop: 20,
-    marginRight: 0,
-    width: width,
-    height: height / 0.2,
+  picker: {
+    height: height * 0.1,
+    width: width * 0.4,
+    
+    
+    fontSize: 15,
+    fontWeight: "bold",
+    marginTop: 5,
   },
   buttonMenuTop: {
     shadowOpacity: 0.5,
     shadowRadius: 10,
-    shadowColor: "gray",
+
     textAlign: "center",
     flexDirection: "column",
     width: "28%",
     backgroundColor: "#fff",
     padding: 10,
     alignSelf: "center",
-    marginTop: 20,
+
     borderRadius: 5,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
     borderBottomWidth: 4,
     borderColor: "#61d47c",
-  },
-  slider: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: 0,
-    alignSelf: "center",
   },
   header: {
     marginLeft: 20,
@@ -243,11 +196,18 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   inputText: {
-    color: "#fff",
+    borderColor: "grey",
+    borderRadius: 5,
+    borderWidth: 1,
+    color: "black",
+
     fontSize: 15,
-    alignSelf: "center",
-    alignItems: "center",
-    alignContent: "center",
+    fontWeight: "bold",
+    textAlign: "auto",
+
+    marginTop: 10,
+    width: width * 0.65,
+    padding: 5,
   },
   button: {
     shadowOpacity: 0.5,
@@ -276,56 +236,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
   },
-  icon: {
-    width: 25,
-    height: 25,
-    alignSelf: "center",
-    alignItems: "center",
-    alignContent: "center",
-    fontSize: 20,
-    padding: 0,
-    color: "#61d47c",
-  },
-  productCard: {
-    width: width * 0.93,
-    height: height * 1.5,
-    borderColor: "#9c9c9c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingBottom: 20,
-  },
-  productImage: {
-    width: "100%",
-    height: height,
-    resizeMode: "contain",
-    borderRadius: 5,
+  textField: {
+    fontWeight: "bold",
+    fontSize: width * 0.038,
+    marginLeft: width * 0.03,
+    marginTop: 10,
+    padding: 10,
   },
   pageTitle: {
+    color: COLORS.green,
+    paddingTop: height * 0.05,
     fontWeight: "bold",
     fontSize: 35,
-    paddingBottom: height / 5,
-  },
-  productName: {
-    paddingTop: 15,
-    paddingLeft: 5,
-    fontSize: height / 10,
-    fontWeight: "bold",
-  },
-  productDes: {
-    paddingLeft: 5,
-    fontSize: height / 13,
-    marginBottom: 10,
-    paddingBottom: 20,
-  },
-  pageTitle: {
-    fontWeight: "bold",
-    fontSize: 35,
-    marginLeft: width / 12,
-    marginTop: height / 10,
-    marginBottom: height / 10,
+    textAlign: "center",
   },
 });
