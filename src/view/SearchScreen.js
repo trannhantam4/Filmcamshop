@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
+  ImageBackground,
 } from "react-native";
 
 import COLORS from "../consts/colors";
@@ -81,6 +82,10 @@ export default class SearchScreen extends React.Component {
     }
 
     return (
+      <ImageBackground
+      style={{ width: width, height: height }}
+      source={require("../../app/assets/000003.png")}
+    >
       <View
         style={{
           justifyContent: "center",
@@ -168,6 +173,7 @@ export default class SearchScreen extends React.Component {
           keyExtractor={(item, index) => index}
         />
       </View>
+      </ImageBackground>
     );
   }
 }

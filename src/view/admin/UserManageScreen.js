@@ -9,19 +9,10 @@ import {
   Dimensions,
   ActivityIndicator,
   TouchableOpacity,
-  TextInput,
-  Image,
+
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import { SliderBox } from "react-native-image-slider-box";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import axios from "axios";
 import COLORS from "../../consts/colors";
 import NumericInput from "react-native-numeric-input";
 const { width } = Dimensions.get("window");
@@ -72,7 +63,7 @@ export default class OrderManageScreen extends React.Component {
           style={{ width: width, height: height }}
           source={require("../../../app/assets/market.png")}
         >
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               padding: 20,
@@ -80,30 +71,31 @@ export default class OrderManageScreen extends React.Component {
               height: height * 0.09,
             }}
           >
-            {/* <TouchableOpacity
+            <TouchableOpacity
               style={styles.button}
               onPress={() => {
                 this.props.navigation.navigate("UpdateUser");
               }}
             >
               <Text style={styles.buttonText}>Disable User</Text>
-            </TouchableOpacity> */}
-          </View>
+            </TouchableOpacity>
+          </View> */}
 
           <FlatList
             style={{
               marginTop: height * 0.03,
+              marginBottom: height * 0.05,
             }}
             data={this.state.dataSource}
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={{
+                  width: width * 0.9,
                   borderColor: COLORS.green,
-                  paddingVertical: 10,
+                  backgroundColor: "rgba(217, 217, 217, 0.7)",
                   borderWidth: 2,
-                  backgroundColor: COLORS.white,
                   borderRadius: 20,
-                  marginBottom: 5,
+                  padding: 10,
                 }}                
                 onPress={() => {
                   /* 1. Navigate to the Details route with params */

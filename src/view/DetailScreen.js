@@ -14,6 +14,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import COLORS from "../consts/colors";
 import { auth } from "../../firebase";
+import { Picker } from "@react-native-picker/picker";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 const quantity = 1;
@@ -74,7 +75,7 @@ function DetailScreen({ route, navigation }) {
           <Ionicons name="cart-outline" size={28}></Ionicons>
         </View>
         <Image
-          style={{ height: height * 1.5, width: width, borderRadius: 0 }}
+          style={{ height: height * 1.5, width: width, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}
           source={{ uri: item.imgURL }}
         ></Image>
         <View style={styles.detailContainer}>
@@ -111,7 +112,7 @@ function DetailScreen({ route, navigation }) {
           <Text
             style={{
               fontWeight: "bold",
-              marginLeft: width * 0.07,
+              marginLeft: width * 0.075,
               fontSize: width * 0.049,
             }}
           >
@@ -120,11 +121,11 @@ function DetailScreen({ route, navigation }) {
           <Text
             style={{
               fontWeight: "bold",
-              fontSize: width * 0.049,
+              fontSize: width * 0.04,
               marginLeft: width * 0.075,
             }}
           >
-            About
+            Mô Tả Sản Phẩm
           </Text>
           <Text
             style={{
@@ -133,6 +134,7 @@ function DetailScreen({ route, navigation }) {
               fontSize: width * 0.038,
               marginLeft: width * 0.075,
               marginRight: width * 0.075,
+              marginTop: width * 0.05,
             }}
           >
             {item.productDescription}
@@ -149,7 +151,7 @@ function DetailScreen({ route, navigation }) {
           </Text>
 
           <TextInput
-            style={{ marginHorizontal: width * 0.02 }}
+            style={{ marginHorizontal: width * 0.02, marginLeft: width*0.08}}
             placeholder="37 A đường Sinh Thái, Bến Cát, Bình Dương"
             onChangeText={(text) => setAddress(text)}
           ></TextInput>

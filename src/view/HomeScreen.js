@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   View,
   Text,
   SafeAreaView,
@@ -9,17 +8,13 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  TextInput,
   Image,
-  ScrollView,
 } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import COLORS from "../consts/colors";
 import { auth } from "../../firebase";
-import { NavigationContainer } from "@react-navigation/native";
-import LoginScreen from "./LoginScreen";
 const { width } = Dimensions.get("window");
 
 const height = width * 0.5;
@@ -162,7 +157,7 @@ function HomeScreen({ navigation }) {
         <ActivityIndicator />
       ) : (
         <FlatList
-          style={{ margin: 20, borderRadius: 40 }}
+          style={{ marginLeft: 20, marginRight: 20, marginTop: 20, borderRadius: 40 }}
           horizontal={false}
           columnWrapperStyle={{ justifyContent: "space-between" }}
           showsVerticalScrollIndicator={false}

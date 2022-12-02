@@ -5,11 +5,8 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Image,
   TextInput,
   ImageBackground,
-  Alert,
-  Keyboard,
 } from "react-native";
 import firebase from "firebase";
 import { Base64 } from "js-base64";
@@ -156,7 +153,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
             <TextInput
               style={styles.input}
               autoComplete="email"
-              placeholder="Email..."
+              placeholder="Email"
               
               onChangeText={(text) => setUserName(text)}
             ></TextInput>
@@ -164,7 +161,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
               style={styles.input}
               autoComplete="password"
               secureTextEntry={true}
-              placeholder="Password...."
+              placeholder="Password"
               onChangeText={(text) => setPassword(text)}
             ></TextInput>
             <TouchableOpacity
@@ -198,7 +195,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
             <TouchableOpacity
               style={{ alignItems: "center", marginBottom: 30, marginTop: 10 }}
               onPress={() => {
-                navigation.navigate("FogotPwd");
+                navigation.navigate('FogotPwd', {email});
               }}
             >
               <Text style={{ fontSize: height / 60, color: COLORS.blue }}>

@@ -20,8 +20,11 @@ import { auth } from "../../firebase";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
+
 function FogotPwdScreen({ Dimensions, route, navigation }) {
-  const [email, setUserName] = useState("");
+  const [email_1, setUserName] = useState("");
+
+  const { email } = route.params;
 
   const forgetPassword = () => {
     firebase
@@ -64,7 +67,7 @@ function FogotPwdScreen({ Dimensions, route, navigation }) {
             <TextInput
               style={styles.input}
               autoComplete="email"
-              placeholder="Email..."
+              defaultValue={email}
               onChangeText={(text) => setUserName(text)}
             ></TextInput>
             <TouchableOpacity
@@ -76,6 +79,8 @@ function FogotPwdScreen({ Dimensions, route, navigation }) {
             >
               <Text style={styles.buttonText}>Reset Password</Text>
             </TouchableOpacity>
+
+            
           </View>
         </View>
       </ImageBackground>

@@ -20,8 +20,11 @@ export default class UpdateOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orderID: "",
-      ordertStatus: "",
+      bookingID: "",
+      bookingStatus: "",
+
+      bookingStatus_temp: props.route.params.bookingID,
+      bookingID_temp: props.route.params.bookingID,
     };
   }
 
@@ -38,7 +41,8 @@ export default class UpdateOrder extends React.Component {
   };
 
   componentDidMount() {
-    const { orderID, ordertStatus } = this.state;
+    const { bookingID, bookingID_temp, bookingStatus } = this.state;
+    this.setState({ bookingID: bookingID_temp });
 
     return fetch("http://www.filmcamshop.com/api/orderStatus.php", {
       method: "post",
@@ -48,7 +52,7 @@ export default class UpdateOrder extends React.Component {
       },
       body: JSON.stringify({
         // we will pass our input data to server
-        orderId: orderID,
+        bookingID: bookingID,
         orderstatus: ordertStatus,
       }),
     })
@@ -63,12 +67,17 @@ export default class UpdateOrder extends React.Component {
       });
   }
   render() {
+
+    const { bookingID_temp, orderStatus, productName, quantity, address, userEmail } =
+    this.state;
+
     return (
       <View>
         <SafeAreaView>
           <Text style={styles.pageTitle}>Update Booking Status</Text>
+          <Text style={styles.pageTitle}>{bookingID_temp}</Text>
         </SafeAreaView>
-        <TextInput
+        {/* <TextInput
           style={{
             borderColor: "grey",
             padding: 10,
@@ -85,7 +94,7 @@ export default class UpdateOrder extends React.Component {
           maxLength={5}
           placeholder="Booking ID"
           onChangeText={(orderID) => this.setState({ orderID })}
-        ></TextInput>
+        ></TextInput> */}
 
         <Picker
           style={{
