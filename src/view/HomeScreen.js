@@ -9,6 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  TextInput,
 } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -16,8 +17,8 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import COLORS from "../consts/colors";
 import { auth } from "../../firebase";
 const { width } = Dimensions.get("window");
-
 const height = width * 0.5;
+
 const images = [
   "https://lh3.googleusercontent.com/gyAvgly0xYf0JOdr7oVbUn1EZ1a3XhyvbrVs73iizK_dZO-Gp3oxNiLh2qYX8t91zP-d3evUtIaqkTu0ZO29PClWhXi3BUGg5ETFp3asK5hLCbG3sx_oL8gfmciLmMrWEISSufOYjSeseMdGCsc0YompwflHl40NiLXTkKq4jlV7eQ0-ADtPwoBFsNmKCwY2oyaIn7L3LV5uDlp2I3FX3tK5Jk6-l66YMdr4g6lLwJfGThsF-9XrC1FbJ6fh1732ivlA_NlZlmtxOszulgk_wpVXLGm-j9w6QmGLw8yiDXCjvfql_gf0vLdToW-x8B7R32zdTnvennAh72o4O3QmtPEePS-YS65IGrZBGVjGdN3MbTYorLH71eZtT0G1b7esuf2Ecc4tRtn9fmHi5V78nDJahuyHfg0L_6zRGL_sfHh59BjFZFhG23CpkOBtofYhOO4B1sqfyNen26lU6WwCGomYsZiu-iedghv1ABXSKHjSasMJYTHDD7Jkx4WWY0MPlvFaCnW1y_eX2mAj_jvhbbePqFsy_cbCBIQLHc98kk4uOaa1zj7y35YiMCk58HF5bvlmpRyrt3LtduuY--amr7gt5OluZ-EqXBNYsdRadKXvEIYnDCJdsMqtnUzlqb6qEmKhH0-JGv-0L3PdHxZ430Q1OELCcTd5d6AsDcbeoyOGkcyRjGE2b5WpN_xnAqQvuRDYdVzsoPlsrpwe2vPpnp2J=w1295-h870-no?authuser=1",
   "https://lh3.googleusercontent.com/8tTYzOPAcVq1hDUXUY1OqUMKWfXgjH-UuJPICETS-H-bFEQ6pe4b-vXRptJ9QwBa1yZcnTdmLrPp8FpK7DWPKEA81n-ccxAjvO7UnSS4x6QS3-jvAuPMdaNV60hf2N9xWfAq0Y3Bi4E4H7688-Auwg7U1Xbg70GY-Ml2sw_FgoVz19wCUU7HfwdZsva-eAcYIe-HjmJjAvQRID1WflaNFrAWocCDIFryZ5Jjwp-HI5lMCYlUR0y3fef0DTGcUg7qwyv7mCIV_kXYAkPoPoSceMeexCmy2TTcDx50CL22Rg8fbcvYRpUgZd3sanZOYHN9g3ktZukoex0QhAbL49tJBt9F33FP6fLQxYLOeez7effr2gYTo4B3TXoD2NvZuNlZuNlQFJF1cno2pl-el5JJ_tLXMAnbUSRzVlOKdF_7Sqes63URFsqq_21-rcbsD5iNRMYMsiunZ_qia_TFqik8ASNHl_Ccq-B-OSOq99tfte12xJCIGyO_xJ40fRjUm03bZEpN7XUI7QWjM3SrEOaj1Vj-OvBlttxWMeUYbslS6duL_yfo6WIhXLf_FEZrlRJQUi5q5ES2hC0poGnBQQhJab4jzJfMPPgA3v1uOfpjZQSfK9ZCkx4qHAC1Qpzw8gPTfGLwj_B7-th_rwNxVFFkI68xNgxoTh5EKXSDGMCdfx4L7_RuYLC4ro0CRxbTrEmXMCxDHJ2zAJLk_tqVd-U0tXtT=w1295-h870-no?authuser=1",
@@ -29,6 +30,7 @@ const images = [
 function HomeScreen({ navigation }) {
   const categories = ["PRODUCT"];
   const [categoryIndex, setCategoryIndex] = React.useState(0);
+  const [searchData_otherScreen, setsearchData_otherScreen] = useState("");
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -39,7 +41,7 @@ function HomeScreen({ navigation }) {
         "http://www.filmcamshop.com/api/SearchProductList.php"
       );
       const json = await response.json();
-      setData(json.item);
+      setData(json.item.filter((item) => item.status == "active"));
     } catch (error) {
       console.error(error);
     } finally {
@@ -98,6 +100,30 @@ function HomeScreen({ navigation }) {
             <Text style={styles.buttonText}>Log Out</Text>
           </TouchableOpacity>
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingTop: 10,
+          }}
+        >
+          <TextInput
+            style={styles.inputText}
+            placeholder="Looking for somethings..?"
+            onChangeText={(text) => setsearchData_otherScreen(text)}
+          ></TextInput>
+
+          <TouchableOpacity style={styles.searchButton}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => {
+                navigation.navigate("SearchScreen", { searchData_otherScreen });
+              }}
+            >
+              Search
+            </Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={{ marginTop: height * 0.02 }}>
           <SliderBox
             images={images}
@@ -150,7 +176,12 @@ function HomeScreen({ navigation }) {
         <ActivityIndicator />
       ) : (
         <FlatList
-          style={{ marginLeft: 20, marginRight: 20, marginTop: 20, borderRadius: 40 }}
+          style={{
+            marginLeft: 20,
+            marginRight: 20,
+            marginTop: 20,
+            borderRadius: 40,
+          }}
           horizontal={false}
           columnWrapperStyle={{ justifyContent: "space-between" }}
           showsVerticalScrollIndicator={false}
@@ -267,6 +298,8 @@ const styles = StyleSheet.create({
     marginRight: width * 0.03,
     padding: 10,
     marginTop: height * 0.03,
+
+    borderRadius: 10,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
@@ -354,6 +387,29 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 0,
     color: COLORS.green,
+  },
+  inputText: {
+    borderColor: "grey",
+    padding: 5,
+    width: width * 0.6,
+    borderRadius: 5,
+    fontSize: 15,
+    fontWeight: "bold",
+    borderWidth: 1,
+
+    marginLeft: 30,
+    marginRight: 15,
+  },
+  searchButton: {
+    fontSize: 15,
+    paddingTop: 7,
+    width: width * 0.2,
+
+    backgroundColor: "#fff",
+    borderRadius: 10,
+
+    borderColor: "grey",
+    borderWidth: 1,
   },
 });
 export default HomeScreen;

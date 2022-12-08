@@ -79,33 +79,33 @@ export default class OrderManageScreen extends React.Component {
                     borderRadius: 20,
                     padding: 10,
                     marginBottom: 10,
-                    backgroundColor: COLORS.white,
+                    backgroundColor: "rgba(217, 217, 217, 0.7)",
                   }}
                   onPress={() => {
                     this.props.navigation.navigate("UpdateOrder", item);
                   }}
                 >
-                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                    {item.orderID}.{item.productName}
+                  <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                    {item.productName}
                   </Text>
                   <Text>Quantity: {item.quantity}</Text>
-                  <Text>{item.address}</Text>
+                  <Text style={{ fontSize: 15 }}>Shipping Address: {item.address}</Text>
+                  <Text>Order date: {item.date}</Text>
                   <Text
                     style={{
                       padding: 5,
                       borderWidth: 2,
                       borderRadius: 30,
-                      alignItems: "center",
-                      alignContent: "center",
-                      width: width * 0.35,
+                      width: width * 0.28,
                       fontWeight: "bold",
                       fontSize: 20,
+                      textAlign: "center",
                       borderColor:
-                        item.orderDetail == "awaiting"
+                        item.orderDetail == "Awaiting"
                           ? COLORS.red
                           : COLORS.green,
                       backgroundColor:
-                        item.orderDetail == "awaiting"
+                        item.orderDetail == "Awaiting"
                           ? "#ffc2c2"
                           : COLORS.green,
                       alignContent: "center",
@@ -114,7 +114,7 @@ export default class OrderManageScreen extends React.Component {
                   >
                     {item.orderDetail}
                   </Text>
-                  <Text>{item.date}</Text>
+                  
                 </TouchableOpacity>
               )}
               keyExtractor={(item, index) => index}

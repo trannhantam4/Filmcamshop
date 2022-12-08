@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  TextInput,
 } from "react-native";
 
 import COLORS from "../../consts/colors";
@@ -22,6 +23,7 @@ export default class UpdateProductScreen extends React.Component {
     this.state = {
       isLoading: true,
       dataSource: [],
+      searchData_otherScreen: "",
 
       dataSource_disable: [],
       dataSource_display: [],
@@ -31,9 +33,7 @@ export default class UpdateProductScreen extends React.Component {
   dataSource_control_component = () => {
     const { dataSource_disable, dataSource_display } = this.state;
     this.setState({ dataSource_display: dataSource_disable });
-
-
-  }
+  };
 
   componentDidMount() {
     return fetch("http://www.filmcamshop.com/api/SearchProductList.php")
@@ -42,8 +42,12 @@ export default class UpdateProductScreen extends React.Component {
         this.setState({
           dataSource: responseJson.item,
           isLoading: false,
-          dataSource_display: responseJson.item.filter((item) => item.status == "active"),
-          dataSource_disable: responseJson.item.filter((item) => item.status == "disable")
+          dataSource_display: responseJson.item.filter(
+            (item) => item.status == "active"
+          ),
+          dataSource_disable: responseJson.item.filter(
+            (item) => item.status == "disable"
+          ),
         });
       })
       .catch((error) => {
@@ -58,8 +62,11 @@ export default class UpdateProductScreen extends React.Component {
         </View>
       );
     }
+    const { searchData_otherScreen } = this.state;
+    this.state;
 
     return (
+      
       <SafeAreaView>
         <View
           style={{
@@ -72,20 +79,49 @@ export default class UpdateProductScreen extends React.Component {
           <View
             style={{
               flexDirection: "row",
+              paddingTop: 10,
+            }}
+          >
+            <TextInput style={styles.inputText}
+            placeholder="Looking for somethings..?"
+            onChangeText={(text) => this.setState({searchData_otherScreen : text})}>
+
+            </TextInput>
+
+            <TouchableOpacity style={styles.searchButton}>
+              <Text style={styles.buttonText}
+              onPress={() => {
+                this.props.navigation.navigate('SearchScreen', {searchData_otherScreen});
+              }}
+              >Search</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
               padding: 20,
               width: width,
               height: height * 0.09,
             }}
           >
-            <TouchableOpacity style={styles.button} 
-            onPress={() => {this.props.navigation.navigate("AddProduct");}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.props.navigation.navigate("AddProduct");
+              }}
+            >
               <Text style={styles.buttonText}>Add New Product</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} 
-            onPress={() => {this.dataSource_control_component()}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.dataSource_control_component();
+              }}
+            >
               <Text style={styles.buttonText}>Disable List</Text>
-            </TouchableOpacity> 
+            </TouchableOpacity>
           </View>
 
           <FlatList
@@ -109,6 +145,8 @@ export default class UpdateProductScreen extends React.Component {
                     width: width * 0.84,
                     height: height * 0.3,
                     borderRadius: 20,
+                    borderWidth: 3,
+                    borderColor: COLORS.green,
                   }}
                   source={{ uri: item.imgURL }}
                 ></Image>
@@ -151,39 +189,18 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
-  buyBtn: {
-    backgroundColor: COLORS.green,
-    borderRadius: 25,
-    width: width * 0.3,
-    height: height * 0.2,
+  searchButton: {
+    marginHorizontal: width * 0.025,
+    width: width * 0.2,
+    height: height * 0.05,
+    backgroundColor: "#fff",
+    borderRadius: 10,
 
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#ffffff",
-  },
-  bordetBtn: {
-    borderColor: "grey",
-    borderWidth: 1,
-    borderRadius: 5,
-    width: width * 0.15,
-    height: height * 0.15,
-    backgroundColor: COLORS.green,
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  borderBtnText: {
-    color: COLORS.white,
-    alignItems: "center",
-    fontSize: width * 0.06,
-    alignContent: "center",
-  },
-  priceTag: {
-    width: width * 0.3,
-    backgroundColor: COLORS.green,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
-    height: height * 0.2,
-    alignItems: "center",
+    borderColor: "#61d47c",
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 4,
+    borderBottomWidth: 4,
   },
   header: {
     paddingTop: height * 0.15,
@@ -193,58 +210,28 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.green,
     justifyContent: "space-between",
   },
-  imageContainer: {
-    marginTop: height * 0.1,
-    width: width,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   header: {
     marginLeft: 20,
     marginRight: 20,
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  detailContainer: {
-    height: height * 1,
-    backgroundColor: COLORS.light,
-    borderRadius: 20,
-    paddingTop: 30,
-    marginTop: height * 0.1,
-    marginLeft: width * 0.03,
-    marginRight: width * 0.03,
-  },
-  buttonMenuTop: {
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    shadowColor: "gray",
-    textAlign: "center",
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    padding: 10,
-    marginTop: 20,
-    borderRadius: 5,
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderColor: "#61d47c",
-  },
-  CategoryContainer: {
-    flexDirection: "row",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  ButtonContainer: {
-    flexDirection: "column",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-    justifyContent: "space-between",
-  },
   pageTitle: {
+    color: COLORS.green,
+    paddingTop: height * 0.1,
     fontWeight: "bold",
     fontSize: 35,
+    textAlign: "center",
+  },
+  inputText: {
+    borderColor: "grey",
+    padding: 10,
+    width: width * 0.6,
+    borderRadius: 5,
+    fontSize: 15,
+    fontWeight: "bold",
+    borderWidth: 1,
+    alignContent: "center",
+    alignSelf: "center",
   },
 });

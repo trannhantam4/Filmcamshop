@@ -137,8 +137,7 @@ export default class UpdateProduct extends React.Component {
         style={{
           width: width,
           height: height,
-        }}
-      >
+        }}>
         <ImageBackground
           style={{ width: width, height: height }}
           source={require("../../../app/assets/logo_wallpaper_2.png")}

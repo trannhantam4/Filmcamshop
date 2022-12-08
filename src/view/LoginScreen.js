@@ -244,40 +244,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: height / 40,
   },
-  buyBtn: {
-    backgroundColor: COLORS.green,
-    borderRadius: 25,
-    width: width * 0.3,
-    height: height * 0.2,
-
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#ffffff",
-  },
-  bordetBtn: {
-    borderColor: "grey",
-    borderWidth: 1,
-    borderRadius: 5,
-    width: width * 0.15,
-    height: height * 0.15,
-    backgroundColor: COLORS.green,
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  borderBtnText: {
-    color: COLORS.white,
-    alignItems: "center",
-    fontSize: width * 0.06,
-    alignContent: "center",
-  },
-  priceTag: {
-    width: width * 0.3,
-    backgroundColor: COLORS.green,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
-    height: height * 0.2,
-    alignItems: "center",
-  },
   header: {
     paddingTop: height * 0.15,
     paddingHorizontal: width * 0.07,
@@ -285,21 +251,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: COLORS.green,
     justifyContent: "space-between",
-  },
-  imageContainer: {
-    marginTop: height * 0.1,
-    width: width,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  detailContainer: {
-    height: height * 1.7,
-    backgroundColor: COLORS.light,
-    borderRadius: 20,
-    paddingTop: 30,
-    marginTop: height * 0.1,
-    marginLeft: width * 0.03,
-    marginRight: width * 0.03,
   },
 });
 export default LoginScreen;

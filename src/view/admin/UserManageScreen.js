@@ -25,7 +25,6 @@ export default class OrderManageScreen extends React.Component {
       dataSource: [],
     };
   }
-
   componentDidMount() {
     return fetch("http://www.filmcamshop.com/api/getUserList.php")
       .then((response) => response.json())
@@ -47,7 +46,6 @@ export default class OrderManageScreen extends React.Component {
         </View>
       );
     }
-
     return (
       <SafeAreaView
         style={{

@@ -47,70 +47,52 @@ export default class PhotoshootManageScreen extends React.Component {
     }
 
     return (
-
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: height * 0.08,
-            marginHorizontal: width * 0.05,
-          }}
+      <View>
+        <ImageBackground
+          style={{ width: width, height: height }}
+          source={require("../../../app/assets/logo_wallpaper_2.png")}
         >
-                <ImageBackground
-        style={{ width: width, height: height }}
-        source={require("../../../app/assets/000003.png")}
-      >
-          {/* <View
+          <Text style={styles.pageTitle}>Booking Detail</Text>
+          <View
             style={{
-              flexDirection: "row",
-              padding: 20,
-              width: width,
-              height: height * 0.09,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: height * 0.08,
+              marginHorizontal: width * 0.05,
             }}
           >
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("UpdateBooking");
+            <FlatList
+              style={{
+                marginBottom: height * 0.05,
               }}
-            >
-              <Text style={styles.buttonText}>Update</Text>
-            </TouchableOpacity>
-          </View> */}
-          <FlatList
-            style={{
-              marginTop: height * 0.03,
-              marginBottom: height * 0.05,
-            }}
-            data={this.state.dataSource}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={{
-                  width: width * 0.9,
-                  borderColor: COLORS.green,
-                  backgroundColor: "rgba(217, 217, 217, 0.7)",
-                  borderWidth: 2,
-                  borderRadius: 20,
-                  padding: 10,
-                }}
-                // onPress={() => {this.props.navigation.navigate("UpdateBooking", item);}}
-              >
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                  {item.bookingID}
-                </Text>
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                  {item.dateTime}
-                </Text>
-                <Text>Booking Type: {item.type}</Text>
-                <Text>{item.bookingDate}</Text>
-                <Text>{item.date}</Text>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item, index) => index}
-          />
-          </ImageBackground>
-        </View>
-      
+              data={this.state.dataSource}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={{
+                    width: width * 0.9,
+                    borderColor: COLORS.green,
+                    backgroundColor: "rgba(217, 217, 217, 0.7)",
+                    borderWidth: 2,
+                    borderRadius: 20,
+                    padding: 10,
+                    marginBottom: 10,
+                  }}
+                  // onPress={() => {this.props.navigation.navigate("UpdateBooking", item);}}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  {item.userEmail}
+                  </Text>
+                  <Text style={{ fontSize: 15 }}>
+                    {item.dateTime}
+                  </Text>
+                  <Text style={{ fontSize: 15 }}>Booking Type: {item.type}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index}
+            />
+          </View>
+        </ImageBackground>
+      </View>
     );
   }
 }
@@ -149,80 +131,11 @@ const styles = StyleSheet.create({
     height: height * 0.2,
     alignItems: "center",
   },
-  header: {
-    paddingTop: height * 0.15,
-    paddingHorizontal: width * 0.07,
-    paddingBottom: height * 0.06,
-    flexDirection: "row",
-    backgroundColor: COLORS.green,
-    justifyContent: "space-between",
-  },
-  imageContainer: {
-    marginTop: height * 0.1,
-    width: width,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  header: {
-    marginLeft: 20,
-    marginRight: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  detailContainer: {
-    height: height * 1,
-    backgroundColor: COLORS.light,
-    borderRadius: 20,
-    paddingTop: 30,
-    marginTop: height * 0.1,
-    marginLeft: width * 0.03,
-    marginRight: width * 0.03,
-  },
-  buttonMenuTop: {
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    shadowColor: "gray",
-    textAlign: "center",
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    padding: 10,
-    marginTop: 20,
-    borderRadius: 5,
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderColor: "#61d47c",
-  },
-  CategoryContainer: {
-    flexDirection: "row",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  button: {
-    marginHorizontal: width * 0.02,
-    width: width * 0.4,
-    backgroundColor: "#fff",
-    height: height * 0.05,
-    borderRadius: 10,
-    alignContent: "center",
-    alignItems: "center",
-    borderColor: "#61d47c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-  },
-  ButtonContainer: {
-    flexDirection: "column",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-    justifyContent: "space-between",
-  },
   pageTitle: {
+    color: COLORS.green,
+    paddingTop: height * 0.08,
     fontWeight: "bold",
     fontSize: 35,
+    textAlign: "center",
   },
 });

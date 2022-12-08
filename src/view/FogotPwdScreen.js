@@ -5,16 +5,11 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Image,
   TextInput,
   ImageBackground,
-  Alert,
 } from "react-native";
 import firebase from "firebase";
-import { Base64 } from "js-base64";
 import COLORS from "../consts/colors";
-import axios from "axios";
-import HeaderSc from "./Header";
 import { auth } from "../../firebase";
 
 const { width } = Dimensions.get("window");
