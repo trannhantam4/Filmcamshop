@@ -66,14 +66,12 @@ export default class UpdateProductScreen extends React.Component {
     this.state;
 
     return (
-      
-      <SafeAreaView>
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
             marginTop: height * 0.08,
-            marginHorizontal: width * 0.05,
+            height: height * 0.87,
           }}
         >
           <View
@@ -125,42 +123,43 @@ export default class UpdateProductScreen extends React.Component {
           </View>
 
           <FlatList
+          styles={{width: width,}}
+          numColumns={2}
             data={this.state.dataSource_display}
+
             renderItem={({ item, index, separators }) => (
               <TouchableOpacity
                 style={{
-                  width: width * 0.9,
+                  width: width * 0.47,
                   borderColor: COLORS.green,
                   borderWidth: 2,
-                  borderRadius: 20,
-                  padding: 10,
+                  borderRadius: 20,    
+                  padding: 8,
                   backgroundColor: COLORS.white,
+                  marginRight: 7,
+                  marginBottom: 7,
                 }}
                 onPress={() => {
                   this.props.navigation.navigate("UpdateProduct", item);
-                }}
-              >
+                }}>
                 <Image
                   style={{
-                    width: width * 0.84,
-                    height: height * 0.3,
+                    width: width * 0.42,
+                    height: height * 0.15,
                     borderRadius: 20,
-                    borderWidth: 3,
-                    borderColor: COLORS.green,
                   }}
                   source={{ uri: item.imgURL }}
                 ></Image>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text numberOfLines={1} style={{ fontWeight: "bold", fontSize: 16, marginTop: 5, }}>
                   {item.productName}
                 </Text>
-                <Text>Quantity: {item.quantity}</Text>
+                <Text style={{ marginTop: 5, }}>Quantity: {item.quantity}</Text>
                 <Text numberOfLines={2}>{item.productDescription}</Text>
               </TouchableOpacity>
             )}
             keyExtractor={(item, index) => index}
           />
         </View>
-      </SafeAreaView>
     );
   }
 }
@@ -233,5 +232,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignContent: "center",
     alignSelf: "center",
+    backgroundColor: COLORS.white,
   },
 });

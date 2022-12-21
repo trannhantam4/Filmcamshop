@@ -104,6 +104,17 @@ function LoginScreen({ Dimensions, route, navigation }) {
       adminLog();
     }
   };
+
+  const checkInput = () => {
+    if (email == "") {
+      alert("Please enter your email");
+    } else if (password == "") {
+      alert("Please enter your password");
+    } else {
+      checkAdmin();
+    }
+  };
+
   const handleLogIn = () => {
     auth
       .signInWithEmailAndPassword(email, password)
@@ -139,7 +150,6 @@ function LoginScreen({ Dimensions, route, navigation }) {
         style={{ width: width, height: height }}
         source={require("../../app/assets/market.png")}
       >
-        
         <View
           style={{
             marginTop: height / 2.7,
@@ -155,7 +165,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
               style={styles.input}
               autoComplete="email"
               placeholder="Email"
-              
+              require
               onChangeText={(text) => setUserName(text)}
             ></TextInput>
             <TextInput
@@ -168,7 +178,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
             <TouchableOpacity
               style={styles.btn}
               onPress={() => {
-                checkAdmin();
+                checkInput();
               }}
             >
               <Text style={styles.buttonText}>Log in</Text>
@@ -196,7 +206,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
             <TouchableOpacity
               style={{ alignItems: "center", marginBottom: 30, marginTop: 10 }}
               onPress={() => {
-                navigation.navigate('FogotPwd', {email});
+                navigation.navigate("FogotPwd", { email });
               }}
             >
               <Text style={{ fontSize: height / 60, color: COLORS.blue }}>

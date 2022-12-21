@@ -22,6 +22,7 @@ import AddProduct from "./src/view/manage/AddProduct";
 import UpdateBooking from "./src/view/manage/UpdateBooking";
 import AddUser from "./src/view/manage/AddUser";
 import UpdateOrder from "./src/view/manage/UpdateOrder";
+import CartScreen from "./src/view/CartScreen";
 
 import SearchScreen from "./src/view/SearchScreen";
 import UpdateUser from "./src/view/manage/UpdateUser";
@@ -144,6 +145,13 @@ function App() {
           component={AddressScreen}
           options={{ headerShown: false }}
         />
+
+        <Stack.Screen
+          name="Cart"
+          component={CartScreen}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="AddUser"
           component={AddUser}

@@ -165,7 +165,7 @@ function HomeScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("OrderStatus")}
+          onPress={() => navigation.navigate("Cart")}
         >
           <FontAwesome name="list" style={styles.icon}></FontAwesome>
           <Text style={styles.buttonText}>My Order</Text>
@@ -337,11 +337,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   header: {
-    marginHorizontal: 0,
-
-    marginVertical: height * 0.05,
     flexDirection: "row",
-
     backgroundColor: COLORS.green,
     justifyContent: "space-between",
   },

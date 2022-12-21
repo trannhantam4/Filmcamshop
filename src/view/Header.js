@@ -34,7 +34,11 @@ function HeaderSc({}) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={28} />
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.goBack()}>
         <Ionicons name="cart-outline" size={28}></Ionicons>
+        </TouchableOpacity>
+        
       </View>
     </SafeAreaView>
   );

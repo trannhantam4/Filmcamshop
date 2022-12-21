@@ -109,10 +109,10 @@ export default class SearchScreen extends React.Component {
               <TouchableOpacity style={styles.searchButton}>
                 <Text
                   style={styles.buttonText}
+                  
                   onPress={() => {
                     this.checkInput();
-                  }}
-                >
+                  }}>
                   Search
                 </Text>
               </TouchableOpacity>

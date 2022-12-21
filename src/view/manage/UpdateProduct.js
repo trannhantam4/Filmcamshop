@@ -282,6 +282,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignSelf: "center",
     marginTop: 10,
+    backgroundColor: COLORS.white,
   },
   button: {
     shadowOpacity: 0.5,

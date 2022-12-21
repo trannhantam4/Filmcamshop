@@ -18,6 +18,7 @@ import { Picker } from "@react-native-picker/picker";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
 const quantity = 1;
+import CartScreen from "./CartScreen";
 
 function DetailScreen({ route, navigation }) {
   const item = route.params;
@@ -59,7 +60,9 @@ function DetailScreen({ route, navigation }) {
     }
   }, [isSubmit]);
 
+
   return (
+
     <KeyboardAwareScrollView>
       <SafeAreaView
         style={{
@@ -72,10 +75,17 @@ function DetailScreen({ route, navigation }) {
             size={28}
             onPress={() => navigation.goBack()}
           ></Ionicons>
-          <Ionicons name="cart-outline" size={28}></Ionicons>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="cart-outline" size={28}></Ionicons>
+          </TouchableOpacity>
         </View>
         <Image
-          style={{ height: height * 1.5, width: width, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}
+          style={{
+            height: height * 1.5,
+            width: width,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          }}
           source={{ uri: item.imgURL }}
         ></Image>
         <View style={styles.detailContainer}>
@@ -151,7 +161,7 @@ function DetailScreen({ route, navigation }) {
           </Text>
 
           <TextInput
-            style={{ marginHorizontal: width * 0.02, marginLeft: width*0.08}}
+            style={{ marginHorizontal: width * 0.02, marginLeft: width * 0.08 }}
             placeholder="37 A đường Sinh Thái, Bến Cát, Bình Dương"
             onChangeText={(text) => setAddress(text)}
           ></TextInput>
@@ -194,21 +204,7 @@ function DetailScreen({ route, navigation }) {
               <Picker.Item label="6" value="6" />
               <Picker.Item label="7" value="7" />
             </Picker>
-            {/* <TouchableOpacity
-              style={styles.buyBtn}
-              onPress={() => {
-                if (email == null) {
-                  alert("Please login to order product");
-                  navigation.navigate("Home");
-                } else {
-                  setIsSubmit(true);
-                }
-              }}
-            >
-              <Text style={{ color: COLORS.white, fontSize: width * 0.05 }}>
-                Add to cart
-              </Text>
-            </TouchableOpacity> */}
+
             <TouchableOpacity
               style={styles.buyBtn}
               onPress={() => {
