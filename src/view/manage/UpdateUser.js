@@ -7,7 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ImageBackground,
-  TextInput,
+  SafeAreaView,
   Alert,
 } from "react-native";
 import axios from "axios";
@@ -15,24 +15,15 @@ import COLORS from "../../consts/colors";
 import { Picker } from "@react-native-picker/picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 const { width } = Dimensions.get("window");
-
-const height = width * 0.6;
+const { height } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingTop: 20,
-    marginRight: 0,
-    width: width,
-    height: height / 0.2,
-  },
   buttonMenuTop: {
     alignSelf: "center",
     borderRadius: 10,
     backgroundColor: "#fff",
-    width: width / 2,
-    height: height * 0.22,
+    width: width * 0.3,
+    height: height * 0.06,
     marginTop: 15,
     padding: 10,
     borderTopWidth: 2,
@@ -40,18 +31,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
     borderColor: "#61d47c",
-  },
-  slider: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: 0,
-    alignSelf: "center",
-  },
-  header: {
-    marginLeft: 20,
-    marginRight: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   buttonText: {
     color: "#61d47c",
@@ -82,69 +61,28 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     position: "relative",
     borderColor: "#61d47c",
+    
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
-  pagingText: {
-    fontSize: width / 30,
-    color: "#888",
-  },
-  pagingActiveText: {
-    fontSize: width / 25,
+  picker: {
+    color: COLORS.green,
     fontWeight: "bold",
-    color: "#fff",
-  },
-  icon: {
-    width: 25,
-    height: 25,
-    alignSelf: "center",
-    alignItems: "center",
+    backgroundColor: COLORS.white,
     alignContent: "center",
-    fontSize: 20,
-    padding: 0,
-    color: "#61d47c",
-  },
-  productCard: {
-    width: width * 0.93,
-    height: height * 1.5,
-    borderColor: "#9c9c9c",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 4,
-    borderBottomWidth: 4,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingBottom: 20,
-  },
-  productImage: {
-    width: "100%",
-    height: height,
-    resizeMode: "contain",
-    borderRadius: 5,
-  },
-  pageTitle: {
-    fontWeight: "bold",
-    fontSize: 35,
-    paddingBottom: height / 5,
-  },
-  productName: {
-    paddingTop: 15,
-    paddingLeft: 5,
-    fontSize: height / 10,
-    fontWeight: "bold",
-  },
-  productDes: {
-    paddingLeft: 5,
-    fontSize: height / 13,
-    marginBottom: 10,
-    paddingBottom: 20,
+    alignSelf: "center",
+    height: height * 0.05,
+    width: width * 0.3,
+    margin: height * 0.1,
+    size: height * 0.5,
+    borderRadius: 2,
+    borderColor: COLORS.green,
   },
 });
 
 export default function UpdateProduct({ navigation, route }) {
-
   const [status, setStat] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const { userEmail } = route.params;
@@ -178,38 +116,39 @@ export default function UpdateProduct({ navigation, route }) {
     }
   }, [isSubmit]);
   return (
-    <View style={{ height: height, width: width }}>
-      <Text style={styles.buttonText}>User Email: {userEmail}</Text>
+    <SafeAreaView
+      style={{
+        width: width,
+        height: height,
+      }}
+    >
+      <ImageBackground
+        style={{ width: width, height: height }}
+        source={require("../../../app/assets/logo_wallpaper_2.png")}
+      >
+        <View style={{ height: height, width: width }}>
+          {/* <Text style={styles.buttonText}>User Email: {userEmail}</Text> */}
 
-      <Picker
-        quantity={status}
-        style={{
-          color: COLORS.green,
-          fontWeight: "bold",
-          backgroundColor: COLORS.white,
-          alignContent: "center",
-          alignSelf: "center",
-          height: height * 0.1,
-          width: width * 0.3,
-          margin: height * 0.1,
-          size: height * 0.5,
-          borderRadius: 2,
-          borderColor: COLORS.green,
-        }}
-        selectedValue={active}
-        onValueChange={(itemValue, itemIndex) => setStat(itemValue)}
-      >
-        <Picker.Item label="active" value="active" />
-        <Picker.Item label="disable" value="disable" />
-      </Picker>
-      <TouchableOpacity
-        style={styles.buttonMenuTop}
-        onPress={() => {
-          setIsSubmit(true);
-        }}
-      >
-        <Text style={styles.buttonText}>Update</Text>
-      </TouchableOpacity>
-    </View>
+          <Picker
+            quantity={status}
+            style={styles.picker}
+            selectedValue={active}
+            onValueChange={(itemValue, itemIndex) => setStat(itemValue)}
+          >
+            <Picker.Item label="active" value="active" />
+            <Picker.Item label="disable" value="disable" />
+          </Picker>
+
+          <TouchableOpacity
+            style={styles.buttonMenuTop}
+            onPress={() => {
+              setIsSubmit(true);
+            }}
+          >
+            <Text style={styles.buttonText}>Update</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 }

@@ -14,6 +14,7 @@ import {
 
 import COLORS from "../consts/colors";
 import { Picker } from "@react-native-picker/picker";
+import { auth } from "../../firebase";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
@@ -25,6 +26,7 @@ export default class SearchScreen extends React.Component {
       dataSource: [],
 
       searchData: props.route.params.searchData_otherScreen,
+      email: auth.currentUser?.email,
     };
   }
   checkInput = () => {
@@ -66,7 +68,7 @@ export default class SearchScreen extends React.Component {
   }
 
   render() {
-    const { searchData } = this.state;
+    const { searchData, email } = this.state;
     if (this.state.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -139,7 +141,11 @@ export default class SearchScreen extends React.Component {
                   backgroundColor: "rgba(217, 217, 217, 0.8)",
                 }}
                 onPress={() => {
-                  this.props.navigation.navigate("Details", item);
+                  if (email == null) {
+                  this.props.navigation.navigate("UpdateProduct", item); }
+                  else {
+                    this.props.navigation.navigate("Details", item);
+                  }
                 }}
               >
                 <View style={{

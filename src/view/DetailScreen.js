@@ -17,7 +17,6 @@ import { auth } from "../../firebase";
 import { Picker } from "@react-native-picker/picker";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
-const quantity = 1;
 import CartScreen from "./CartScreen";
 
 function DetailScreen({ route, navigation }) {
@@ -184,26 +183,17 @@ function DetailScreen({ route, navigation }) {
             >
               Số Lượng:
             </Text>
-
-            <Picker
-              quantity={quantity}
-              style={{
-                height: height * 0.1,
+            <TextInput
+            style={{height: height * 0.1,
                 width: width * 0.2,
-                size: height * 0.4,
-              }}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
-              }
-            >
-              <Picker.Item label="1" value="1" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="3" value="3" />
-              <Picker.Item label="4" value="4" />
-              <Picker.Item label="5" value="5" />
-              <Picker.Item label="6" value="6" />
-              <Picker.Item label="7" value="7" />
-            </Picker>
+                borderEndWidth:1,
+                size: height * 0.4,}}
+            onChangeText ={(text) => setSelectedValue(text)}
+            placeholder= {"1"}
+                >
+
+            </TextInput>
+            
 
             <TouchableOpacity
               style={styles.buyBtn}
@@ -212,7 +202,15 @@ function DetailScreen({ route, navigation }) {
                   alert("Please login to order product");
                   navigation.navigate("Home");
                 } else {
-                  setIsSubmit(true);
+                  if(quantity!=0 || quantity!= null){
+                    if(address.length>10 ){
+                      setIsSubmit(true);
+                    }else{
+                      alert("Please enter your full address")
+                    }
+                  }else{
+                    alert("Choose valid quantity")
+                  } 
                 }
               }}
             >

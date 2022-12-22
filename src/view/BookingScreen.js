@@ -111,8 +111,7 @@ function BookingScreen(navigation, route) {
                 }}
                 onValueChange={(itemValue, itemIndex) =>
                   setSelectedValue(itemValue)
-                }
-              >
+                }>
                 <Picker.Item label="Đám Cưới" value="Wedding" />
                 <Picker.Item label="Chân Dung" value="Portrial" />
                 <Picker.Item label="Thương Mại" value="Commercial" />
@@ -132,8 +131,10 @@ function BookingScreen(navigation, route) {
                   if (email == null) {
                     alert("Please login to book a photoshoot");
                     navigation.navigate("Home");
-                  } else {
+                  } else if(address.length>10){
                     setIsSubmit(true);
+                  } else{
+                    alert("Your address length is not enough!")
                   }
                 }}
               >

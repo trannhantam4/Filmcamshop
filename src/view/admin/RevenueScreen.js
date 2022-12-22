@@ -85,7 +85,7 @@ export default class RevenueScreen extends Component {
                 ></TextInput>
                 <Button
                   style={styles.buttonMenuTop}
-                  title={"See Rev"}
+                  title={"Report"}
                   onPress={this.searchRev}
                 ></Button>
               </View>
@@ -125,15 +125,7 @@ export default class RevenueScreen extends Component {
   }
 }
 const styles = StyleSheet.create({
-  buyBtn: {
-    backgroundColor: COLORS.green,
-    borderRadius: 25,
-    width: width * 0.3,
-    height: height * 0.2,
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#ffffff",
-  },
+ 
   header2: {
     marginHorizontal: width * 0.05,
     marginVertical: height * 0.01,
@@ -150,20 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  borderBtnText: {
-    color: COLORS.white,
-    alignItems: "center",
-    fontSize: width * 0.06,
-    alignContent: "center",
-  },
-  priceTag: {
-    width: width * 0.3,
-    backgroundColor: COLORS.green,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
-    height: height * 0.2,
-    alignItems: "center",
-  },
+  
   header: {
     paddingTop: height * 0.15,
     paddingHorizontal: width * 0.07,
@@ -184,20 +163,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  detailContainer: {
-    height: height * 1,
-    backgroundColor: COLORS.light,
-    borderRadius: 20,
-    paddingTop: 30,
-    marginTop: height * 0.1,
-    marginLeft: width * 0.03,
-    marginRight: width * 0.03,
-  },
+  
   buttonMenuTop: {
     shadowOpacity: 0.5,
     shadowRadius: 10,
     shadowColor: "gray",
-    textAlign: "center",
+    alignContent:"center",
     backgroundColor: "#fff",
     padding: 10,
 
@@ -208,12 +179,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     borderColor: "#61d47c",
   },
-  CategoryContainer: {
-    flexDirection: "row",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-  },
+  
   button: {
     marginHorizontal: width * 0.02,
     width: width * 0.4,
@@ -228,35 +194,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
-  ButtonContainer: {
-    flexDirection: "column",
-    marginTop: 30,
-    marginRight: 20,
-    marginLeft: 20,
-    justifyContent: "space-between",
-  },
-  pageTitle: {
-    fontWeight: "bold",
-    fontSize: 35,
-  },
+ 
+  
 });
-// return fetch("http://www.filmcamshop.com/api/getRevenue.php", {
-//   method: "POST",
-//   headers: {
-//     Accepts: "applicattion/json",
-//     "Content-Type": "application.json",
-//   },
-//   body: JSON.stringify({
-//     date: date,
-//   }),
-// })
-//   .then((response) => response.json())
-//   .then((responseJson) => {
-//     this.setState({
-//       dataSource: responseJson.orders,
-//       isLoading: false,
-//     });
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });

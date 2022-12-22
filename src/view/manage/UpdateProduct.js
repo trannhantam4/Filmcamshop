@@ -156,6 +156,7 @@ export default class UpdateProduct extends React.Component {
             <TextInput
               style={styles.inputText}
               defaultValue={Status_temp}
+              
               onChangeText={(text) => this.setState({ Status_temp: text })}
             ></TextInput>
 

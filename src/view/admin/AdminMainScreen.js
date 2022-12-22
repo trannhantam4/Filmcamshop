@@ -42,13 +42,13 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
             <Text style={styles.buttonText}>Order</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.buttonMenuTop}
             onPress={() => navigation.navigate("SearchScreen")}
           >
             <Ionicons name="search" style={styles.icon}></Ionicons>
             <Text style={styles.buttonText}>Search</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             style={styles.buttonMenuTop}

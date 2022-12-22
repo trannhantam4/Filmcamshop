@@ -165,7 +165,7 @@ function HomeScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMenuTop}
-          onPress={() => navigation.navigate("Cart")}
+          onPress={() => navigation.navigate("OrderStatus")}
         >
           <FontAwesome name="list" style={styles.icon}></FontAwesome>
           <Text style={styles.buttonText}>My Order</Text>

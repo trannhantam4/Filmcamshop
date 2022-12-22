@@ -101,11 +101,11 @@ export default class OrderManageScreen extends React.Component {
                       fontSize: 20,
                       textAlign: "center",
                       borderColor:
-                        item.orderDetail == "Awaiting"
+                        item.orderDetail == "awaiting"
                           ? COLORS.red
                           : COLORS.green,
                       backgroundColor:
-                        item.orderDetail == "Awaiting"
+                        item.orderDetail == "awaiting"
                           ? "#ffc2c2"
                           : COLORS.green,
                       alignContent: "center",

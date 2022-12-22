@@ -90,6 +90,8 @@ function LoginScreen({ Dimensions, route, navigation }) {
         if (responseJson === "ok") {
           alert("Sign up Success!");
           navigation.navigate("Home");
+        }else{
+          alert("wrong password!")
         }
       })
       .catch((error) => {
@@ -187,8 +189,11 @@ function LoginScreen({ Dimensions, route, navigation }) {
             <TouchableOpacity
               style={styles.btn}
               onPress={() => {
+                if(email.length==0||password.length==0){
+                  alert("please enter username or password")
+                }else{
                 authenticate();
-                handleSignUp();
+                handleSignUp();}
               }}
             >
               <Text style={styles.buttonText}>Sign Up</Text>
