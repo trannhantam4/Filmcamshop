@@ -60,7 +60,7 @@ export default class OrderManageScreen extends React.Component {
             style={{
               justifyContent: "center",
               alignItems: "center",
-
+              height: height * 0.95,
               marginHorizontal: width * 0.05,
             }}
           >
@@ -96,18 +96,18 @@ export default class OrderManageScreen extends React.Component {
                       padding: 5,
                       borderWidth: 2,
                       borderRadius: 30,
-                      width: width * 0.28,
+                      width: width * 0.3,
                       fontWeight: "bold",
                       fontSize: 20,
                       textAlign: "center",
                       borderColor:
-                        item.orderDetail == "awaiting"
+                        item.orderDetail == "Packaging"
                           ? COLORS.red
                           : COLORS.green,
                       backgroundColor:
-                        item.orderDetail == "awaiting"
+                        item.orderDetail == "Packaging"
                           ? "#ffc2c2"
-                          : COLORS.green,
+                          : "#82e8a1",
                       alignContent: "center",
                       color: COLORS.white,
                     }}

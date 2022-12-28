@@ -12,75 +12,76 @@ import {
   ImageBackground,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import HeaderSc from "../Header";
-import COLORS from "../../consts/colors";
+
+import COLORS from "../consts/colors";
+import { auth } from "../../firebase";
+
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 
-export default class UpdateOrder extends React.Component {
+export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orderStatus: "",
-      orderID: "",
-      productName: props.route.params.productName,
-      quantity: props.route.params.quantity,
-      order_temp: props.route.params.orderID,
-      address: props.route.params.address,
-      orderStatus_temp: props.route.params.orderDetail,
-      userEmail: props.route.params.userEmail,
+      userDataSource: [],
+      inputTrigger: false,
+      email: auth.currentUser?.email,
     };
   }
 
-  updateorderStatus = (orderStatus) => {
-    this.setState({ orderStatus: orderStatus });
-  };
+  // updateorderStatus = (orderStatus) => {
+  //   this.setState({ orderStatus: orderStatus });
+  // };
 
-  checkInput = () => {
-    const { orderStatus_temp, orderStatus } = this.state;
-    if (orderStatus == "") {
-      alert("Please chose status");
-    } else {
-      this.componentDidMount();
-    }
-  };
+  // checkInput = () => {
+  //   const { orderStatus_temp, orderStatus } = this.state;
+  //   if (orderStatus == "") {
+  //     alert("Please chose status");
+  //   } else {
+  //     this.componentDidMount();
+  //   }
+  // };
+
+  editableHandler = () => {
+    this.setState({ inputTrigger: true });
+  }
 
   componentDidMount() {
-    const { orderStatus, orderID, order_temp } = this.state;
-    this.setState({ orderID: order_temp });
+    const { email } = this.state;
 
-    return fetch("http://www.filmcamshop.com/api/orderStatus.php", {
+    console.log(email);
+
+    return fetch("http://www.filmcamshop.com/api/getUserProfile.php", {
       method: "post",
       header: {
         Accept: "application/json",
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        orderId: orderID,
-        orderstatus: orderStatus,
+        userEmail: email,
       }),
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        if (responseJson === "ok") {
-          alert("update order status successfuly!");
-        }
+        this.setState({
+          userDataSource: responseJson.user,
+        });
+        console.log(this.state.userDataSource);
       })
       .catch((error) => {
         console.error(error);
       });
   }
   render() {
-    const { orderStatus, productName, quantity, address, userEmail } =
-      this.state;
+    const { userDataSource, inputTrigger } = this.state;
 
+    
     return (
       <SafeAreaView>
         <ImageBackground
           style={{ width: width, height: height }}
-          source={require("../../../app/assets/logo_wallpaper_2.png")}
+          source={require("../../app/assets/logo_wallpaper_2.png")}
         >
-          <HeaderSc></HeaderSc>
           <View>
             <Text style={styles.pageTitle}>Order Detail</Text>
 
@@ -104,42 +105,41 @@ export default class UpdateOrder extends React.Component {
               </View>
 
               <View>
-                <TextInput
-                  style={styles.inputText}
-                  defaultValue={userEmail}
-                  editable={false}
-                ></TextInput>
-
-                <TextInput
-                  style={styles.inputText}
-                  defaultValue={address}
-                  multiline
-                  editable={false}
-                ></TextInput>
-
-                <TextInput
-                  style={styles.inputText}
-                  defaultValue={productName}
-                  editable={false}
-                ></TextInput>
-
-                <TextInput
-                  style={styles.inputText}
-                  defaultValue={quantity}
-                  editable={false}
-                ></TextInput>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={this.state.orderStatus}
-                  onValueChange={this.updateorderStatus}
-                  mode={"dropdown"}
-                >
-                  <Picker.Item label="Packaging" value="Packaging" />
-                  <Picker.Item label="Delivery" value="Delivering" />
-                  <Picker.Item label="Successful" value="Successful" />
-                </Picker>
+                {userDataSource.map((item, key) => (
+                  <>
+                    <TextInput
+                      style={styles.inputText}
+                      multiline
+                      defaultValue={item.userName}
+                      editable={inputTrigger}
+                    ></TextInput>
+                    <TextInput
+                      style={styles.inputText}
+                      defaultValue={item.address}
+                      multiline
+                      editable={inputTrigger}
+                    ></TextInput>
+                    <TextInput
+                      style={styles.inputText}
+                      defaultValue={"0" + item.phone}
+                      editable={inputTrigger}
+                    ></TextInput>
+                    <TextInput
+                      style={styles.inputText}
+                      defaultValue={item.userEmail}
+                      editable={inputTrigger}
+                    ></TextInput>
+                  </>
+                ))}
               </View>
             </View>
+
+            <TouchableOpacity
+              style={styles.buttonMenuTop}
+              onPress={this.editableHandler}
+            >
+              <Text style={styles.buttonText}>Edit</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.buttonMenuTop}
@@ -154,6 +154,11 @@ export default class UpdateOrder extends React.Component {
   }
 }
 const styles = StyleSheet.create({
+  TextStyle: {
+    fontSize: 20,
+    color: "#000",
+    textAlign: "left",
+  },
   picker: {
     height: height * 0.1,
     width: width * 0.4,

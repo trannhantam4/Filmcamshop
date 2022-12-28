@@ -23,7 +23,7 @@ import UpdateBooking from "./src/view/manage/UpdateBooking";
 import AddUser from "./src/view/manage/AddUser";
 import UpdateOrder from "./src/view/manage/UpdateOrder";
 
-
+import ProfileScreen from "./src/view/ProfileScreen";
 import SearchScreen from "./src/view/SearchScreen";
 import UpdateUser from "./src/view/manage/UpdateUser";
 import OrderStatusScreen from "./src/view/OrderStatusScreen";
@@ -49,6 +49,12 @@ function App() {
         <Stack.Screen
           name="SearchScreen"
           component={SearchScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
           options={{ headerShown: false }}
         />
 

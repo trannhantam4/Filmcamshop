@@ -17,12 +17,11 @@ import { auth } from "../../firebase";
 import { Picker } from "@react-native-picker/picker";
 const { width } = Dimensions.get("window");
 const height = width * 0.6;
-import CartScreen from "./CartScreen";
 
 function DetailScreen({ route, navigation }) {
   const item = route.params;
   const img = item.imgURL;
-  const [quantity, setSelectedValue] = useState("1");
+  const [quantity, setSelectedValue] = useState("0");
   const [isSubmit, setIsSubmit] = useState(false);
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState(auth.currentUser?.email);
@@ -59,9 +58,7 @@ function DetailScreen({ route, navigation }) {
     }
   }, [isSubmit]);
 
-
   return (
-
     <KeyboardAwareScrollView>
       <SafeAreaView
         style={{
@@ -184,16 +181,16 @@ function DetailScreen({ route, navigation }) {
               Số Lượng:
             </Text>
             <TextInput
-            style={{height: height * 0.1,
+              style={{
+                height: height * 0.1,
                 width: width * 0.2,
-                borderEndWidth:1,
-                size: height * 0.4,}}
-            onChangeText ={(text) => setSelectedValue(text)}
-            placeholder= {"1"}
-                >
-
-            </TextInput>
-            
+                borderEndWidth: 1,
+                size: height * 0.4,
+              }}
+              onChangeText={(text) => setSelectedValue(text)}
+              placeholder="0"
+              keyboardType="numeric"
+            ></TextInput>
 
             <TouchableOpacity
               style={styles.buyBtn}
@@ -202,15 +199,16 @@ function DetailScreen({ route, navigation }) {
                   alert("Please login to order product");
                   navigation.navigate("Home");
                 } else {
-                  if(quantity!=0 || quantity!= null){
-                    if(address.length>10 ){
+                  if (quantity == 0 ) {
+                    alert("Choose valid quantity");
+                    
+                  } else {
+                    if (address.length > 10) {
                       setIsSubmit(true);
-                    }else{
-                      alert("Please enter your full address")
+                    } else {
+                      alert("Please enter your full address");
                     }
-                  }else{
-                    alert("Choose valid quantity")
-                  } 
+                  }
                 }
               }}
             >

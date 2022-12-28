@@ -22,7 +22,7 @@ export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      // isLoading: true,
       dataSource: [],
 
       searchData: props.route.params.searchData_otherScreen,
@@ -33,7 +33,7 @@ export default class SearchScreen extends React.Component {
     const { searchData } = this.state;
 
     if (searchData == "") {
-      this.setState(isLoading = false)
+      // this.setState(isLoading = false)
       alert("Please ask me something!");
     } else {
       this.componentDidMount();
@@ -51,14 +51,14 @@ export default class SearchScreen extends React.Component {
       body: JSON.stringify({
         // we will pass our input data to server
         searchData: searchData,
-        isLoading: false,
+        // isLoading: false,
       }),
     })
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
           dataSource: responseJson.results,
-          isLoading: false,
+          // isLoading: false,
         });
         console.log(responseJson.results)
       })
@@ -69,13 +69,13 @@ export default class SearchScreen extends React.Component {
 
   render() {
     const { searchData, email } = this.state;
-    if (this.state.isLoading) {
-      return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
+    // if (this.state.isLoading) {
+    //   return (
+    //     <View style={{ flex: 1, paddingTop: 20 }}>
+    //       <ActivityIndicator />
+    //     </View>
+    //   );
+    // }
     return (
       <ImageBackground
         style={{ width: width, height: height }}

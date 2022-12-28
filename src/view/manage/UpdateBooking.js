@@ -13,9 +13,9 @@ import { Base64 } from "js-base64";
 const height = width * 0.6;
 import { Picker } from "@react-native-picker/picker";
 export default class UpdateOrder extends React.Component {
-  state = { ordertStatus: "" };
-  updateOrdertStatus = (ordertStatus) => {
-    this.setState({ ordertStatus: ordertStatus });
+  state = { orderStatus: "" };
+  updateorderStatus = (orderStatus) => {
+    this.setState({ orderStatus: orderStatus });
   };
   constructor(props) {
     super(props);
@@ -29,11 +29,11 @@ export default class UpdateOrder extends React.Component {
   }
 
   checkInput = () => {
-    const { orderID, ordertStatus } = this.state;
+    const { orderID, orderStatus } = this.state;
 
     if (orderID == "") {
       alert("Please enter ID");
-    } else if (ordertStatus == "") {
+    } else if (orderStatus == "") {
       alert("Please enter status");
     } else {
       this.componentDidMount();
@@ -53,7 +53,7 @@ export default class UpdateOrder extends React.Component {
       body: JSON.stringify({
         // we will pass our input data to server
         bookingID: bookingID,
-        orderstatus: ordertStatus,
+        orderstatus: orderStatus,
       }),
     })
       .then((response) => response.json())
@@ -112,8 +112,8 @@ export default class UpdateOrder extends React.Component {
             alignSelf: "center",
             marginTop: 10,
           }}
-          selectedValue={this.state.ordertStatus}
-          onValueChange={this.updateOrdertStatus}
+          selectedValue={this.state.orderStatus}
+          onValueChange={this.updateorderStatus}
         >
           <Picker.Item label="Approve" value="Packaging" />
           <Picker.Item label="Decline" value="Delivery" />

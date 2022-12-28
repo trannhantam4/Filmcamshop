@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  Image,
   ImageBackground,
 } from "react-native";
 import firebase from "firebase";
@@ -151,10 +152,11 @@ function LoginScreen({ Dimensions, route, navigation }) {
       <ImageBackground
         style={{ width: width, height: height }}
         source={require("../../app/assets/market.png")}
-      >
+      > 
+
         <View
           style={{
-            marginTop: height / 2.7,
+            marginTop: height * 0.17,
             backgroundColor: COLORS.white,
             borderRadius: 40,
             width: width * 0.7,
@@ -162,7 +164,14 @@ function LoginScreen({ Dimensions, route, navigation }) {
             alignItems: "center",
           }}
         >
-          <View style={{ marginTop: height / 20 }}>
+        <Image style={{
+          width: width/2,
+          height: width/2,
+          alignSelf: 'center',
+          borderRadius: 40,
+        }}source={require("../../app/assets/icon.png")}>
+        </Image>
+          <View>
             <TextInput
               style={styles.input}
               autoComplete="email"
