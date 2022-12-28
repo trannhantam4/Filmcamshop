@@ -83,7 +83,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
         "http://www.filmcamshop.com/api/userRegistration.php",
         JSON.stringify({
           email: email,
-          password: Base64.password,
+          password: password,
         })
       )
       .then((response) => response.data)
@@ -91,8 +91,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
         if (responseJson === "ok") {
           alert("Sign up Success!");
           navigation.navigate("Home");
-        }else{
-          alert("wrong password!")
+        } else {
         }
       })
       .catch((error) => {
@@ -152,8 +151,7 @@ function LoginScreen({ Dimensions, route, navigation }) {
       <ImageBackground
         style={{ width: width, height: height }}
         source={require("../../app/assets/market.png")}
-      > 
-
+      >
         <View
           style={{
             marginTop: height * 0.17,
@@ -164,13 +162,15 @@ function LoginScreen({ Dimensions, route, navigation }) {
             alignItems: "center",
           }}
         >
-        <Image style={{
-          width: width/2,
-          height: width/2,
-          alignSelf: 'center',
-          borderRadius: 40,
-        }}source={require("../../app/assets/icon.png")}>
-        </Image>
+          <Image
+            style={{
+              width: width / 2,
+              height: width / 2,
+              alignSelf: "center",
+              borderRadius: 40,
+            }}
+            source={require("../../app/assets/icon.png")}
+          ></Image>
           <View>
             <TextInput
               style={styles.input}
@@ -198,11 +198,12 @@ function LoginScreen({ Dimensions, route, navigation }) {
             <TouchableOpacity
               style={styles.btn}
               onPress={() => {
-                if(email.length==0||password.length==0){
-                  alert("please enter username or password")
-                }else{
-                authenticate();
-                handleSignUp();}
+                if (email.length == 0 || password.length == 0) {
+                  alert("please enter username or password");
+                } else {
+                  authenticate();
+                  handleSignUp();
+                }
               }}
             >
               <Text style={styles.buttonText}>Sign Up</Text>
