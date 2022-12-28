@@ -168,7 +168,7 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("ProfileScreen")}
         >
           <FontAwesome name="list" style={styles.icon}></FontAwesome>
-          <Text style={styles.buttonText}>My Order</Text>
+          <Text style={styles.buttonText}>My Profile</Text>
         </TouchableOpacity>
       </View>
       <CategoryList />

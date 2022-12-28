@@ -44,7 +44,7 @@ export default class Profile extends React.Component {
 
   editableHandler = () => {
     this.setState({ inputTrigger: true });
-  }
+  };
 
   componentDidMount() {
     const { email } = this.state;
@@ -75,7 +75,6 @@ export default class Profile extends React.Component {
   render() {
     const { userDataSource, inputTrigger } = this.state;
 
-    
     return (
       <SafeAreaView>
         <ImageBackground
@@ -108,23 +107,27 @@ export default class Profile extends React.Component {
                 {userDataSource.map((item, key) => (
                   <>
                     <TextInput
+                      key={"username" + item}
                       style={styles.inputText}
                       multiline
                       defaultValue={item.userName}
                       editable={inputTrigger}
                     ></TextInput>
                     <TextInput
+                      key={"address" + item}
                       style={styles.inputText}
                       defaultValue={item.address}
                       multiline
                       editable={inputTrigger}
                     ></TextInput>
                     <TextInput
+                      key={"phone" + item}
                       style={styles.inputText}
                       defaultValue={"0" + item.phone}
                       editable={inputTrigger}
                     ></TextInput>
                     <TextInput
+                      key={"userEmail" + item}
                       style={styles.inputText}
                       defaultValue={item.userEmail}
                       editable={inputTrigger}
@@ -147,6 +150,14 @@ export default class Profile extends React.Component {
             >
               <Text style={styles.buttonText}>Update</Text>
             </TouchableOpacity>
+            
+            <TouchableOpacity
+              style={styles.buttonMenuTop}
+              onPress={() => this.props.navigation.navigate("OrderStatus")}
+            >
+              <Text style={styles.buttonText}>My Order</Text>
+            </TouchableOpacity>
+
           </View>
         </ImageBackground>
       </SafeAreaView>
