@@ -82,7 +82,7 @@ export default class Profile extends React.Component {
           source={require("../../app/assets/logo_wallpaper_2.png")}
         >
           <View>
-            <Text style={styles.pageTitle}>Order Detail</Text>
+            <Text style={styles.pageTitle}>My Profile</Text>
 
             <View style={{ flexDirection: "row" }}>
               <View style={{ flexDirection: "column", paddingBottom: 20 }}>
@@ -97,10 +97,9 @@ export default class Profile extends React.Component {
                     padding: 10,
                   }}
                 >
-                  Product:
+                  My Phone:
                 </Text>
-                <Text style={styles.textField}>Quantity:</Text>
-                <Text style={styles.textField}>Order Status:</Text>
+                <Text style={styles.textField}>My Email:</Text>
               </View>
 
               <View>
@@ -137,27 +136,28 @@ export default class Profile extends React.Component {
               </View>
             </View>
 
-            <TouchableOpacity
-              style={styles.buttonMenuTop}
-              onPress={this.editableHandler}
-            >
-              <Text style={styles.buttonText}>Edit</Text>
-            </TouchableOpacity>
+            <View style={{ flexDirection: "row", marginTop: 20, marginLeft: 50}}>
+              <TouchableOpacity
+                style={styles.buttonMenuTop}
+                onPress={this.editableHandler}
+              >
+                <Text style={styles.buttonText}>Edit</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.buttonMenuTop}
-              onPress={this.checkInput}
-            >
-              <Text style={styles.buttonText}>Update</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity
-              style={styles.buttonMenuTop}
-              onPress={() => this.props.navigation.navigate("OrderStatus")}
-            >
-              <Text style={styles.buttonText}>My Order</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.buttonMenuTop}
+                onPress={this.checkInput}
+              >
+                <Text style={styles.buttonText}>Update</Text>
+              </TouchableOpacity>
 
+              <TouchableOpacity
+                style={styles.buttonMenuTop}
+                onPress={() => this.props.navigation.navigate("OrderStatus")}
+              >
+                <Text style={styles.buttonText}>My Order</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
