@@ -125,7 +125,6 @@ export default class RevenueScreen extends Component {
   }
 }
 const styles = StyleSheet.create({
- 
   header2: {
     marginHorizontal: width * 0.05,
     marginVertical: height * 0.01,
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  
+
   header: {
     paddingTop: height * 0.15,
     paddingHorizontal: width * 0.07,
@@ -163,12 +162,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  
+
   buttonMenuTop: {
     shadowOpacity: 0.5,
     shadowRadius: 10,
     shadowColor: "gray",
-    alignContent:"center",
+    alignContent: "center",
     backgroundColor: "#fff",
     padding: 10,
 
@@ -179,7 +178,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     borderColor: "#61d47c",
   },
-  
+
   button: {
     marginHorizontal: width * 0.02,
     width: width * 0.4,
@@ -194,6 +193,4 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
- 
-  
 });
