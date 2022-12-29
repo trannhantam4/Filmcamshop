@@ -280,6 +280,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     marginHorizontal: width * 0.02,
     justifyContent: "center",
+    fontWeight: "bold",
   },
   container: {
     flex: 2,

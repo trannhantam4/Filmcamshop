@@ -61,7 +61,7 @@ function AddressScreen() {
             borderRadius: 200,
             alignSelf: "center",
           }}
-          source={require("../../app/assets/nhan.jpg")}
+          source={require("../../app/assets/logo.png")}
         ></Image>
         <Text
           style={{

@@ -10,6 +10,7 @@ import {
   TextInput,
   SafeAreaView,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
@@ -25,31 +26,35 @@ export default class Profile extends React.Component {
     this.state = {
       userDataSource: [],
       inputTrigger: false,
-      email: auth.currentUser?.email,
+      Email: auth.currentUser?.email,
+
+      userName: "",
+      address: "",
+      phone: "",
     };
   }
+  
+  checkInput = () => {
+    const { userName, address, phone } = this.state;
+    if (userName=="" & address=="" & phone==""){
+    } else {
+      this.showAlert();
+    }
+  }
 
-  // updateorderStatus = (orderStatus) => {
-  //   this.setState({ orderStatus: orderStatus });
-  // };
-
-  // checkInput = () => {
-  //   const { orderStatus_temp, orderStatus } = this.state;
-  //   if (orderStatus == "") {
-  //     alert("Please chose status");
-  //   } else {
-  //     this.componentDidMount();
-  //   }
-  // };
+  showAlert = () => {
+    Alert.alert("Update your profile", "Do you want to change you profile?", [
+      { text: "YES", onPress: this.componentDidMount_updateUser.bind(this) },
+      { text: "CANCLE"},
+    ]);
+  };
 
   editableHandler = () => {
     this.setState({ inputTrigger: true });
   };
 
   componentDidMount() {
-    const { email } = this.state;
-
-    console.log(email);
+    const { Email } = this.state;
 
     return fetch("http://www.filmcamshop.com/api/getUserProfile.php", {
       method: "post",
@@ -58,7 +63,7 @@ export default class Profile extends React.Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        userEmail: email,
+        userEmail: Email,
       }),
     })
       .then((response) => response.json())
@@ -66,14 +71,40 @@ export default class Profile extends React.Component {
         this.setState({
           userDataSource: responseJson.user,
         });
-        console.log(this.state.userDataSource);
       })
       .catch((error) => {
         console.error(error);
       });
   }
+
+  componentDidMount_updateUser() {
+    const { Email, userName, address, phone } = this.state;
+
+    return fetch("http://www.filmcamshop.com/api/UpdateUser.php", {
+      method: "post",
+      header: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        userEmail: Email,
+
+        userName_push: userName,
+        address_push: address,
+        phone_push: phone,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
-    const { userDataSource, inputTrigger } = this.state;
+    const { userDataSource, inputTrigger} = this.state;
 
     return (
       <SafeAreaView>
@@ -84,21 +115,11 @@ export default class Profile extends React.Component {
           <View>
             <Text style={styles.pageTitle}>My Profile</Text>
 
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: 50}}>
               <View style={{ flexDirection: "column", paddingBottom: 20 }}>
                 <Text style={styles.textField}>Customer:</Text>
                 <Text style={styles.textField}>Address:</Text>
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: width * 0.038,
-                    marginLeft: width * 0.03,
-                    marginTop: 16,
-                    padding: 10,
-                  }}
-                >
-                  My Phone:
-                </Text>
+                <Text style={styles.textField}>My Phone:</Text>
                 <Text style={styles.textField}>My Email:</Text>
               </View>
 
@@ -111,6 +132,7 @@ export default class Profile extends React.Component {
                       multiline
                       defaultValue={item.userName}
                       editable={inputTrigger}
+                      onChangeText={(text) => this.setState({ userName: text })}
                     ></TextInput>
                     <TextInput
                       key={"address" + item}
@@ -118,25 +140,29 @@ export default class Profile extends React.Component {
                       defaultValue={item.address}
                       multiline
                       editable={inputTrigger}
+                      onChangeText={(text) => this.setState({ address: text })}
                     ></TextInput>
                     <TextInput
                       key={"phone" + item}
                       style={styles.inputText}
                       defaultValue={"0" + item.phone}
                       editable={inputTrigger}
+                      onChangeText={(text) => this.setState({ phone: text })}
                     ></TextInput>
                     <TextInput
                       key={"userEmail" + item}
-                      style={styles.inputText}
+                      style={styles.inputText_disable}
                       defaultValue={item.userEmail}
-                      editable={inputTrigger}
+                      editable={false}
                     ></TextInput>
                   </>
                 ))}
               </View>
             </View>
 
-            <View style={{ flexDirection: "row", marginTop: 20, marginLeft: 50}}>
+            <View
+              style={{ flexDirection: "row", marginTop: 20, marginLeft: 30}}
+            >
               <TouchableOpacity
                 style={styles.buttonMenuTop}
                 onPress={this.editableHandler}
@@ -157,6 +183,7 @@ export default class Profile extends React.Component {
               >
                 <Text style={styles.buttonText}>My Order</Text>
               </TouchableOpacity>
+
             </View>
           </View>
         </ImageBackground>
@@ -165,18 +192,18 @@ export default class Profile extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  TextStyle: {
-    fontSize: 20,
-    color: "#000",
-    textAlign: "left",
-  },
-  picker: {
-    height: height * 0.1,
-    width: width * 0.4,
+  inputText_disable: {
+  borderColor: "grey",
+  borderRadius: 5,
+  borderWidth: 1,
 
-    fontSize: 15,
-    fontWeight: "bold",
-    marginTop: 5,
+  fontSize: 15,
+  fontWeight: "bold",
+  textAlign: "auto",
+
+  marginTop: 10,
+  width: width * 0.65,
+  padding: 5,
   },
   buttonMenuTop: {
     shadowOpacity: 0.5,
@@ -188,6 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 10,
     alignSelf: "center",
+    marginRight: 15,
 
     borderRadius: 5,
     borderTopWidth: 2,
@@ -195,12 +223,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
     borderColor: "#61d47c",
-  },
-  header: {
-    marginLeft: 20,
-    marginRight: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   buttonText: {
     color: "#61d47c",
@@ -242,15 +264,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderBottomWidth: 4,
   },
-  pagingText: {
-    fontSize: width / 30,
-    color: "#888",
-  },
-  pagingActiveText: {
-    fontSize: width / 25,
-    fontWeight: "bold",
-    color: "#fff",
-  },
   textField: {
     fontWeight: "bold",
     fontSize: width * 0.038,
@@ -260,7 +273,7 @@ const styles = StyleSheet.create({
   },
   pageTitle: {
     color: COLORS.green,
-    paddingTop: height * 0.05,
+    marginTop: height * 0.1,
     fontWeight: "bold",
     fontSize: 35,
     textAlign: "center",

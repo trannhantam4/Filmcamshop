@@ -42,13 +42,13 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
             <Text style={styles.buttonText}>Order</Text>
           </TouchableOpacity>
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.buttonMenuTop}
-            onPress={() => navigation.navigate("SearchScreen")}
+            onPress={() => navigation.navigate("Revenue")}
           >
-            <Ionicons name="search" style={styles.icon}></Ionicons>
-            <Text style={styles.buttonText}>Search</Text>
-          </TouchableOpacity> */}
+            <Ionicons name="bar-chart" style={styles.icon}></Ionicons>
+            <Text style={styles.buttonText}>Revenues</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.buttonMenuTop}
@@ -66,19 +66,13 @@ function AdminMainScreen({ Dimensions, route, navigation }) {
             <Ionicons name="bookmark" style={styles.icon}></Ionicons>
             <Text style={styles.buttonText}>Photoshoot Order</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.buttonMenuTop}
             onPress={() => navigation.navigate("UserManage")}
           >
             <Ionicons name="people-sharp" style={styles.icon}></Ionicons>
             <Text style={styles.buttonText}>User Manage</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonMenuTop}
-            onPress={() => navigation.navigate("Revenue")}
-          >
-            <Ionicons name="bar-chart" style={styles.icon}></Ionicons>
-            <Text style={styles.buttonText}>Revenues</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.header}></View>

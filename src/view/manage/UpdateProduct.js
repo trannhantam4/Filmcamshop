@@ -26,8 +26,10 @@ export default class UpdateProduct extends React.Component {
       Description: "",
       Quantity: "",
       Brand: "",
+
       Type: "",
-      Status: "disable",
+      Status_disable: "disable",
+      Status_enable: "active",
 
       productID_temp: props.route.params.productID,
       productName_temp: props.route.params.productName,
@@ -36,6 +38,7 @@ export default class UpdateProduct extends React.Component {
       Brand_temp: props.route.params.productBrand,
       Type_temp: props.route.params.productType,
       Status_temp: props.route.params.status,
+      Brand_display: props.route.params.productBrand,
 
       category_brand: [
         "Nikon",
@@ -55,9 +58,15 @@ export default class UpdateProduct extends React.Component {
   };
 
   disableProduct_Component = () => {
-    const { Status } = this.state;
-    this.componentDidMount(Status);
+    const { Status_disable } = this.state;
+    this.componentDidMount(Status_disable);
     Alert.alert("Disable Product", "Disable this product successfully.");
+  };
+
+  enableProduct_Component = () => {
+    const { Status_enable } = this.state;
+    this.componentDidMount(Status_enable);
+    Alert.alert("Enable Product", "Enable this product successfully.");
   };
 
   disableProduct = () => {
@@ -74,6 +83,25 @@ export default class UpdateProduct extends React.Component {
     }
   };
 
+  enableProduct = () => {
+    const { Status_temp } = this.state;
+    if (Status_temp === "disable") {
+      Alert.alert("Enable Product?", "Do you want to enable this product?", [
+        { text: "YES", onPress: this.enableProduct_Component },
+        { text: "CANCLE" },
+      ]);
+    } else {
+      Alert.alert("Enable Product?", "This product is already actived!", [
+        { text: "OK" },
+      ]);
+    }
+  };
+
+  updateBrand = (Brand) => {
+    this.setState({ Brand: Brand });
+    this.setState({ Brand_display: Brand });
+  };
+
   componentDidMount(Status) {
     const {
       productID,
@@ -84,7 +112,6 @@ export default class UpdateProduct extends React.Component {
       Type,
 
       productID_temp,
-      Status_temp,
     } = this.state;
     this.setState({ productID: productID_temp });
 
@@ -120,16 +147,8 @@ export default class UpdateProduct extends React.Component {
       productName_temp,
       Description_temp,
       Quantity_temp,
-      Brand_temp,
       Type_temp,
       Status_temp,
-
-      Status,
-      productName,
-      Description,
-      Quantity,
-      Brand,
-      Type,
     } = this.state;
 
     return (
@@ -137,16 +156,17 @@ export default class UpdateProduct extends React.Component {
         style={{
           width: width,
           height: height,
-        }}>
+        }}
+      >
         <ImageBackground
           style={{ width: width, height: height }}
           source={require("../../../app/assets/logo_wallpaper_2.png")}
         >
-          <View >
+          <View>
             <Text style={styles.pageTitle}>Film Cam Shop</Text>
           </View>
 
-          <View style={{ marginTop: height * 0.04}}>
+          <View style={{ marginTop: height * 0.04 }}>
             <TextInput
               style={styles.inputText}
               defaultValue={productName_temp}
@@ -176,10 +196,9 @@ export default class UpdateProduct extends React.Component {
 
             <Picker
               style={styles.inputText}
-              selectedValue={this.state.Brand_temp}
-              onValueChange={(itemValue, itemIndex) => {
-                this.setState({ selectedValue: itemValue });
-              }}
+              selectedValue={this.state.Brand_display}
+              onValueChange={this.updateBrand}
+              mode={"dropdown"}
             >
               {this.state.category_brand.map((item, index) => (
                 <Picker.Item label={item} value={item} key={index} />
@@ -192,25 +211,36 @@ export default class UpdateProduct extends React.Component {
               onChangeText={(text) => this.setState({ Type: text })}
             ></TextInput>
 
-          <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            width: width,
-            height: height * 0.2,
-          }}>
-            <TouchableOpacity
-              style={styles.buttonMenuTop}
-              onPress={this.checkInput}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                width: width,
+                height: height * 0.2,
+              }}
             >
-              <Text style={styles.buttonText}>Update</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.buttonMenuTop}
+                onPress={this.checkInput}
+              >
+                <Text style={styles.buttonText}>Update</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonMenuTop} onPress={this.disableProduct}>
-              <Text style={styles.buttonText}>Disable Product</Text>
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                style={styles.buttonMenuTop}
+                onPress={this.disableProduct}
+              >
+                <Text style={styles.buttonText}>Disable Product</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.buttonMenuTop}
+                onPress={this.enableProduct}
+              >
+                <Text style={styles.buttonText}>Enable Product</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -245,7 +275,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 20,
     borderRadius: 5,
-    
+
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 4,

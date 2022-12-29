@@ -28,12 +28,14 @@ export default class UpdateOrder extends React.Component {
       order_temp: props.route.params.orderID,
       address: props.route.params.address,
       orderStatus_temp: props.route.params.orderDetail,
+      orderStatus_display: props.route.params.orderDetail,
       userEmail: props.route.params.userEmail,
     };
   }
 
   updateorderStatus = (orderStatus) => {
     this.setState({ orderStatus: orderStatus });
+    this.setState({ orderStatus_display: orderStatus });
   };
 
   checkInput = () => {
@@ -130,7 +132,7 @@ export default class UpdateOrder extends React.Component {
                 ></TextInput>
                 <Picker
                   style={styles.picker}
-                  selectedValue={this.state.orderStatus}
+                  selectedValue={this.state.orderStatus_display}
                   onValueChange={this.updateorderStatus}
                   mode={"dropdown"}
                 >
